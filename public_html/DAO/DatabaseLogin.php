@@ -3,10 +3,10 @@
 class DatabaseLogin {
 
     private $db_host = 'localhost';
-    private $db_database = 'schema';
+    private $db_database = 'mydb';
     private $db_username = 'root';
     private $db_password = '9AkumaDesu$$';
-    
+
     public function getDbLocalHost() {
         return $this->db_host;
     }
@@ -22,7 +22,7 @@ class DatabaseLogin {
     public function getDbPassword() {
         return $this->db_password;
     }
-    
-    
+
 }
+
 ?>
