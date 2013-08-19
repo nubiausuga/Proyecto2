@@ -1,6 +1,7 @@
 <?php
 
 include_once 'DAO/DAOs.php';
-
-//$theTest = new DAOs();
+include_once 'Usuarios/Usuario.php';
+include_once 'Usuarios/Estudiante.php';
+include_once 'Usuarios/Empleado.php';
 ?>

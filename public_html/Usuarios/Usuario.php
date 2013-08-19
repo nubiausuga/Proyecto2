@@ -7,18 +7,22 @@ class Usuario {
     private $apellidoUsuario;
     private $passwordUsuario;
     private $emailUsuario;
-    private $profesionUsuario;
 
     function __construct($idUsuario, $nombreUsuario, $apellidoUsuario,
-            $passwordUsuario, $emailUsuario, $profesionUsuario) {
+            $passwordUsuario, $emailUsuario) {
         $this->idUsuario = $idUsuario;
         $this->nombreUsuario = $nombreUsuario;
         $this->apellidoUsuario = $apellidoUsuario;
         $this->passwordUsuario = $passwordUsuario;
         $this->emailUsuario = $emailUsuario;
-        $this->profesionUsuario = $profesionUsuario;
     }
-    
+
+    //en caso de que por error se quiera hacer echo de un objeto
+    function __toString() {
+        echo "Usando el metodo toString: ";
+        return $this->getNombreUsuario();
+    }
+
     public function getIdUsuario() {
         return $this->idUsuario;
     }
@@ -59,14 +63,10 @@ class Usuario {
         $this->emailUsuario = $emailUsuario;
     }
 
-    public function getProfesionUsuario() {
-        return $this->profesionUsuario;
+    function __destruct() {
+        ; //echo 'The class "', __CLASS__, '" was destroid! .<br>';
     }
 
-    public function setProfesionUsuario($profesionUsuario) {
-        $this->profesionUsuario = $profesionUsuario;
-    }
-    
 }
 
 ?>
