@@ -140,23 +140,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Tbl_Empleado`
+-- Table `mydb`.`Empleado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Tbl_Empleado` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Empleado` (
   `id_Cedula` INT NOT NULL,
   `Str_Cargo` VARCHAR(150) NULL,
   `Str_Establecimiento` VARCHAR(150) NULL,
-  PRIMARY KEY (`id_Cedula`))
+  `id_Usuario` INT NULL,
+  PRIMARY KEY (`id_Cedula`),
+  INDEX `id_Usuario_idx` (`id_Usuario` ASC),
+  CONSTRAINT `id_Usuario`
+    FOREIGN KEY (`id_Usuario`)
+    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Tbl_Estudiante`
+-- Table `mydb`.`Estudiante`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Tbl_Estudiante` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Estudiante` (
   `id_Cedula` INT NOT NULL,
   `Str_Carrera` VARCHAR(150) NULL,
-  PRIMARY KEY (`id_Cedula`))
+  `id_Usuario` INT NULL,
+  PRIMARY KEY (`id_Cedula`),
+  CONSTRAINT `id_Usuario`
+    FOREIGN KEY (`id_Cedula`)
+    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
