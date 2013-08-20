@@ -56,18 +56,18 @@ class DAOs {
         }
     }
     
-    function insertUsuario($id_Usuario, $usu_nombre, $usu_apellido,
-            $usu_contrasena, $usu_correo, $usu_profesion) {
+    function nuevoUsuario($id_Usuario, $usu_nombre, $usu_apellido,
+            $usu_contrasena, $usu_correo) {
 
         if (empty($id_Usuario) or empty($usu_nombre) or empty($usu_apellido) or
-                empty($usu_contrasena) or empty($usu_correo) or empty($usu_profesion)) {
+                empty($usu_contrasena) or empty($usu_correo)) {
             return false;
         }
         $enc = md5($usu_contrasena);
         $in = "INSERT INTO `tbl_usuario`(id_Usuario,usu_nombre,usu_apellido,
-                             usu_contrasena,usu_correo,usu_profesion)
+                             usu_contrasena,usu_correo)
                     VALUES('$id_Usuario','$usu_nombre','$usu_apellido',
-                        '$enc','$usu_correo','$usu_profesion')";
+                        '$enc','$usu_correo')";
 
         $success = mysql_query($in) or die(mysql_error());
 
