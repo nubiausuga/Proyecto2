@@ -162,12 +162,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Estudiante`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Estudiante` (
-  `id_Doc_Identidad` INT NOT NULL,
+  `Est_id_Doc_Identidad` INT NOT NULL,
   `Str_Carrera` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`id_Doc_Identidad`),
-  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`id_Doc_Identidad` ASC),
-  CONSTRAINT `id_Doc_Identidad`
-    FOREIGN KEY (`id_Doc_Identidad`)
+  PRIMARY KEY (`Est_id_Doc_Identidad`),
+  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`Est_id_Doc_Identidad` ASC),
+  CONSTRAINT `Est_id_Doc_Identidad`
+    FOREIGN KEY (`Est_id_Doc_Identidad`)
     REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
