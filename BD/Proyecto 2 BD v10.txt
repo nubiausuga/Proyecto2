@@ -20,13 +20,14 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
-  `id_Usuario` INT NOT NULL,
-  `Usr_Nombre` VARCHAR(150) NULL,
-  `Usr_Apellido` VARCHAR(150) NULL,
-  `Usr_Contrasena` VARCHAR(150) NULL,
-  `Usr_Correo` VARCHAR(150) NULL,
-  `Usr_Profesion` VARCHAR(150) NULL,
-  PRIMARY KEY (`id_Usuario`))
+  `id_Doc_Identidad` INT NOT NULL,
+  `Usr_Nombres` VARCHAR(150) NOT NULL,
+  `Usr_Apellidos` VARCHAR(150) NOT NULL,
+  `Usr_Password` VARCHAR(150) NOT NULL,
+  `Usr_Correo` VARCHAR(150) NOT NULL,
+  `Usr_Tipo_Documento` INT NOT NULL,
+  PRIMARY KEY (`id_Doc_Identidad`),
+  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`id_Doc_Identidad` ASC))
 ENGINE = InnoDB;
 
 
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Establecimiento` (
   PRIMARY KEY (`id_Establecimiento`),
   INDEX `id_Tipo_Establecimiento_idx` (`Est_Tipo_Establecimiento` ASC),
   INDEX `Int_Responsable_idx` (`Est_Responsable` ASC),
+  UNIQUE INDEX `id_Establecimiento_UNIQUE` (`id_Establecimiento` ASC),
   CONSTRAINT `id_Tipo_Establecimiento`
     FOREIGN KEY (`Est_Tipo_Establecimiento`)
     REFERENCES `mydb`.`Tipo_Establecimiento` (`id_Tipo_Establecimiento`)
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Establecimiento` (
     ON UPDATE NO ACTION,
   CONSTRAINT `Int_Responsable`
     FOREIGN KEY (`Est_Responsable`)
-    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+    REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -66,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Cuenta` (
   INDEX `id_Usuario_idx` (`Id_usuario` ASC),
   CONSTRAINT `id_Usuario`
     FOREIGN KEY (`Id_usuario`)
-    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+    REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -143,15 +145,14 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Empleado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Empleado` (
-  `id_Cedula` INT NOT NULL,
-  `Str_Cargo` VARCHAR(150) NULL,
-  `Str_Establecimiento` VARCHAR(150) NULL,
-  `id_Usuario` INT NULL,
-  PRIMARY KEY (`id_Cedula`),
-  INDEX `id_Usuario_idx` (`id_Usuario` ASC),
-  CONSTRAINT `id_Usuario`
-    FOREIGN KEY (`id_Usuario`)
-    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+  `id_Doc_Identidad` INT NOT NULL,
+  `Str_Cargo` VARCHAR(150) NOT NULL,
+  `Str_Establecimiento` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`id_Doc_Identidad`),
+  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`id_Doc_Identidad` ASC),
+  CONSTRAINT `id_Doc_Identidad`
+    FOREIGN KEY (`id_Doc_Identidad`)
+    REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -161,13 +162,13 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Estudiante`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Estudiante` (
-  `id_Cedula` INT NOT NULL,
-  `Str_Carrera` VARCHAR(150) NULL,
-  `id_Usuario` INT NULL,
-  PRIMARY KEY (`id_Cedula`),
-  CONSTRAINT `id_Usuario`
-    FOREIGN KEY (`id_Cedula`)
-    REFERENCES `mydb`.`Usuario` (`id_Usuario`)
+  `id_Doc_Identidad` INT NOT NULL,
+  `Str_Carrera` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`id_Doc_Identidad`),
+  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`id_Doc_Identidad` ASC),
+  CONSTRAINT `id_Doc_Identidad`
+    FOREIGN KEY (`id_Doc_Identidad`)
+    REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
