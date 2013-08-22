@@ -2,19 +2,21 @@
 
 class Usuario {
 
-    private $idUsuario;
+    private $idDocUsuario;
     private $nombreUsuario;
-    private $apellidoUsuario;
+    private $apellidosUsuario;
     private $passwordUsuario;
     private $emailUsuario;
+    private $tipoDocumentoUsuario;
 
     function __construct($idUsuario, $nombreUsuario, $apellidoUsuario,
-            $passwordUsuario, $emailUsuario) {
-        $this->idUsuario = $idUsuario;
+            $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
+        $this->idDocUsuario = $idUsuario;
         $this->nombreUsuario = $nombreUsuario;
-        $this->apellidoUsuario = $apellidoUsuario;
+        $this->apellidosUsuario = $apellidoUsuario;
         $this->passwordUsuario = $passwordUsuario;
         $this->emailUsuario = $emailUsuario;
+        $this->tipoDocumentoUsuario = $tipoDocumentoUsuario;
     }
 
     //en caso de que por error se quiera hacer echo de un objeto
@@ -23,12 +25,20 @@ class Usuario {
         return $this->getNombreUsuario();
     }
 
+    public function getTipoDocumentoUsuario() {
+        return $this->tipoDocumentoUsuario;
+    }
+
+    public function setTipoDocumentoUsuario($tipoDocumentoUsuario) {
+        $this->tipoDocumentoUsuario = $tipoDocumentoUsuario;
+    }
+
     public function getIdUsuario() {
-        return $this->idUsuario;
+        return $this->idDocUsuario;
     }
 
     public function setIdUsuario($idUsuario) {
-        $this->idUsuario = $idUsuario;
+        $this->idDocUsuario = $idUsuario;
     }
 
     public function getNombreUsuario() {
@@ -40,11 +50,11 @@ class Usuario {
     }
 
     public function getApellidoUsuario() {
-        return $this->apellidoUsuario;
+        return $this->apellidosUsuario;
     }
 
     public function setApellidoUsuario($apellidoUsuario) {
-        $this->apellidoUsuario = $apellidoUsuario;
+        $this->apellidosUsuario = $apellidoUsuario;
     }
 
     public function getPasswordUsuario() {

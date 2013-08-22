@@ -56,23 +56,24 @@ class DAOs {
         }
     }
     
-    function nuevoUsuario($id_Usuario, $usu_nombre, $usu_apellido,
-            $usu_contrasena, $usu_correo) {
+    function nuevoUsuario($id_Usuario, $usr_nombre, $usr_apellidos,
+            $usr_password, $usr_correo,$usr_tipoDoc) {
 
-        if (empty($id_Usuario) or empty($usu_nombre) or empty($usu_apellido) or
-                empty($usu_contrasena) or empty($usu_correo)) {
+        if (empty($id_Usuario) or empty($usr_nombre) or empty($usr_apellidos) or
+                empty($usr_password) or empty($usr_correo) or empty($usr_tipoDoc)) {
             return false;
         }
-        $enc = md5($usu_contrasena);
-        $in = "INSERT INTO `tbl_usuario`(id_Usuario,usu_nombre,usu_apellido,
-                             usu_contrasena,usu_correo)
-                    VALUES('$id_Usuario','$usu_nombre','$usu_apellido',
-                        '$enc','$usu_correo')";
+        
+        $enc = md5($usr_password);
+        $in = "INSERT INTO `usuario`(id_Doc_Identidad,Usr_Nombres,Usr_Apellidos,
+                             Usr_Password,Usr_Correo, Usr_Tipo_Documento)
+                    VALUES('$id_Usuario','$usr_nombre','$usr_apellidos',
+                        '$enc','$usr_correo',''$usr_tipoDoc)";
 
         $success = mysql_query($in) or die(mysql_error());
 
         if ($success) {
-            echo "usuario '$usu_nombre' agregado exitosamente.";
+            echo "usuario '$usr_nombre' agregado exitosamente.";
         } else {
             echo "Error al agregar el usuario deseado.";
         }
@@ -83,8 +84,8 @@ class DAOs {
         $usuario = str_replace("'", "''", $usuario);
         $password = md5($password);
 
-        $verify = "SELECT usu_contrasena FROM `Tbl_usuario`
-                        WHERE usu_nombre = '$usuario'";
+        $verify = "SELECT Usr_Password FROM `usuario`
+                        WHERE Usr_Nombres = '$usuario'";
         $success = mysql_query($verify) or die(mysql_error());
         if (!$success || (mysql_num_rows($success) < 1)) {
             return 1; //failed to verify
@@ -92,7 +93,7 @@ class DAOs {
 
         $dbArray = mysql_fetch_array($success);
 
-        if ($password == $dbArray['usu_contrasena']) {
+        if ($password == $dbArray['Usr_Password']) {
             echo 0; //yep user exists.
         } else {
             echo 1; //falla;
