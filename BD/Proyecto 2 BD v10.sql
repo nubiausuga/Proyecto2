@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Estudiante` (
   `Est_id_Doc_Identidad` INT NOT NULL,
   `Str_Carrera` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`Est_id_Doc_Identidad`),
-  UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`Est_id_Doc_Identidad` ASC),
+  UNIQUE INDEX `Est_id_Doc_Identidad_UNIQUE` (`Est_id_Doc_Identidad` ASC),
   CONSTRAINT `Est_id_Doc_Identidad`
     FOREIGN KEY (`Est_id_Doc_Identidad`)
     REFERENCES `mydb`.`Usuario` (`id_Doc_Identidad`)
