@@ -8,6 +8,13 @@ class DAOs {
     private $connector;
     public static $Dao_user_info;
 
+    //-------Tipo de Documento-----
+    // 1 - CarnetEstudiante
+    // 2 - Cedula Ciudadana
+    // 3 - Cedula Extrangera
+    // 4 - Tarjeta de Identidad
+    // 5 - Otros
+
     public function __construct() {
         $this->datab = DatabaseConc::instance();
         $this->connector = $this->datab->getConnection();
@@ -27,7 +34,7 @@ class DAOs {
         if (empty($nombreTbl)) {
             return false;
         }
-        
+
         $query = "DROP TABLE IF EXISTS `$nombreTbl`";
         $success1 = mysql_query($query) or die(mysql_error());
 
@@ -39,8 +46,8 @@ class DAOs {
     }
 
     function removeGen($tablaX, $campoY, $elementoZ) {
-        
-        if (empty($tablaX)or empty($campoY) or empty($elementoZ)) {
+
+        if (empty($tablaX) or empty($campoY) or empty($elementoZ)) {
             return false;
         }
         //Eliminador generico para eliminar la fila de elemento
@@ -55,15 +62,16 @@ class DAOs {
             echo "Operación de eliminación fracaso";
         }
     }
-    
+
     function nuevoUsuario($id_Usuario, $usr_nombre, $usr_apellidos,
-            $usr_password, $usr_correo,$usr_tipoDoc) {
+            $usr_password, $usr_correo, $usr_tipoDoc) {
 
         if (empty($id_Usuario) or empty($usr_nombre) or empty($usr_apellidos) or
-                empty($usr_password) or empty($usr_correo) or empty($usr_tipoDoc)) {
+                empty($usr_password) or empty($usr_correo)
+                or empty($usr_tipoDoc)) {
             return false;
         }
-        
+
         $enc = md5($usr_password);
         $in = "INSERT INTO `usuario`(id_Doc_Identidad,Usr_Nombres,Usr_Apellidos,
                              Usr_Password,Usr_Correo, Usr_Tipo_Documento)
@@ -73,14 +81,71 @@ class DAOs {
         $success = mysql_query($in) or die(mysql_error());
 
         if ($success) {
-            echo "usuario '$usr_nombre' agregado exitosamente.";
+            echo "usuario '$usr_nombre' agregado exitosamente,";
         } else {
             echo "Error al agregar el usuario deseado.";
         }
     }
+
+    function addEstudiante($idEstudiante, $carreraEstudiante) {
+
+        $in_estudiante = "INSERT INTO `estudiante`(Est_id_Doc_Identidad,Str_Carrera)
+                        VALUES('$idEstudiante',$carreraEstudiante')";
+        $success = mysql_query($in_estudiante) or die(mysql_error());
+        if($success){
+            echo "como estudiante.";
+        }else{
+            echo "Error al agregar el usuario como estudiante";
+        }
+            
+    }
     
+    function addEmpleado($idEmpleado,$cargoEmpleado,$establecimientoEmpleado){
+        $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad, Str_Cargo, Str_Establecimiento)
+            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado'";
+        $success = mysql_query("$in_empleado") or die(mysql_error());
+        if($success){
+            echo "como empleado del establecimiento '$establecimientoEmpleado' .";
+            
+        }else{
+            echo "Error al agregar el usuario como empleado.";
+        }
+    }
+    
+    function addMovimiento($idMovimiento, $idEstablecimiento,
+            $descMovimiento, $fechaMovimiento, $horaMovimiento,
+            $valorMovimiento, $idCuentaMovimiento) {
+        $in_movimiento = "INSERT INTO `movimiento`(id_Movimiento,
+           id_Establecimiento,Mov_Descripcion,Mov_Fecha,Mov_Hora,Mov_Valor,
+           id_Cuenta)
+           VALUES('$idMovimiento','$idEstablecimiento','$descMovimiento',
+               '$fechaMovimiento','$horaMovimiento',
+                   '$valorMovimiento','$idCuentaMovimiento')";
+        $success = mysql_query($in_movimiento) or die(mysql_error());
+        if ($success) {
+            echo "Exito al agregar movimiento nuevo.";
+        } else {
+            echo "Error al agregar el movimiento nuevo.";
+        }
+    }
+    
+    function addProducto($idProducto, $descProducto, 
+            $precioProducto, $idEstablecimientoProducto) {
+
+        $in_producto = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,
+            Prod_Precio,Prod_id_Establecimiento)
+            VALUES ('$idProducto','$descProducto','$precioProducto',
+                '$idEstablecimientoProducto')";
+        $success = mysql_query($in_producto) or die(mysql_error());
+        if ($success) {
+            echo "El producto ha sido agregado exitosamente";
+        } else {
+            echo "Error al agregar el producto nuevo!.";
+        }
+    }
+
     //funcion para verificar si el usuario y contraseña son correctos
-     function validarUsuario($usuario, $password) {
+    function validarUsuario($usuario, $password) {
         $usuario = str_replace("'", "''", $usuario);
         $password = md5($password);
 
@@ -100,6 +165,21 @@ class DAOs {
         }
     }
     
+    function addEstablecimiento($idEstablecimiento, $nombreEstablecimiento,
+            $responsableEstablecimiento, $tipoEstablecimiento){
+        
+        $in_establecimiento = "INSERT INTO `establecimiento`(id_Establecimiento,
+            Est_Nombre, Est_Responsable, Est_Tipo_Establecimiento)
+            VALUES('$idEstablecimiento','$nombreEstablecimiento',
+                '$responsableEstablecimiento','$tipoEstablecimiento')";
+        $success = mysql_query($in_establecimiento) or die(mysql_error());
+        if($success){
+            echo "Se ha agregado satisfactoriamente el establecimiento.";
+        }else{
+            echo "Error al agregar el establecimiento";
+        }
+    }
+
 }
 
 ?>
