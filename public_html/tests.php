@@ -6,12 +6,17 @@ include_once 'Usuarios/Estudiante.php';
 include_once 'Usuarios/Empleado.php';
 
 $dao = new DAOs;
-$theTest = new Usuario(2, 'Natalia', 'Arroyave', 'narroya2', 'narroya2@eafit.edu.co');
+$theTest = new Estudiante(201010013010, 'Jason', 'Carcamo C', 'thisPass', 'jcarcam1@eafit.edu.co', 1, 'Ingenieria de Sistemas');
 
 $id = $theTest->getIdUsuario();
 $nombre = $theTest->getNombreUsuario();
 $apellido = $theTest->getApellidoUsuario();
 $pass = $theTest->getPasswordUsuario();
 $correo = $theTest->getEmailUsuario();
+$tipoDoc = $theTest->getTipoDocumentoUsuario();
+$carrera = $theTest->getCarreraEstudiante();
 
+ 
+ $dao->nuevoUsuario($id, $nombre, $apellido, $pass, $correo, $tipoDoc);
+ $dao->addEstudiante($id, $carrera);
 ?>

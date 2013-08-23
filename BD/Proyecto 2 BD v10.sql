@@ -10,7 +10,7 @@ USE `mydb` ;
 -- Table `mydb`.`Tipo_Establecimiento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Tipo_Establecimiento` (
-  `id_Tipo_Establecimiento` INT NOT NULL,
+  `id_Tipo_Establecimiento` BIGINT NOT NULL,
   `TEst_Descripcion` VARCHAR(150) NULL,
   PRIMARY KEY (`id_Tipo_Establecimiento`))
 ENGINE = InnoDB;
@@ -20,12 +20,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
-  `id_Doc_Identidad` INT NOT NULL,
+  `id_Doc_Identidad` BIGINT NOT NULL,
   `Usr_Nombres` VARCHAR(150) NOT NULL,
   `Usr_Apellidos` VARCHAR(150) NOT NULL,
   `Usr_Password` VARCHAR(150) NOT NULL,
   `Usr_Correo` VARCHAR(150) NOT NULL,
-  `Usr_Tipo_Documento` INT NOT NULL,
+  `Usr_Tipo_Documento` BIGINT NOT NULL,
   PRIMARY KEY (`id_Doc_Identidad`),
   UNIQUE INDEX `id_Doc_Identidad_UNIQUE` (`id_Doc_Identidad` ASC))
 ENGINE = InnoDB;
@@ -35,10 +35,10 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Establecimiento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Establecimiento` (
-  `id_Establecimiento` INT NOT NULL,
+  `id_Establecimiento` BIGINT NOT NULL,
   `Est_Nombre` VARCHAR(150) NOT NULL,
-  `Est_Responsable` INT NOT NULL,
-  `Est_Tipo_Establecimiento` INT NOT NULL,
+  `Est_Responsable` BIGINT NOT NULL,
+  `Est_Tipo_Establecimiento` BIGINT NOT NULL,
   PRIMARY KEY (`id_Establecimiento`),
   INDEX `id_Tipo_Establecimiento_idx` (`Est_Tipo_Establecimiento` ASC),
   INDEX `Int_Responsable_idx` (`Est_Responsable` ASC),
@@ -60,8 +60,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Cuenta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Cuenta` (
-  `id_Cuenta` INT NOT NULL,
-  `Id_usuario` INT NULL,
+  `id_Cuenta` BIGINT NOT NULL,
+  `Id_usuario` BIGINT NULL,
   `Cuen_Saldo` INT NULL,
   `Cuen_Estado` VARCHAR(150) NULL,
   PRIMARY KEY (`id_Cuenta`),
@@ -78,13 +78,13 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Movimiento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Movimiento` (
-  `id_Movimiento` INT NOT NULL,
-  `id_Establecimiento` INT NOT NULL,
+  `id_Movimiento` BIGINT NOT NULL,
+  `id_Establecimiento` BIGINT NOT NULL,
   `Mov_Descripcion` VARCHAR(150) NULL,
   `Mov_Fecha` VARCHAR(150) NULL,
   `Mov_Hora` VARCHAR(150) NULL,
   `Mov_Valor` VARCHAR(150) NULL,
-  `id_Cuenta` INT NULL,
+  `id_Cuenta` BIGINT NULL,
   PRIMARY KEY (`id_Movimiento`, `id_Establecimiento`),
   INDEX `id_Establecimiento_idx` (`id_Establecimiento` ASC),
   INDEX `id_Cuenta_idx` (`id_Cuenta` ASC),
@@ -105,10 +105,10 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Producto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Producto` (
-  `id_Producto` INT NOT NULL,
+  `id_Producto` BIGINT NOT NULL,
   `Prod_Descripcion` VARCHAR(150) NULL,
   `Prod_Precio` INT NULL,
-  `Prod_id_Establecimiento` INT NULL,
+  `Prod_id_Establecimiento` BIGINT NULL,
   PRIMARY KEY (`id_Producto`),
   INDEX `Int_id_Establecimiento_idx` (`Prod_id_Establecimiento` ASC),
   CONSTRAINT `Int_id_Establecimiento`
@@ -123,8 +123,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Movimiento_Producto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Movimiento_Producto` (
-  `id_Movimiento` INT NOT NULL,
-  `id_Producto` INT NOT NULL,
+  `id_Movimiento` BIGINT NOT NULL,
+  `id_Producto` BIGINT NOT NULL,
   `MovP_Cantidad` INT NULL,
   PRIMARY KEY (`id_Movimiento`, `id_Producto`),
   INDEX `id_Producto_idx` (`id_Producto` ASC),
@@ -145,7 +145,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Empleado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Empleado` (
-  `id_Doc_Identidad` INT NOT NULL,
+  `id_Doc_Identidad` BIGINT NOT NULL,
   `Str_Cargo` VARCHAR(150) NOT NULL,
   `Str_Establecimiento` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`id_Doc_Identidad`),
@@ -162,7 +162,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Estudiante`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Estudiante` (
-  `Est_id_Doc_Identidad` INT NOT NULL,
+  `Est_id_Doc_Identidad` BIGINT NOT NULL,
   `Str_Carrera` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`Est_id_Doc_Identidad`),
   UNIQUE INDEX `Est_id_Doc_Identidad_UNIQUE` (`Est_id_Doc_Identidad` ASC),

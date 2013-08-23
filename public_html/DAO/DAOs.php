@@ -74,9 +74,9 @@ class DAOs {
 
         $enc = md5($usr_password);
         $in = "INSERT INTO `usuario`(id_Doc_Identidad,Usr_Nombres,Usr_Apellidos,
-                             Usr_Password,Usr_Correo, Usr_Tipo_Documento)
-                    VALUES('$id_Usuario','$usr_nombre','$usr_apellidos',
-                        '$enc','$usr_correo',''$usr_tipoDoc)";
+                             Usr_Password,Usr_Correo,Usr_Tipo_Documento)
+                    VALUES('$id_Usuario','$usr_nombre','$usr_apellidos','$enc',
+                        '$usr_correo','$usr_tipoDoc')";
 
         $success = mysql_query($in) or die(mysql_error());
 
@@ -90,7 +90,7 @@ class DAOs {
     function addEstudiante($idEstudiante, $carreraEstudiante) {
 
         $in_estudiante = "INSERT INTO `estudiante`(Est_id_Doc_Identidad,Str_Carrera)
-                        VALUES('$idEstudiante',$carreraEstudiante')";
+                        VALUES('$idEstudiante','$carreraEstudiante')";
         $success = mysql_query($in_estudiante) or die(mysql_error());
         if($success){
             echo "como estudiante.";

@@ -2,15 +2,13 @@
 
 class Estudiante extends Usuario {
 
-    private $idEstudiante;
     private $carreraEstudiante;
 
     function __construct($idUsuario, $nombreUsuario, $apellidoUsuario,
-            $passwordUsuario, $emailUsuario, $idEstudiante, $carreraEstudiante) {
+            $passwordUsuario, $emailUsuario, $tipoDocumento, $carreraEstudiante) {
         parent::__construct($idUsuario, $nombreUsuario, $apellidoUsuario,
-                $passwordUsuario, $emailUsuario);
+                $passwordUsuario, $emailUsuario,$tipoDocumento);
 
-        $this->idEstudiante = $idEstudiante;
         $this->carreraEstudiante = $carreraEstudiante;
     }
 
