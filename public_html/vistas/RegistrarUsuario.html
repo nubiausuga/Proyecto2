@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
-        <meta name="A test website" content="">
+        <meta name="test Registrar Usuario" content="">
         <meta name="Jason Cárcamo" content="">
-        <title>Login Usuario</title>
+        <title>Registrar Usuario</title>
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/loginUsuario.css">
@@ -28,8 +27,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="../index.html">Home</a></li>
                         <li><a href="Info.html">Info</a></li>
-                        <li class="active"><a href="#">Login</a></li>
-                        <li><a href="RegistrarUsuario.html">Registrar</a></li>
+                        <li><a href="loginUsuario.html">Login</a></li>
+                        <li class="active"><a href="#">Registrar</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -37,20 +36,23 @@
 
         <div class="container">
             <div class="jumbotron">
-                <form>
-                    <h2>Ingresa tus Datos</h2>
-                    <input id="userName" type="text" class="form-control" placeholder="Nombre de Usuario" autofocus>
-                    <input id="userPassword" type="password" class="form-control" placeholder="Password">
-                    <!-- <label class="checkbox">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label> -->
-
-                    <button class="btn btn-lg btn-primary btn-block" 
-                            type="submit" onclick="login();">Entrar</button>
+                <form class="form-signin">
+                    <h2>Registrarse</h2>
+                    <input type="text" class="form-control" placeholder="Documento de Identidad" autofocus>
+                    <input type="text" class="form-control" placeholder="Nombre" >
+                    <input type="text" class="form-control" placeholder="Apellidos">
+                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="email" class="form-control" placeholder="Correo electrónico">
+                    <label class="checkbox">
+                        <input type="checkbox" value="aceptoTerminos">
+                        Acepto los Términos y Condiciones.
+                    </label>
+                    <a href="#">Términos</a>
+                    
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
                 </form>
             </div>
         </div> <!-- /container -->
-        <script src="js/loginUser.js"></script>
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <script src="//code.jquery.com/jquery.js"></script>
