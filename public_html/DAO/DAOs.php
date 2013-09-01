@@ -1,6 +1,6 @@
 <?php
 
-include_once 'DatabaseConc.php';
+include 'DatabaseConc.php';
 
 class DAOs {
 
@@ -81,9 +81,11 @@ class DAOs {
         $success = mysql_query($in) or die(mysql_error());
 
         if ($success) {
-            echo "usuario '$usr_nombre' agregado exitosamente,";
+            return 0; //successful
+            //echo "usuario '$usr_nombre' agregado exitosamente,";
         } else {
-            echo "Error al agregar el usuario deseado.";
+            return 1; //failed
+           // echo "Error al agregar el usuario deseado.";
         }
     }
 
@@ -153,15 +155,15 @@ class DAOs {
                         WHERE Usr_Nombres = '$usuario'";
         $success = mysql_query($verify) or die(mysql_error());
         if (!$success || (mysql_num_rows($success) < 1)) {
-            return 1; //failed to verify
+            // return 1; //failed to verify
         }
 
         $dbArray = mysql_fetch_array($success);
 
         if ($password == $dbArray['Usr_Password']) {
-            echo 0; //yep user exists.
+            return 0; //yep user exists.
         } else {
-            echo 1; //falla;
+            return 1; //falla;
         }
     }
     

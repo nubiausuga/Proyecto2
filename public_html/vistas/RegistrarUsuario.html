@@ -8,7 +8,8 @@
         <title>Registrar Usuario</title>
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="css/loginUsuario.css">
+        <link rel="stylesheet" href="css/RegUsuario.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
     </head>
 
     <body>
@@ -21,7 +22,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../boot.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -36,23 +37,31 @@
 
         <div class="container">
             <div class="jumbotron">
-                <form class="form-signin">
+                <form>
                     <h2>Registrarse</h2>
-                    <input type="text" class="form-control" placeholder="Documento de Identidad" autofocus>
-                    <input type="text" class="form-control" placeholder="Nombre" >
-                    <input type="text" class="form-control" placeholder="Apellidos">
-                    <input type="password" class="form-control" placeholder="Password">
-                    <input type="email" class="form-control" placeholder="Correo electrónico">
+                    <input  id="reg_docIdent" type="text" class="form-control" placeholder="Código Estudiante o Cédula" autofocus>
+                    <input id="reg_name" type="text" class="form-control" placeholder="Nombre" >
+                    <input id="reg_lastname" type="text" class="form-control" placeholder="Apellidos">
+                    <input id="reg_password" type="password" class="form-control" placeholder="Password">
+                    <input id="reg_email" type="email" class="form-control" placeholder="Correo electrónico">
+                    <input id="reg_career" type="text" class="form-control" placeholder="Carrera">
                     <label class="checkbox">
-                        <input type="checkbox" value="aceptoTerminos">
+                        <input id="reg_checkbox" type="checkbox" value="aceptoTerminos">
                         Acepto los Términos y Condiciones.
                     </label>
                     <a href="#">Términos</a>
                     
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+                    <button id="reg_registrar" 
+                            class="btn btn-lg btn-primary btn-block"
+                            type="submit" onclick="regUser();">Registrar</button>
                 </form>
             </div>
+            <p id="errorRegMsg">
+            No has aceptado los términos y condiciones por lo tanto no podrás
+            registrarte con nostros.
+            </p>
         </div> <!-- /container -->
+        <script type="text/javascript" src="js/eventHandler.js"> </script>
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <script src="//code.jquery.com/jquery.js"></script>

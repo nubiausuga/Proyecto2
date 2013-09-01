@@ -10,6 +10,7 @@
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/loginUsuario.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
     </head>
 
     <body>
@@ -22,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../boot.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -39,22 +40,25 @@
             <div class="jumbotron">
                 <form>
                     <h2>Ingresa tus Datos</h2>
-                    <input id="userName" type="text" class="form-control" placeholder="Nombre de Usuario" autofocus>
-                    <input id="userPassword" type="password" class="form-control" placeholder="Password">
-                    <!-- <label class="checkbox">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label> -->
-
+                    <input id="loginUsername" type="text" 
+                           class="form-control" placeholder="Nombre de Usuario" autofocus>
+                    <input id="loginUserPassword" type="password"
+                           class="form-control" placeholder="Password">
                     <button class="btn btn-lg btn-primary btn-block" 
-                            type="submit" onclick="login();">Entrar</button>
+                            type="submit" id="loginBttn"  onclick="loginUser();">Entrar</button>
+                    
                 </form>
             </div>
+            <p id="errorLogMsg">
+            ¡Nombre de usuario o contraseña no válidos. Inténtalo de nuevo!.
+            </p>
         </div> <!-- /container -->
-        <script src="js/loginUser.js"></script>
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
+        <script type="text/javascript" src="js/eventHandler.js"></script>
+        <!-- Bootstrap core JavaScript & Jquery
+        ==================================================  -->
         <script src="//code.jquery.com/jquery.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- Include all compiled plugins (below), 
+        or include individual files as needed  -->
         <script src="vistas/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

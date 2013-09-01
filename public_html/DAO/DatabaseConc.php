@@ -1,6 +1,6 @@
 <?php
 
-include_once 'DatabaseLogin.php';
+include 'DatabaseLogin.php';
 
 class DatabaseConc {
 
@@ -10,8 +10,7 @@ class DatabaseConc {
     private function __construct() {
         $log = new DatabaseLogin();
         $this->con =
-                mysql_connect($log->getDbLocalHost(),
-                        $log->getDbUsername(),
+                mysql_connect($log->getDbLocalHost(), $log->getDbUsername(),
                         $log->getDbPassword())
                 or die("Error conectando a la base de datos: <br/>" . mysql_error());
 
