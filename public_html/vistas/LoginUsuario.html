@@ -3,16 +3,19 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
+        <meta name="TarjMultiproposito" 
+              content="width=device-width, initial-scale=1.0">
         <meta name="A test website" content="">
         <meta name="Jason Cárcamo" content="">
         <title>Login Usuario</title>
         <!-- bootstrap -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="bootstrap/css/bootstrap.min.css"
+              rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/loginUsuario.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+        <script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
     </head>
-
     <body>
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -41,12 +44,13 @@
                 <form>
                     <h2>Ingresa tus Datos</h2>
                     <input id="loginUsername" type="text" 
-                           class="form-control" placeholder="Nombre de Usuario" autofocus>
+                           class="form-control" 
+                           placeholder="Nombre de Usuario" autofocus>
                     <input id="loginUserPassword" type="password"
                            class="form-control" placeholder="Password">
                     <button class="btn btn-lg btn-primary btn-block" 
-                            type="submit" id="loginBttn"  onclick="loginUser();">Entrar</button>
-                    
+                            type="button" id="loginBttn"
+                            onclick="loginUser();">Entrar</button>
                 </form>
             </div>
             <p id="errorLogMsg">
@@ -56,9 +60,9 @@
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript & Jquery
         ==================================================  -->
-        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="http://code.jquery.com/jquery.js"></script>
         <!-- Include all compiled plugins (below), 
         or include individual files as needed  -->
-        <script src="vistas/bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

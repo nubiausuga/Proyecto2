@@ -41,12 +41,13 @@
             <div class="jumbotron">
                 <form>
                     <h2>Registrarse</h2>
-                    <input id="reg_docIdent" type="text" class="form-control" placeholder="Código Estudiante o Cédula" autofocus>
+                    <input id="reg_docIdent" type="text" class="form-control" placeholder="Cédula" autofocus>
                     <input id="reg_name" type="text" class="form-control" placeholder="Nombre" >
                     <input id="reg_lastname" type="text" class="form-control" placeholder="Apellidos">
                     <input id="reg_password" type="password" class="form-control" placeholder="Password">
                     <input id="reg_email" type="email" class="form-control" placeholder="Correo electrónico">
-                    <input id="reg_career" type="text" class="form-control" placeholder="Carrera">
+                    <input id="reg_establishment" type="text" class="form-control" placeholder="Establecimiento al que pertenece">
+                    <input id="reg_jobTitle" type="text" class="form-control" placeholder="Cargo que representa">
                     <label class="checkbox">
                         <input id="reg_checkbox" type="checkbox" value="aceptoTerminos">
                         Acepto los Términos y Condiciones.
@@ -55,7 +56,7 @@
                     
                     <button id="reg_registrar" 
                             class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regUser();">Registrar</button>
+                            type="button" onclick="regEmployee();">Registrar</button>
                 </form>
             </div>
             <p id="errorRegMsg">

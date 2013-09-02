@@ -63,12 +63,11 @@ class DAOs {
         }
     }
 
-    function nuevoUsuario($id_Usuario, $usr_nombre, $usr_apellidos,
-            $usr_password, $usr_correo, $usr_tipoDoc) {
+    function nuevoUsuario($id_Usuario, $usr_nombre, 
+            $usr_apellidos, $usr_password, $usr_correo, $usr_tipoDoc) {
 
         if (empty($id_Usuario) or empty($usr_nombre) or empty($usr_apellidos) or
-                empty($usr_password) or empty($usr_correo)
-                or empty($usr_tipoDoc)) {
+                empty($usr_password) or empty($usr_correo) or empty($usr_tipoDoc)) {
             return false;
         }
 
@@ -82,10 +81,8 @@ class DAOs {
 
         if ($success) {
             return 0; //successful
-            //echo "usuario '$usr_nombre' agregado exitosamente,";
         } else {
             return 1; //failed
-           // echo "Error al agregar el usuario deseado.";
         }
     }
 
@@ -95,25 +92,26 @@ class DAOs {
                         VALUES('$idEstudiante','$carreraEstudiante')";
         $success = mysql_query($in_estudiante) or die(mysql_error());
         if($success){
-            echo "como estudiante.";
+           return 0;
         }else{
-            echo "Error al agregar el usuario como estudiante";
+           return 1;
         }
             
     }
     
-    function addEmpleado($idEmpleado,$cargoEmpleado,$establecimientoEmpleado){
-        $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad, Str_Cargo, Str_Establecimiento)
-            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado'";
-        $success = mysql_query("$in_empleado") or die(mysql_error());
-        if($success){
-            echo "como empleado del establecimiento '$establecimientoEmpleado' .";
-            
-        }else{
-            echo "Error al agregar el usuario como empleado.";
+    function addEmpleado($idEmpleado, $cargoEmpleado, $establecimientoEmpleado) {
+       
+        $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad,Str_Cargo,
+            Str_Establecimiento)
+            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado')";
+        $success = mysql_query($in_empleado) or die(mysql_error());
+        if ($success) {
+            return 0;
+        } else {
+            return 1;
         }
     }
-    
+
     function addMovimiento($idMovimiento, $idEstablecimiento,
             $descMovimiento, $fechaMovimiento, $horaMovimiento,
             $valorMovimiento, $idCuentaMovimiento) {
