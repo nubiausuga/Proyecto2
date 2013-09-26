@@ -79,7 +79,7 @@ function regEmployee() {
                 },
         function(data) {
 
-            if (data === "0") {
+            if (data == "0") {
                 document.getElementById('errorRegMsg').style.visibility = 'hidden';
                 alert("Te has registrado Satisfactoriamente!!");
 
