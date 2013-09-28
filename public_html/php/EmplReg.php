@@ -1,6 +1,8 @@
 <?php
 
 include_once '../DAO/DAOs.php';
+include '../Usuarios/Usuario.php';
+include '../Usuarios/Empleado.php';
 
 $reg = new DAOs();
 
@@ -14,9 +16,23 @@ if (!empty($_POST['postdoc']) && !empty($_POST['postuser']) &&
     $lastname = $_POST['postlastname'];
     $password = $_POST['postpass'];
     $email = $_POST['postemail'];
-    $establishmet = $_POST['postest'];
+    $establishment = $_POST['postest'];
     $jobTitle = $_POST['postjob'];
 
-    echo $reg->nuevoUsuario($docIdent, $name, $lastname, $password, $email, 2);
-} $reg->addEmpleado($docIdent, $jobTitle, $establishmet);
+    $newUser = new Usuario($docIdent, $name, $lastname, $password, $email, 2);
+    $newEmployee = new Empleado($docIdent, $name, $lastname, $password,
+            $email, $docIdent, $establishment, $jobTitle);
+
+    $varVerifier = $newEmployee->idVerifier($docIdent);
+    if ($varVerifier == -1) {
+        return -1;
+    } else {
+        $reg->nuevoUsuario($newUser->getIdUsuario(), 
+                $newUser->getNombreUsuario(), $newUser->getApellidoUsuario(), 
+                $newUser->getPasswordUsuario(), $newUser->getEmailUsuario(), 2);
+        echo $reg->addEmpleado($newUser->getIdUsuario(),
+                $newEmployee->getCargoEmpleado(),
+                $newEmployee->getEstablecimientoEmpleado());
+    }
+}
 ?>

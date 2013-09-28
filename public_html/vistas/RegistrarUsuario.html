@@ -10,7 +10,7 @@
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/RegUsuario.css">
         <script type="text/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+                src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
     </head>
 
@@ -39,9 +39,9 @@
 
         <div class="container">
             <div class="jumbotron">
-                <form>
+                <form id="userRegForm">
                     <h2>Registrarse</h2>
-                    <input id="reg_docIdent" type="text" class="form-control" placeholder="Código Estudiante o Cédula" autofocus>
+                    <input id="reg_docIdent" type="text" class="form-control" placeholder="Código Estudiante" autofocus>
                     <input id="reg_name" type="text" class="form-control" placeholder="Nombre" >
                     <input id="reg_lastname" type="text" class="form-control" placeholder="Apellidos">
                     <input id="reg_password" type="password" class="form-control" placeholder="Password">
@@ -52,18 +52,36 @@
                         Acepto los Términos y Condiciones.
                     </label>
                     <a href="#">Términos</a>
-                    
+
                     <button id="reg_registrar" 
                             class="btn btn-lg btn-primary btn-block"
                             type="button" onclick="regUser();">Registrar</button>
                 </form>
             </div>
             <p id="errorRegMsg">
-            No has aceptado los términos y condiciones por lo tanto no podrás
-            registrarte con nostros.
+                No has aceptado los términos y condiciones por lo tanto no podrás
+                registrarte con nosotros.
             </p>
+            <!-- Mostrar mensaje cuando el usuario se ha registrado -->
+            <p id="successfullReg" class="alert alert-success">
+                  Bienvenido, te has registrado exitosamente como estudiante!
+            </p>
+            <!-- Mensaje de error en caso de que el id esta mal ingresado -->
+            <div id="invalidStudentID" class="alert alert-warning">
+                <p>
+                    Oops, lo siento el código de indentificación que has
+                    ingresado es erroneo, por favor verifica e intentalo de
+                    nuevo!.
+                </p>
+            </div>
+            <!-- Mostrar mensaje de error cuando no fue posible registrar el
+            usuario -->
+            <div id="failedReg" class="alert alert-danger">
+               Oops... Ha ocurrido un error al registrarte como usuario,
+               por favor intentalo de nuevo.
+            </div>
         </div> <!-- /container -->
-        <script type="text/javascript" src="js/eventHandler.js"> </script>
+        <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <script src="//code.jquery.com/jquery.js"></script>

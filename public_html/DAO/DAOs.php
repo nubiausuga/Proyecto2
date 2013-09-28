@@ -87,7 +87,11 @@ class DAOs {
     }
 
     function addEstudiante($idEstudiante, $carreraEstudiante) {
-
+        
+        if (empty($idEstudiante) or empty($carreraEstudiante)) {
+            return false;
+        }
+        
         $in_estudiante = "INSERT INTO `estudiante`(Est_id_Doc_Identidad,Str_Carrera)
                         VALUES('$idEstudiante','$carreraEstudiante')";
         $success = mysql_query($in_estudiante) or die(mysql_error());
