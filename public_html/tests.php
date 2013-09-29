@@ -11,6 +11,7 @@ $testIdVerifier = new Estudiante(201010013083, "Jason", "Musico", "password",
 
 echo $testIdVerifier->careerVer("201010013121");
 */
+/*
 $user = new Usuario(20143, "Jason", "Empleado", "soyEmpleado", "myEmail@eafit.edu.co", 2);
 $testIdEmpl = new Empleado($user->getIdUsuario(), $user->getNombreUsuario(),
         $user->getApellidoUsuario(), $user->getPasswordUsuario(),
@@ -19,4 +20,14 @@ $testIdEmpl = new Empleado($user->getIdUsuario(), $user->getNombreUsuario(),
 $varVerifier = $testIdEmpl->idVerifier($user->getIdUsuario());
 
 echo $varVerifier." ".  gettype($varVerifier)." ".gettype($user->getIdUsuario());
+ * */
+ 
+$dao = new DAOs();
+
+//echo $dao->validarUsuario('Nubia', 'eafit2013');
+//echo $dao->validarUserCod(200910013060, 'eafit2013');
+
+echo $dao->getUserType(200910013060)."\n";
+echo "\t".$dao->getUserType(1017201436);
+
 ?>

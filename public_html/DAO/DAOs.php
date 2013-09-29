@@ -157,7 +157,8 @@ class DAOs {
                         WHERE Usr_Nombres = '$usuario'";
         $success = mysql_query($verify) or die(mysql_error());
         if (!$success || (mysql_num_rows($success) < 1)) {
-            // return 1; //failed to verify
+            //failed to verify
+            return -1;
         }
 
         $dbArray = mysql_fetch_array($success);
@@ -165,7 +166,42 @@ class DAOs {
         if ($password == $dbArray['Usr_Password']) {
             return 0; //yep user exists.
         } else {
-            return 1; //falla;
+            return -1; //falla;
+        }
+    }
+    
+    function validarUserCod($user,$pass){
+        $user = str_replace("'", "''", $user);
+        $pass = md5($pass);
+        
+        $verification = "SELECT Usr_Password FROM `usuario`
+                            WHERE id_Doc_identidad = '$user'";
+        $success = mysql_query($verification) or die(mysql_error());
+        if(!$success || (mysql_num_rows($success)<1)){
+            return -1;
+        }
+        
+        $dbArray = mysql_fetch_array($success);
+        
+        if($pass == $dbArray['Usr_Password']){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    
+    function getUserType($id){
+        
+        $getUT = "SELECT Usr_Tipo_Documento FROM `usuario`
+                    WHERE id_Doc_Identidad = '$id'";
+        $success = mysql_query($getUT) or die(mysql_error());
+        
+        $dbArray = mysql_fetch_array($success);
+        
+        if($success){
+            return $dbArray['Usr_Tipo_Documento'];
+        }else{
+            return -1;
         }
     }
     
@@ -183,6 +219,8 @@ class DAOs {
             echo "Error al agregar el establecimiento";
         }
     }
+    
+ 
 
 }
 

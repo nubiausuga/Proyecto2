@@ -3,6 +3,10 @@
 class Estudiante extends Usuario {
 
     private $carreraEstudiante;
+    private $enrolledYear;
+    private $enrolledSemester;
+    private $studentIdentificator;
+    
 
     function __construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumento, $carreraEstudiante) {
         parent::__construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumento);
@@ -26,15 +30,26 @@ class Estudiante extends Usuario {
         echo "Usando el metodo toString: ";
         return $this->getIdEstudiante();
     }
-
-    public function asStudent($givenId) {
-
+    //funcionalidad para agregar información extra al objeto
+    //todavía no se encuentra en la base de datos.
+    function addExtraInfo($givenId){
+        
         $temp = $givenId;
         $year = substr($temp, 0, 4);
         $semester = substr($temp, 4, 1);
         $identificator = substr($temp, 5, 4);
-        $career = substr($temp, 9);
+        
+        $this->enrolledYear = $year;
+        $this->enrolledSemester = $semester;
+        $this->studentIdentificator = $identificator;
+    }
+    
+    //Identificador de que carrera esta el estudiante dado el código
+    public function asStudent($givenId) {
 
+        $temp = $givenId;
+        $career = substr($temp, 9);
+        $this->addExtraInfo($givenId);
         $this->setCarreraEstudiante($this->careerVer($givenId));
     }
 
@@ -59,7 +74,9 @@ class Estudiante extends Usuario {
         else
             return 0;
     }
-
+    
+    //hash-table que contiene el código identificador de las carreras 
+    // en la universidad eafit.
     function careerVer($careerId) {
 
         $idC = substr($careerId, 9);
@@ -97,7 +114,9 @@ class Estudiante extends Usuario {
         }
         //return $array[$i];
     }
-
+    
+    //en caso de que no tenga carnet estudiantil.
+    //TODO 
     function asUnderAged($givenID) {
         $temp = $givenID;
         $year = substr($temp, 0, 1);
@@ -107,10 +126,6 @@ class Estudiante extends Usuario {
 
         echo("Welcome minor " . $ident . " who was born on day " .
         $day . " month " . $month . " of the year " . $year);
-    }
-
-    function asIDCard($givenId) {
-        echo("sorry " . $givenId . " function not yet implemented");
     }
 
 }
