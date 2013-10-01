@@ -213,3 +213,39 @@ function regEmployee() {
         }
     }
 }
+
+
+function estFieldVer() {
+
+}
+
+function regEstablishment() {
+
+    var est_nit = $('#reg_nitEstablishment').val();
+    var est_name = $('#reg_estName').val();
+    var est_type = $('#reg_estType').val();
+    var est_Responsable = $('#reg_estResponsible').val();
+    var est_idResponsable = $('#reg_idResponsible').val();
+    var acceptance = document.getElementById('reg_checkbox').checked;
+
+    if (est_nit !== "" && est_name !== "" && est_type !== "" &&
+            est_Responsable !== "" && est_idResponsable !== "" && acceptance) {
+        document.getElementById('nonCFields').style.visibility = 'hidden';
+        
+        $.post('../php/EstablishmentReg.php',
+                    {
+                        postnit: est_nit,
+                        postname: est_name,
+                        posttype: est_type,
+                        postresponsible: est_Responsable,
+                        postidresponsible: est_idResponsable
+                    },
+            function(data) {
+                alert(data);
+            });
+        
+    } else {
+        document.getElementById('nonCFields').style.visibility = 'visible';
+    }
+
+}

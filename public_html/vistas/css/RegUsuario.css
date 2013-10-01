@@ -38,3 +38,8 @@ root {
      visibility: hidden;
      font-size: 1.0em;
  }
+
+ #nonCFields{
+     visibility: hidden;
+     font-size: 1.0em;
+ }

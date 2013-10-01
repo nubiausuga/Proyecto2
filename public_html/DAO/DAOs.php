@@ -220,8 +220,27 @@ class DAOs {
         }
     }
     
- 
+    function addTipoEstablecimiento($id_Tipo_Establecimiento, $TEst_Descripcion) {
 
+        $in_tipoEstablecimiento =
+                "INSERT INTO `tipo_establecimiento`
+                    (id_Tipo_Establecimiento,TEst_Descripcion)
+                    VALUES('$id_Tipo_Establecimiento','$TEst_Descripcion')";
+        $success = mysql_query($in_tipoEstablecimiento) or die(mysql_error());
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    function editProductPrice($id_product){
+        //TODO
+    }
+    
+    function deleteProduct($id_product){
+        //TODO
+    }
 }
 
 ?>
