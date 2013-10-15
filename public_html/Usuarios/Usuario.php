@@ -9,8 +9,7 @@ class Usuario {
     private $emailUsuario;
     private $tipoDocumentoUsuario;
 
-    function __construct($idUsuario, $nombreUsuario, $apellidoUsuario,
-            $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
+    function __construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
         $this->idDocUsuario = $idUsuario;
         $this->nombreUsuario = $nombreUsuario;
         $this->apellidosUsuario = $apellidoUsuario;

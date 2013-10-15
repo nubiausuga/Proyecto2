@@ -7,14 +7,14 @@ class Cuenta {
     private $saldoCuenta;
     private $estadoCuenta;
 
-    function __construct($idCuenta, $idUsuarioCuenta, $saldoCuenta,
-            $estadoCuenta) {
+    function __construct($idCuenta, $idUsuarioCuenta,
+            $saldoCuenta, $estadoCuenta) {
         $this->idCuenta = $idCuenta;
         $this->idUsuarioCuenta = $idUsuarioCuenta;
         $this->saldoCuenta = $saldoCuenta;
         $this->estadoCuenta = $estadoCuenta;
     }
-    
+
     public function getIdCuenta() {
         return $this->idCuenta;
     }
@@ -46,12 +46,11 @@ class Cuenta {
     public function setEstadoCuenta($estadoCuenta) {
         $this->estadoCuenta = $estadoCuenta;
     }
-    
+
     function __toString() {
         echo "Usando metodo toString de objetos, IdCuenta: ";
         return $this->getIdCuenta();
     }
-
 
 }
 

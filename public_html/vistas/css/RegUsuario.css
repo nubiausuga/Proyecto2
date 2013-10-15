@@ -1,1 +1,45 @@
-/* Put your custom CSS here */
+/* 
+    Document   : loginUsuario
+    Created on : 31-Aug-2013, 21:10:00
+    Author     : JasonC
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#errorRegMsg{
+    font-family: monospace;
+    color: red;
+    position: relative;
+    font-size: 1.0em;
+    display: block;
+    visibility: hidden;
+ }
+ 
+ #successfullReg{
+     visibility: hidden;
+     font-size: 1.0em;
+ }
+ 
+ #failedReg{
+     visibility: hidden;
+     font-size: 1.0em;
+ }
+ 
+ #invalidStudentID{
+     visibility: hidden;
+     font-size: 1.0em;
+ }
+
+ #wrongId{
+     visibility: hidden;
+     font-size: 1.0em;
+ }
+
+ #nonCFields{
+     visibility: hidden;
+     font-size: 1.0em;
+ }

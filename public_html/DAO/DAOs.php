@@ -1,6 +1,6 @@
 <?php
 
-include_once 'DatabaseConc.php';
+include 'DatabaseConc.php';
 
 class DAOs {
 
@@ -63,12 +63,11 @@ class DAOs {
         }
     }
 
-    function nuevoUsuario($id_Usuario, $usr_nombre, $usr_apellidos,
-            $usr_password, $usr_correo, $usr_tipoDoc) {
+    function nuevoUsuario($id_Usuario, $usr_nombre, 
+            $usr_apellidos, $usr_password, $usr_correo, $usr_tipoDoc) {
 
         if (empty($id_Usuario) or empty($usr_nombre) or empty($usr_apellidos) or
-                empty($usr_password) or empty($usr_correo)
-                or empty($usr_tipoDoc)) {
+                empty($usr_password) or empty($usr_correo) or empty($usr_tipoDoc)) {
             return false;
         }
 
@@ -81,37 +80,42 @@ class DAOs {
         $success = mysql_query($in) or die(mysql_error());
 
         if ($success) {
-            echo "usuario '$usr_nombre' agregado exitosamente,";
+            return 0; //successful
         } else {
-            echo "Error al agregar el usuario deseado.";
+            return 1; //failed
         }
     }
 
     function addEstudiante($idEstudiante, $carreraEstudiante) {
-
+        
+        if (empty($idEstudiante) or empty($carreraEstudiante)) {
+            return false;
+        }
+        
         $in_estudiante = "INSERT INTO `estudiante`(Est_id_Doc_Identidad,Str_Carrera)
                         VALUES('$idEstudiante','$carreraEstudiante')";
         $success = mysql_query($in_estudiante) or die(mysql_error());
         if($success){
-            echo "como estudiante.";
+           return 0;
         }else{
-            echo "Error al agregar el usuario como estudiante";
+           return 1;
         }
             
     }
     
-    function addEmpleado($idEmpleado,$cargoEmpleado,$establecimientoEmpleado){
-        $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad, Str_Cargo, Str_Establecimiento)
-            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado'";
-        $success = mysql_query("$in_empleado") or die(mysql_error());
-        if($success){
-            echo "como empleado del establecimiento '$establecimientoEmpleado' .";
-            
-        }else{
-            echo "Error al agregar el usuario como empleado.";
+    function addEmpleado($idEmpleado, $cargoEmpleado, $establecimientoEmpleado) {
+       
+        $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad,Str_Cargo,
+            Str_Establecimiento)
+            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado')";
+        $success = mysql_query($in_empleado) or die(mysql_error());
+        if ($success) {
+            return 0;
+        } else {
+            return 1;
         }
     }
-    
+
     function addMovimiento($idMovimiento, $idEstablecimiento,
             $descMovimiento, $fechaMovimiento, $horaMovimiento,
             $valorMovimiento, $idCuentaMovimiento) {
@@ -153,15 +157,51 @@ class DAOs {
                         WHERE Usr_Nombres = '$usuario'";
         $success = mysql_query($verify) or die(mysql_error());
         if (!$success || (mysql_num_rows($success) < 1)) {
-            return 1; //failed to verify
+            //failed to verify
+            return -1;
         }
 
         $dbArray = mysql_fetch_array($success);
 
         if ($password == $dbArray['Usr_Password']) {
-            echo 0; //yep user exists.
+            return 0; //yep user exists.
         } else {
-            echo 1; //falla;
+            return -1; //falla;
+        }
+    }
+    
+    function validarUserCod($user,$pass){
+        $user = str_replace("'", "''", $user);
+        $pass = md5($pass);
+        
+        $verification = "SELECT Usr_Password FROM `usuario`
+                            WHERE id_Doc_identidad = '$user'";
+        $success = mysql_query($verification) or die(mysql_error());
+        if(!$success || (mysql_num_rows($success)<1)){
+            return -1;
+        }
+        
+        $dbArray = mysql_fetch_array($success);
+        
+        if($pass == $dbArray['Usr_Password']){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    
+    function getUserType($id){
+        
+        $getUT = "SELECT Usr_Tipo_Documento FROM `usuario`
+                    WHERE id_Doc_Identidad = '$id'";
+        $success = mysql_query($getUT) or die(mysql_error());
+        
+        $dbArray = mysql_fetch_array($success);
+        
+        if($success){
+            return $dbArray['Usr_Tipo_Documento'];
+        }else{
+            return -1;
         }
     }
     
@@ -179,7 +219,28 @@ class DAOs {
             echo "Error al agregar el establecimiento";
         }
     }
+    
+    function addTipoEstablecimiento($id_Tipo_Establecimiento, $TEst_Descripcion) {
 
+        $in_tipoEstablecimiento =
+                "INSERT INTO `tipo_establecimiento`
+                    (id_Tipo_Establecimiento,TEst_Descripcion)
+                    VALUES('$id_Tipo_Establecimiento','$TEst_Descripcion')";
+        $success = mysql_query($in_tipoEstablecimiento) or die(mysql_error());
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    function editProductPrice($id_product){
+        //TODO
+    }
+    
+    function deleteProduct($id_product){
+        //TODO
+    }
 }
 
 ?>

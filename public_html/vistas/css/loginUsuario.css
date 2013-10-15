@@ -1,0 +1,21 @@
+/* 
+    Document   : loginUsuario
+    Created on : 31-Aug-2013, 20:20:16
+    Author     : JasonC
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+#errorLogMsg{
+    font-family: monospace;
+    /* color: red; */
+    position: relative;
+    font-size: 1.0em;
+    display: block;
+    visibility: hidden;
+}
+
