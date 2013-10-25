@@ -85,7 +85,45 @@ class DAOs {
             return 1; //failed
         }
     }
+	
+	function nuevoProducto($idProduct, $descriptionProduct, $valueProduct) {
 
+        if (empty($idProduct) or empty($descriptionProduct) or empty($valueProduct) ) {
+            return false;
+        }
+
+        $in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_Precio)
+                    VALUES('$idProduct','$descriptionProduct','$valueProduct')";
+
+        $success = mysql_query($in) or die(mysql_error());
+
+        if ($success) {
+            return 0; //successful
+        } else {
+            return 1; //failed
+        }
+    }
+
+	function actualizarProducto($idProduct, $descriptionProduct, $valueProduct) {
+	
+		if (empty($idProduct) or empty($descriptionProduct) or empty($valueProduct) ) {
+            return false;
+        }
+
+        //$in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_Precio)
+        //            VALUES('$idProduct','$descriptionProduct','$valueProduct')";
+		$in = 	"UPDATE  `producto`	SET producto.Prod_Descripcion = '$descriptionProduct',producto.Prod_Precio = '$valueProduct'	
+						WHERE producto.id_Producto = '$idProduct'";
+
+        $success = mysql_query($in) or die(mysql_error());
+
+        if ($success) {
+            return 0; //successful
+        } else {
+            return 1; //failed
+        }
+	}
+	
     function addEstudiante($idEstudiante, $carreraEstudiante) {
         
         if (empty($idEstudiante) or empty($carreraEstudiante)) {
@@ -116,7 +154,7 @@ class DAOs {
         }
     }
 
-    function addMovimiento($idMovimiento, $idEstablecimiento,
+    function addMovimiento($idMovimiento, $idEstablecimiento, //pago de factura en establecimiento
             $descMovimiento, $fechaMovimiento, $horaMovimiento,
             $valorMovimiento, $idCuentaMovimiento) {
         $in_movimiento = "INSERT INTO `movimiento`(id_Movimiento,

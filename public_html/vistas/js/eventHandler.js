@@ -249,3 +249,57 @@ function regEstablishment() {
     }
 
 }
+
+function regProducto(){
+
+	
+	var prod_id = $('#reg_idCode').val();
+	var prod_description = $('#reg_description').val();
+	var prod_value = $('#reg_valueSale').val();
+	
+	if (prod_id !== "" && prod_description !== "" && prod_value !== "" ){
+		document.getElementById('invalidField').style.visibility = 'hidden';
+	
+	
+		$.post('../php/ProductReg.php',
+                    {
+                        postid: prod_id,
+                        postdescription: prod_description,
+                        postvalue: prod_value
+                    },
+            function(data) {
+                //alert(data);
+            });
+		
+	}else {
+        document.getElementById('invalidField').style.visibility = 'visible';
+    }
+	
+}
+
+function actProducto(){
+
+	var prod_id = $('#act_idCode').val();
+	var prod_description = $('#act_description').val();
+	var prod_value = $('#act_valueSale').val();
+	
+	if (prod_id !== "" && prod_description !== "" && prod_value !== "" ){
+		document.getElementById('invalidField').style.visibility = 'hidden';
+		
+
+		$.post('../php/ProductAct.php',
+                    {
+                        postid: prod_id,
+                        postdescription: prod_description,
+                        postvalue: prod_value
+                    },
+            function(data) {
+                alert(data);
+            });
+			alert("entro boton"+prod_id+prod_description+prod_value);
+		
+	}else {
+        document.getElementById('invalidField').style.visibility = 'visible';
+    }
+	
+}

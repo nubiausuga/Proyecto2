@@ -27,6 +27,7 @@
                         <li><a href="../index.html">Home</a></li>
                         <li class="active"><a href="#">Info</a></li>
                         <li><a href="LoginUsuario.html">Login</a></li>
+						<li><a href="ModuloVentas.html">Ventas</a></li>
                         <li><a href="AsUserReg.html">Registrar</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->

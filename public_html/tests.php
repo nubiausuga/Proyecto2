@@ -24,10 +24,15 @@ echo $varVerifier." ".  gettype($varVerifier)." ".gettype($user->getIdUsuario())
  
 $dao = new DAOs();
 
+echo $dao->actualizarProducto(45, "aaaaaaaa",8888888);
+              // $newProduct->getDescProducto(), $newProduct->getPrecioProducto() );
+
+//echo $dao->nuevoProducto(234,'mi segundo producto',50000);
+
 //echo $dao->validarUsuario('Nubia', 'eafit2013');
 //echo $dao->validarUserCod(200910013060, 'eafit2013');
 
-echo $dao->getUserType(200910013060)."\n";
-echo "\t".$dao->getUserType(1017201436);
+//echo $dao->getUserType(200910013060)."\n";
+//echo "\t".$dao->getUserType(1017201436);
 
 ?>

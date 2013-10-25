@@ -3,30 +3,32 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
-        <meta name="A test website" content="">
+        <meta name="test info" content="">
         <meta name="Jason Cárcamo" content="">
         <title>Tarjeta Multipropósito</title>
         <!-- bootstrap -->
-        <link href="vistas/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
     </head>
     <body>
         <div class="navbar navbar-default navbar-fixed-top" id="pagePrin">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" 
+                            data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Info</a></li>
-                        <li><a href="vistas/LoginUsuario.html">Login</a></li>
-                        <li><a href="#">Registrar</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li class="active"><a href="#">Info</a></li>
+                        <li><a href="LoginUsuario.html">Login</a></li>
+						<li><a href="ModuloVentas.html">Ventas</a></li>
+                        <li><a href="AsUserReg.html">Registrar</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -35,15 +37,26 @@
         <div class="container">
             <!-- Main component for a primary marketing message or call to action -->
             <div class="jumbotron">
-                <h1>Bienvenido</h1>
-                <p>En Construcción.</p>
+                <h2>Info</h2>
+                <p>Este proyecto fue desarrollado por: </p>
+                <ul>
+                    <li>Andrés Ramírez</li>
+                    <li>Jason Cárcamo
+                        <ul>
+                            <li>jcarcam1 at eafit dot edu dot co</li>
+                        </ul>
+                    </li>
+                    <li>Juan Fernando Bustamante</li>
+                    <li>Nubia Usuaga</li>
+                </ul>
+
             </div>
         </div> <!-- /container -->
-        
+
         <!-- =============== Bootstrap core JavaScript============ -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="//code.jquery.com/jquery.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="vistas/bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

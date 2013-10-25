@@ -43,3 +43,8 @@ root {
      visibility: hidden;
      font-size: 1.0em;
  }
+ 
+ #invalidField{
+	visibility: hidden;
+	font-size: 1.0em;
+ }
