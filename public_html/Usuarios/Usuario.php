@@ -8,9 +8,9 @@ class Usuario {
     private $passwordUsuario;
     private $emailUsuario;
     private $tipoDocumentoUsuario;
-    private $logged;
-
-    function __construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
+    public $logged = -1;
+    
+   function __construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
         $this->idDocUsuario = $idUsuario;
         $this->nombreUsuario = $nombreUsuario;
         $this->apellidosUsuario = $apellidoUsuario;
@@ -37,6 +37,14 @@ class Usuario {
         return $this->idDocUsuario;
     }
 
+      public function getLogged() {
+        return $this->logged;
+    }
+
+    public function setLogged($logged) {
+        $this->logged = $logged;
+    }
+    
     public function setIdUsuario($idUsuario) {
         $this->idDocUsuario = $idUsuario;
     }

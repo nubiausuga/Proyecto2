@@ -85,13 +85,31 @@ class DAOs {
             return 1; //failed
         }
     }
-	
-	function nuevoProducto($idProduct, $descriptionProduct, $valueProduct) {
+    
+   function getUserInfo($code) {
+        $query = "SELECT * FROM `usuario` "
+                . "WHERE `id_Doc_Identidad`='$code' ";
+        $success = mysql_query($query) or die(mysql_error());
 
-        if (empty($idProduct) or empty($descriptionProduct) or empty($valueProduct) ) {
+        if ($success) {
+            $dbarray = mysql_fetch_array($success);
+            return json_encode($dbarray);
+        } else {
+            return -1;
+        }
+    }
+    
+    function userDecoder($jsonObj) {
+        $obj = json_decode($jsonObj);
+        return $obj;
+    }
+
+    function nuevoProducto($idProduct, $descriptionProduct, $valueProduct) {
+
+        if (empty($idProduct) or empty($descriptionProduct)
+                or empty($valueProduct)) {
             return false;
         }
-
         $in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_Precio)
                     VALUES('$idProduct','$descriptionProduct','$valueProduct')";
 
@@ -104,16 +122,17 @@ class DAOs {
         }
     }
 
-	function actualizarProducto($idProduct, $descriptionProduct, $valueProduct) {
-	
-		if (empty($idProduct) or empty($descriptionProduct) or empty($valueProduct) ) {
+    function actualizarProducto($idProduct, $descriptionProduct, $valueProduct) {
+
+        if (empty($idProduct) or
+                empty($descriptionProduct) or
+                empty($valueProduct)) {
             return false;
         }
 
-        //$in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_Precio)
-        //            VALUES('$idProduct','$descriptionProduct','$valueProduct')";
-		$in = 	"UPDATE  `producto`	SET producto.Prod_Descripcion = '$descriptionProduct',producto.Prod_Precio = '$valueProduct'	
-						WHERE producto.id_Producto = '$idProduct'";
+        $in = "UPDATE  `producto`  SET producto.Prod_Descripcion = "
+                . "'$descriptionProduct',producto.Prod_Precio = '$valueProduct'	
+		WHERE producto.id_Producto = '$idProduct'";
 
         $success = mysql_query($in) or die(mysql_error());
 
@@ -122,8 +141,8 @@ class DAOs {
         } else {
             return 1; //failed
         }
-	}
-	
+    }
+
     function addEstudiante($idEstudiante, $carreraEstudiante) {
         
         if (empty($idEstudiante) or empty($carreraEstudiante)) {
@@ -157,6 +176,7 @@ class DAOs {
     function addMovimiento($idMovimiento, $idEstablecimiento, //pago de factura en establecimiento
             $descMovimiento, $fechaMovimiento, $horaMovimiento,
             $valorMovimiento, $idCuentaMovimiento) {
+
         $in_movimiento = "INSERT INTO `movimiento`(id_Movimiento,
            id_Establecimiento,Mov_Descripcion,Mov_Fecha,Mov_Hora,Mov_Valor,
            id_Cuenta)
@@ -170,7 +190,7 @@ class DAOs {
             echo "Error al agregar el movimiento nuevo.";
         }
     }
-    
+
     function addProducto($idProducto, $descProducto, 
             $precioProducto, $idEstablecimientoProducto) {
 
@@ -185,29 +205,24 @@ class DAOs {
             echo "Error al agregar el producto nuevo!.";
         }
     }
-
     //funcion para verificar si el usuario y contraseña son correctos
     function validarUsuario($usuario, $password) {
         $usuario = str_replace("'", "''", $usuario);
         $password = md5($password);
-
         $verify = "SELECT Usr_Password FROM `usuario`
                         WHERE Usr_Nombres = '$usuario'";
         $success = mysql_query($verify) or die(mysql_error());
         if (!$success || (mysql_num_rows($success) < 1)) {
-            //failed to verify
-            return -1;
+            return -1; //failed to verify
         }
-
         $dbArray = mysql_fetch_array($success);
-
         if ($password == $dbArray['Usr_Password']) {
             return 0; //yep user exists.
         } else {
             return -1; //falla;
         }
     }
-    
+
     function validarUserCod($user,$pass){
         $user = str_replace("'", "''", $user);
         $pass = md5($pass);
@@ -274,11 +289,13 @@ class DAOs {
     
     function editProductPrice($id_product){
         //TODO
+        return $id_product;
     }
     
     function deleteProduct($id_product){
         //TODO
+        return $id_product;
     }
+ 
 }
-
 ?>
