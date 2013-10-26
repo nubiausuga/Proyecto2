@@ -1,6 +1,7 @@
 <?php
 
 include_once '../DAO/DAOs.php';
+include_once '../Usuarios/Usuario.php';
 
 $login = new DAOs();
 
@@ -16,6 +17,7 @@ if (!empty($_POST['postname']) && !empty($_POST['postpass'])) {
     if ($valResult == 0) {
         if ($userType == 1) {
             echo 1;
+            
         } else {
             echo 2;
         }

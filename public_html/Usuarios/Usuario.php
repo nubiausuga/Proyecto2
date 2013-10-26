@@ -8,6 +8,7 @@ class Usuario {
     private $passwordUsuario;
     private $emailUsuario;
     private $tipoDocumentoUsuario;
+    private $logged;
 
     function __construct($idUsuario, $nombreUsuario, $apellidoUsuario, $passwordUsuario, $emailUsuario, $tipoDocumentoUsuario) {
         $this->idDocUsuario = $idUsuario;
