@@ -5,7 +5,6 @@ include_once '../Usuarios/Usuario.php';
 
 $login = new DAOs();
 
-
 if (!empty($_POST['postname']) && !empty($_POST['postpass'])) {
     $user = $_POST['postname'];
     $pass = $_POST['postpass'];
@@ -29,7 +28,6 @@ if (!empty($_POST['postname']) && !empty($_POST['postpass'])) {
         //$newUser = new Usuario($id, $name, $lastname, $pass, $mail, $type);
         $userInfo = $login->userDecoder($user);
         if ($userType == 1) {
-
             echo 1;
         } else {
             echo 2;
@@ -38,4 +36,3 @@ if (!empty($_POST['postname']) && !empty($_POST['postpass'])) {
         echo -1;
     }
 }
-?>

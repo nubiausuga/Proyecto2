@@ -11,11 +11,7 @@ root {
 }
 
 #errorRegMsg{
-    font-family: monospace;
-    color: red;
-    position: relative;
     font-size: 1.0em;
-    display: block;
     visibility: hidden;
  }
  

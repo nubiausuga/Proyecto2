@@ -44,7 +44,8 @@
                     <input id="reg_docIdent" type="text" class="form-control" placeholder="Código Estudiante" autofocus>
                     <input id="reg_name" type="text" class="form-control" placeholder="Nombre" >
                     <input id="reg_lastname" type="text" class="form-control" placeholder="Apellidos">
-                    <input id="reg_password" type="password" class="form-control" placeholder="Password">
+                    <input id="reg_password" type="password" class="form-control" placeholder="Constraseña">
+                    <input id="repPass" type="password" class="form-control" placeholder="Repite la contraseña">
                     <input id="reg_email" type="email" class="form-control" placeholder="Correo electrónico">
                     <input id="reg_career" type="text" class="form-control" placeholder="Carrera">
                     <label class="checkbox">
@@ -58,15 +59,16 @@
                             type="button" onclick="regUser();">Registrar</button>
                 </form>
             </div>
-            <p id="errorRegMsg">
+            <p id="errorRegMsg" class="alert alert-warning">
                 No has aceptado los términos y condiciones por lo tanto no podrás
                 registrarte con nosotros.
             </p>
-            <!-- Mostrar mensaje cuando el usuario se ha registrado -->
+            <!--
+            <!-- Mostrar mensaje cuando el usuario se ha registrado 
             <p id="successfullReg" class="alert alert-success">
                   Bienvenido, te has registrado exitosamente como estudiante!
             </p>
-            <!-- Mensaje de error en caso de que el id esta mal ingresado -->
+            <!-- Mensaje de error en caso de que el id esta mal ingresado 
             <div id="invalidStudentID" class="alert alert-warning">
                 <p>
                     Oops, lo siento el código de indentificación que has
@@ -75,11 +77,12 @@
                 </p>
             </div>
             <!-- Mostrar mensaje de error cuando no fue posible registrar el
-            usuario -->
+            usuario 
             <div id="failedReg" class="alert alert-danger">
                Oops... Ha ocurrido un error al registrarte como usuario,
                por favor intentalo de nuevo.
             </div>
+            -->
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript

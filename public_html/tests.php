@@ -22,7 +22,6 @@ $test = new DAOs();
  echo ($id." ".$name." ".$lastname." ".$pass." ".$mail." ".$type);
  */
  
+$test->crearCuenta(1017201436, 1017201436, 0, 'Activada');
  
- 
-
 ?>

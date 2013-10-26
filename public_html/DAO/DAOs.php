@@ -287,6 +287,20 @@ class DAOs {
         }
     }
     
+    function crearCuenta($idCuenta, $idUsuario,$saldo,$estado){
+        $cuentaNueva = "Insert INTO `cuenta`"
+                . "(id_Cuenta, Id_usuario, Cuen_Saldo, Cuen_Estado)"
+                . "VALUES('$idCuenta','$idUsuario','$saldo','$estado')";
+        
+        $success = mysql_query($cuentaNueva) or die(mysql_error());
+        
+        if($success){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    
     function editProductPrice($id_product){
         //TODO
         return $id_product;
@@ -298,4 +312,3 @@ class DAOs {
     }
  
 }
-?>
