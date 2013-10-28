@@ -28,5 +28,6 @@ $test->cambiarEstadoCuenta(201010013010, "Activada");
 echo "\n" . $test->getEstadoCuenta(201010013010);
 */
 
+echo $test->validarUsuario(201010013010, 'Akuma');
 
  

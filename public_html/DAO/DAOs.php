@@ -218,17 +218,19 @@ class DAOs {
         }
     }
     
+              
     //funcion para verificar si el usuario y contraseña son correctos
     function validarUsuario($usuario, $password) {
+  
         $usuario = str_replace("'", "''", $usuario);
         $password = md5($password);
         $verify = "SELECT Usr_Password FROM `usuario`
                         WHERE Usr_Nombres = '$usuario'";
-        $success = mysql_query($verify) or die(mysql_error());
-        if (!$success || (mysql_num_rows($success) < 1)) {
+        $success = mysqli_query($local,$verify) or die(mysqli_error($local));
+        if (!$success || (mysqli_num_rows($success) < 1)) {
             return -1; //failed to verify
         }
-        $dbArray = mysql_fetch_array($success);
+        $dbArray = mysqli_fetch_array($success);
         if ($password == $dbArray['Usr_Password']) {
             return 0; //yep user exists.
         } else {
