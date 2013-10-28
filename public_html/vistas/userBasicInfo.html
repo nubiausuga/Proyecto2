@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8" />
+        <title>Tarjeta Multipropósito</title>
+        <!-- bootstrap -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/secondaryStuff.css" rel="stylesheet">
     </head>
-    <body>
-        <div>TODO write content</div>
+    <body onload="getUserInfo();">
+        <div class="navbar navbar-default navbar-fixed-top" id="pagePrin">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Tarjeta Multipropósito</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="WelcomeScreen.html">Bienvenido</a></li>
+                        <li class="active"><a href="#">Configuración</a></li>
+                        <li><a href="../index.html">Cerrar sesión</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Main component for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <h2>Configuración</h2>
+                <form method="GET">
+                    <table class="table table-bordered table-condensed"
+                           id="tbl_user">
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Info básica -->
+                            <tr>
+                                <th>Nombre</th>
+                                <td id="r_name"> n </td>
+                            </tr>
+                            <tr>
+                                <th>Código</th>
+                                <td id="r_code">Code</td>
+                            </tr>
+                            <tr>
+                                <th>Correo</th>
+                                <td id="r_email"> @ </td>
+                            </tr>
+                            <!-- Info de cuenta -->
+                            <tr>
+                                <th>Contraseña</th>
+                                <td><a href="#">Cambiar</a></td>
+                            </tr>
+                            <tr>
+                                <th>Saldo Actual</th>
+                                <td id="r_balance">0</td>
+                            </tr>
+                            <tr>
+                                <th id="r_estado">Estado (Activo)</th>
+                                <td ><a id="bloq_unbloq"
+                                        href="bloqCuenta.html">Bloquear cuenta
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form><!-- /información de usuario -->
+
+            </div>
+        </div> <!-- /container -->
+        
+        <!-- =============== Bootstrap core JavaScript============ -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/userInfo.js"></script>
     </body>
 </html>

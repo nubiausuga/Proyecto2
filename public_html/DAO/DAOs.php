@@ -28,9 +28,10 @@ class DAOs {
             return self::$Dao_user_info;
         }
     }
-
+    
+    //Eliminar una tabla en la base de datos si existe
     function deleteTable($nombreTbl) {
-        //Eliminar una tabla en la base de datos si existe.
+       
         if (empty($nombreTbl)) {
             return false;
         }
@@ -44,15 +45,16 @@ class DAOs {
             echo("Erro al eliminar la tabla $nombreTbl .");
         }
     }
-
+    
+     //Eliminador generico para eliminar la fila de elemento
+        //dado los parámetros. 
+        //(eliminar de tabla X, cuyo campo Y es = a elementoZ
     function removeGen($tablaX, $campoY, $elementoZ) {
 
         if (empty($tablaX) or empty($campoY) or empty($elementoZ)) {
             return false;
         }
-        //Eliminador generico para eliminar la fila de elemento
-        //dado los parámetros. 
-        //(eliminar de tabla X, cuyo campo Y es = a elementoZ
+       
         $sql_delete = "DELETE FROM $tablaX WHERE $campoY ='$elementoZ'";
         $exito = mysql_query($sql_delete) or die(mysql_error());
         //verificar que fue correcta la operación.
@@ -62,7 +64,8 @@ class DAOs {
             echo "Operación de eliminación fracaso";
         }
     }
-
+    
+    //agregar un nuevo usuario a la base de datos con todos los campos.
     function nuevoUsuario($id_Usuario, $usr_nombre, 
             $usr_apellidos, $usr_password, $usr_correo, $usr_tipoDoc) {
 
@@ -86,24 +89,27 @@ class DAOs {
         }
     }
     
+   //obtiene la información de los usuarios dado el código identificador único.
    function getUserInfo($code) {
         $query = "SELECT * FROM `usuario` "
                 . "WHERE `id_Doc_Identidad`='$code' ";
         $success = mysql_query($query) or die(mysql_error());
-
+        
+        $dbarray = mysql_fetch_array($success);
         if ($success) {
-            $dbarray = mysql_fetch_array($success);
             return json_encode($dbarray);
         } else {
             return -1;
         }
     }
     
+    //decodifica un objeto Json para uso exterior.
     function userDecoder($jsonObj) {
         $obj = json_decode($jsonObj);
         return $obj;
     }
-
+    
+    //agrega un nuevo producto a la base de datos dado todos sus campos.
     function nuevoProducto($idProduct, $descriptionProduct, $valueProduct) {
 
         if (empty($idProduct) or empty($descriptionProduct)
@@ -121,7 +127,8 @@ class DAOs {
             return 1; //failed
         }
     }
-
+    
+    //actualiza el precio de un producto
     function actualizarProducto($idProduct, $descriptionProduct, $valueProduct) {
 
         if (empty($idProduct) or
@@ -142,7 +149,8 @@ class DAOs {
             return 1; //failed
         }
     }
-
+    
+    //agrega un usuario como estudiante a la base de datos
     function addEstudiante($idEstudiante, $carreraEstudiante) {
         
         if (empty($idEstudiante) or empty($carreraEstudiante)) {
@@ -160,6 +168,7 @@ class DAOs {
             
     }
     
+    //agrega un usuario como empleado
     function addEmpleado($idEmpleado, $cargoEmpleado, $establecimientoEmpleado) {
        
         $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad,Str_Cargo,
@@ -172,7 +181,8 @@ class DAOs {
             return 1;
         }
     }
-
+    
+    //agrega un nuevo movimiento de cuenta a la base de datos.
     function addMovimiento($idMovimiento, $idEstablecimiento, //pago de factura en establecimiento
             $descMovimiento, $fechaMovimiento, $horaMovimiento,
             $valorMovimiento, $idCuentaMovimiento) {
@@ -190,7 +200,9 @@ class DAOs {
             echo "Error al agregar el movimiento nuevo.";
         }
     }
-
+    
+    //agregar un nuevo producto a la base de datos.
+    // (Repetido) TODO
     function addProducto($idProducto, $descProducto, 
             $precioProducto, $idEstablecimientoProducto) {
 
@@ -205,6 +217,7 @@ class DAOs {
             echo "Error al agregar el producto nuevo!.";
         }
     }
+    
     //funcion para verificar si el usuario y contraseña son correctos
     function validarUsuario($usuario, $password) {
         $usuario = str_replace("'", "''", $usuario);
@@ -222,7 +235,8 @@ class DAOs {
             return -1; //falla;
         }
     }
-
+    
+    //valida que el codigo y contraseña coiciden en la base de datos.
     function validarUserCod($user,$pass){
         $user = str_replace("'", "''", $user);
         $pass = md5($pass);
@@ -243,6 +257,7 @@ class DAOs {
         }
     }
     
+    //obtiene el tipo del usuario: 1 para estudiantes, 2 empleados.
     function getUserType($id){
         
         $getUT = "SELECT Usr_Tipo_Documento FROM `usuario`
@@ -258,6 +273,7 @@ class DAOs {
         }
     }
     
+    //agrega un nuevo establecimiento a la base de datos.
     function addEstablecimiento($idEstablecimiento, $nombreEstablecimiento,
             $responsableEstablecimiento, $tipoEstablecimiento){
         
@@ -273,7 +289,9 @@ class DAOs {
         }
     }
     
-    function addTipoEstablecimiento($id_Tipo_Establecimiento, $TEst_Descripcion) {
+    //se agrega un nuevo tipo de establecimiento a la base de datos
+    function addTipoEstablecimiento($id_Tipo_Establecimiento,
+            $TEst_Descripcion) {
 
         $in_tipoEstablecimiento =
                 "INSERT INTO `tipo_establecimiento`
@@ -287,7 +305,8 @@ class DAOs {
         }
     }
     
-    function crearCuenta($idCuenta, $idUsuario,$saldo,$estado){
+    //crea una cuenta nueva en la base de datos dado un id de usuario y cuenta único
+   function crearCuenta($idCuenta, $idUsuario,$saldo,$estado){
         $cuentaNueva = "Insert INTO `cuenta`"
                 . "(id_Cuenta, Id_usuario, Cuen_Saldo, Cuen_Estado)"
                 . "VALUES('$idCuenta','$idUsuario','$saldo','$estado')";
@@ -300,15 +319,144 @@ class DAOs {
             return -1;
         }
     }
-    
-    function editProductPrice($id_product){
-        //TODO
-        return $id_product;
-    }
-    
+     
+    //eliminar un producto de la base de datos
     function deleteProduct($id_product){
         //TODO
         return $id_product;
     }
- 
+    
+    //obtener el balance de una cuenta dado un id de usuario
+    // TODO (PESIMA SEGURIDAD)
+    function getBalanceIdUsuario($id) {
+        $balance = "SELECT `Cuen_Saldo`"
+                . "FROM `cuenta` WHERE id_usuario='$id'";
+        $success = mysql_query($balance) or die(mysql_error());
+
+        $dbArr = mysql_fetch_array($success);
+
+        if ($success) {
+            return $dbArr[0];
+        } else {
+            return -1;
+        }
+    }
+    
+    //obtener el balance dado el id de la cuenta
+       function getBalance($idCuenta) {
+        $balance = "SELECT `Cuen_Saldo`"
+                . "FROM `cuenta` WHERE id_Cuenta='$idCuenta'";
+        $success = mysql_query($balance) or die(mysql_error());
+
+        $dbArr = mysql_fetch_array($success);
+
+        if ($success) {
+            return $dbArr[0];
+        } else {
+            return -1;
+        }
+    }
+    
+    //modificar el balance dato un id
+    // TODO (PESIMA SEGURIDAD)
+    function modifyBalance($id, $newBalance) {
+
+        $modBalance = "UPDATE `cuenta` "
+                . "SET Cuen_saldo = '$newBalance' WHERE id_Cuenta='$id'";
+        $success = mysql_query($modBalance) or die(mysql_error());
+
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    //agregar dinero al balance actual
+    function addBalance($id,$plusAmount){
+        
+       $getAmount = $this->getBalance($id);
+       
+       $newAmount = $getAmount + $plusAmount;
+       
+       $addAmount = "UPDATE `cuenta` SET Cuen_saldo ='$newAmount'"
+               . "WHERE id_Cuenta='$id'";
+       
+       $success = mysql_query($addAmount) or die(mysql_error());
+       
+       if($success){
+           return 0;
+       }else{
+           return -1;
+       }
+    }
+    
+    //para cambio de contraseña
+    function changePassword($oldPassword){
+        //TODO
+    }
+    
+    //obtener el estado de la cuenta
+    function getEstadoCuenta($id){
+        
+        $getEstado = "SELECT `Cuen_Estado` FROM"
+                . "`cuenta` WHERE Id_Usuario='$id'";
+        $result = mysql_query($getEstado) or die(mysql_error());
+        
+        $arr = mysql_fetch_array($result);
+        
+        if($result){
+            return $arr[0];
+        }else{
+            return -1;
+        }
+    }
+    
+    //cambiar estado de cuenta
+   function cambiarEstadoCuenta($id,$newEstado){
+       
+       $changeS = "UPDATE `cuenta` SET Cuen_Estado='$newEstado'"
+               . "WHERE Id_usuario='$id'";
+       $result = mysql_query($changeS) or die(mysql_error());
+       
+       if($result){
+           return 0; //no problem.
+       }else{
+           return -1; //failed to change.
+       }
+   }   
+   
+   //cambiar cuenta dado id de la cuenta y valor del estado nuevo
+    function cambiarEC($idcuenta,$valorEstado){
+       
+        $newEstado = "-1";
+        
+        switch ($valorEstado){
+            case 0:
+                $newEstado = "Desactivada";
+                break;
+            case 1:
+                $newEstado = "Activada";
+                break;
+            case 2:
+                $newEstado = "Bloqueada";
+                break;
+            default:
+                $newEstado = "Problema";
+                break;
+        } 
+        
+       $changeS = "UPDATE `cuenta` SET Cuen_Estado='$newEstado'"
+               . "WHERE Id_Cuenta='$idcuenta'";
+       $result = mysql_query($changeS) or die(mysql_error());
+       
+       if($result){
+           return 0; //no problem.
+       }else{
+           return -1; //failed to change.
+       }
+   }   
+   
+   
+     
 }

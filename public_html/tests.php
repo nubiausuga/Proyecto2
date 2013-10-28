@@ -7,21 +7,26 @@ include_once 'Usuarios/Empleado.php';
 
 
 $test = new DAOs();
-
-//$info = $test->getUserInfo('1017201436');
-
- //echo $unobj = $test->userDecoder($info);
- /*
- $id = $unobj->{'id_Doc_Identidad'};
- $name = $unobj->{'Usr_Nombres'};
- $lastname = $unobj->{'Usr_Apellidos'};
- $pass = $unobj->{'Usr_Password'};
- $mail = $unobj->{'Usr_Correo'};
- $type = $unobj->{'Usr_Tipo_Documento'};
- 
- echo ($id." ".$name." ".$lastname." ".$pass." ".$mail." ".$type);
+/*
+echo "balance actual: ";
+echo $test->getBalance(201010013010);
+echo "\n se modifica balance \n";
+$test->modifyBalance(201010013010, 14500);
+echo "\n obtiene nuevo balance\n";
+echo $test->getBalance(201010013010);
+$test->addBalance(201010013010, 20000);
+echo "\n se agrego balance y se obtiene el mas actual: ";
+echo $test->getBalance(201010013010);
+ * 
  */
+
+/*
+echo $test->getEstadoCuenta(201010013010);
+
+$test->cambiarEstadoCuenta(201010013010, "Activada");
+
+echo "\n" . $test->getEstadoCuenta(201010013010);
+*/
+
+
  
-$test->crearCuenta(1017201436, 1017201436, 0, 'Activada');
- 
-?>

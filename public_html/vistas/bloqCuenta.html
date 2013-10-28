@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bloquear Cuenta</title>
+        <!-- bootstrap -->
+        <link href="bootstrap/css/bootstrap.min.css"
+              rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="css/loginUsuario.css">
+        <script type="text/javascript"
+                src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
+    </head>
+    <body>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" 
+                            data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Bloquear Cuenta</a></li>
+                        <li><a href="userBasicInfo.html">Cancelar</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="jumbotron">
+                <form>
+                    <h2>Verificación</h2>
+                    <input id="ver_code" type="text" 
+                           class="form-control" 
+                           placeholder="Código de Usuario" autofocus>
+                    <input id="ver_pass" type="password"
+                           class="form-control" placeholder="Password">
+                    <button class="btn btn-lg btn-primary btn-block" 
+                            type="button" id="loginBttn"
+                            onclick="blocVerification();">Entrar</button>
+                </form>
+            </div>
+
+            <div class="alert alert-warning" id="errorLogMsg">
+                <p>
+                    ¡Código de usuario o contraseña no válidos. Inténtalo de nuevo!.
+                </p>
+            </div>
+
+        </div> <!-- /container -->
+        <script type="text/javascript" src="js/eventHandler.js"></script>
+        <!-- Bootstrap core JavaScript & Jquery
+        ==================================================  -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), 
+        or include individual files as needed  -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>

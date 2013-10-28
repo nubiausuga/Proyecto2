@@ -28,6 +28,16 @@ function messages(var1) {
         case 'wrongPass':
             msg = "¡Código de usuario o contraseña no válidos. Inténtalo de nuevo!.";
             break;
+        case 'emptyFields':
+            msg = "Por favor llene todos los campos antes de continuar.";
+            break;
+        case 'wrongPlace':
+            msg = "Ese usuario no corresponde a esta sesión,\n\
+                   por favor intentelo de nuevo";
+            break;
+        case 'errorLogMsg':
+            msg = "Error al verificar los datos, por favor intentelo de nuevo";
+            break;
         default:
             msg = "Elige mensaje de error";
             break;
@@ -385,5 +395,68 @@ function actProducto() {
     } else {
         document.getElementById('invalidField').style.visibility = 'visible';
     }
-
 }
+
+//verificación para poder cambiar el estado de la cuenta 
+// a bloqueada o activada.
+function blocVerification() {
+
+    var user = $('#ver_code').val();
+    var pass = $('#ver_pass').val();
+
+    if (!user || !pass) {
+        var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+        var newHTML = messages("emptyFields");
+        document.getElementById('errorRegMsg').innerHTML = newHTML;
+        document.getElementById('errorLogMsg').style.visibility = 'visible';
+    }
+
+    var noE = fieldSec(user, pass);
+    var noSemi = fieldSemi(user, pass);
+
+    if (noE == -1 || noSemi == -1) {
+        var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+        var newHTML = messages("wrongPass");
+        document.getElementById('errorRegMsg').innerHTML = newHTML;
+        document.getElementById('loginUserPassword').value = "";
+        document.getElementById('loginUsername').value = "";
+
+    } else {
+
+        $.post('../php/LoginUser.php',
+                {postname: user, postpass: pass},
+        function(data) {
+            //alert(data);
+
+            if (data == 1) {
+                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                bloqueo(user);
+                alert("Estado de cuenta modificado exitosamente!");
+                window.location = "userBasicInfo.html";
+            }
+            if (data == 2) {
+                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                var newHTML = messages("wrongPlace");
+                document.getElementById('errorRegMsg').innerHTML = newHTML;
+            }
+            if (data == -1) {
+                var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                var newHTML = messages("errorLogMsg");
+                document.getElementById('errorRegMsg').innerHTML = newHTML;
+
+            }
+
+        });
+    }
+}
+
+//Para bloquear o desbloquear una cuenta dependiendo de su estado actual.
+function bloqueo(id) {
+
+    $.post('../php/bloqCuenta.php', {postId: id},
+    function(data) {
+        //  alert(data);
+    });
+}
+
