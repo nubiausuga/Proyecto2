@@ -2,16 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
         <meta name="Modulo Ventas" content="">
         <meta name="Andres Ramirez" content="">
         <title>Modulo Ventas</title>
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/RegUsuario.css"> <!-- ojo actualizar estilo-->
-        <script type="text/javascript"
-                src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-        </script>
     </head>
 	
 	<body>
@@ -28,12 +24,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="Info.html">Info</a></li>
-                        <li><a href="loginUsuario.html">Login</a></li>
+                        <li><a href="WelcomeSE.html">Home</a></li>
+                        <li><a href="#">Info</a></li>
                         <li class="active"><a href="#">Ventas</a></li>
-						<li><a href="RegistrarUsuario.html">Registrar</a></li>
-                    </ul>
+                   </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -42,30 +36,23 @@
             <div class="jumbotron">
                 <form id="userRegForm">
                     <h2>Registro de nuevos productos </h2>
+                    <button id="reg_venta" 
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button"
+                            onclick="window.location.href ='RegVenta.html'">Realizar Venta</button>
                     
-					<ul class="nav nav-column">
-						<li><a href="../RegVenta.html"> Realizar Venta </a></li>
-						<button id="reg_product" 
+                    <button id="reg_product" 
                             class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regVentas();">Realizar Venta</button>
-					</ul>
-					<ul class="nav nav-column">
-						<li><a href="../vistas/RegProducto.html"> Nuevo Producto </a></li>
-						<button id="reg_product" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regProducto();">Nuevo Producto</button>
-					</ul>
-					<ul class="nav nav-column">
-						<li><a href="../vistas/ActProducto.html"> Actualizar Producto </a></li>
-						<button id="reg_product" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="updateProducto();">Actualizar Producto</button>
-					</ul>
+                            type="button"
+                            onclick="window.location.href ='RegProducto.html'">Nuevo Producto</button>
                     
-					
+                    <button id="reg_update_product" 
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button"
+                            onclick="updateProducto();">Actualizar Producto</button>
                 </form>
             </div>
-            
+
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript

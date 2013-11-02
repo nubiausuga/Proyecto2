@@ -1,80 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <title>Ventas de productos</title>
-        <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
-
-        <!-- Extra Codiqa features -->
+        <meta charset="UTF-8" />
+        <meta name="Realizar Venta" content="">
+        <meta name="Andres Ramirez" content="">
+        <title>Realizar Venta</title>
+        <!-- bootstrap -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link rel="stylesheet" href="css/RegUsuario.css">
-
-        <!-- jQuery and jQuery Mobile -->
-        <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
-        <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-
-        <!-- Extra Codiqa features -->
-        <script src="https://d10ajoocuyu32n.cloudfront.net/codiqa.ext.js"></script>
+        <script type="text/javascript"
+                src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
     </head>
+
     <body>
-        <!-- Home -->
-		<table>
-		
-		
-			<div data-role="page" id="RegistroVentas">
-				<div data-theme="a" data-role="header">
-					<tr>
-						<h3>Registrarse</h3>
-					</tr>
-					<tr>
-						<div data-role="navbar" data-iconpos="top">
-							<ul>
-								<li>
-									hola 1
-								</li>
-								<li>
-									hola2
-								</li>
-								<li>
-									hola3
-								</li>
-							</ul>
-						</div>
-					</tr>
-					<tr>
-						<td>
-							<form action="">
-								<div data-role="fieldcontain">
-									<input name="ve_codigo" id="textinput1" placeholder="Codigo" value=""
-										   type="text" data-mini="true">
-								</div>
-								<div data-role="fieldcontain">
-									<input name="ve_cantidad" id="textinput2" placeholder="Cantidad" value=""
-										   type="text" data-mini="true">
-								</div>
-								<div data-role="fieldcontain">
-									<input name="ve_adicionar" id="textinput3" placeholder="Adicionar" value=""
-										   type="text" data-mini="true">
-								</div>
-								<div data-role="fieldcontain">
-									<input name="ve_eliminar" id="textinput4" placeholder="Eliminar" value="" 
-									type="text" data-mini="true">
-								</div>
-							</form>
-						</td>
-						<td>
-							hola mundo aqui es el reguistro
-						</td>
-					</tr>
-				</div>
-				<div data-role="content">
-				</div>
-				<div data-theme="a" data-role="footer" data-position="fixed">
-					<h3>Copyright 2013</h3>
-				</div>
-			</div>
-		</table>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" 
+                            data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="WelcomeSE.html">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li><a href="ModuloVentas.html">Ventas</a></li>
+                        <li class="active"><a href="#">Venta Productos</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="jumbotron">
+                <form id="prodRegForm">
+                    <h2>Módulo Ventas de Productos</h2>
+                    <label>Código de producto</label>
+                    <input id="cod_producto" type="text" class="form-control"
+                           placeholder="Código producto">
+                   <!-- <button id="agr_producto"
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button"
+                            onclick="agrProducto();">Agregar</button> -->
+                  <!--  <label>Búsqueda por descripción</label>		
+                    <input id="desc_producto" type="text" class="form-control"
+                           placeholder="Descripción producto" > -->
+                  <!--  <button id="busc_descripcion" 
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button" 
+                            onclick="busc_producto();">Buscar</button>  -->    		  
+                   <!-- <h3 id= "BusquedaProducto">Información de producto</h3>	-->	
+                   <!-- <label>Código Restaurante</label>
+                    <input id="cod_restaurante" type="text" class="form-control"
+                           placeholder="Codigo restaurante"> -->
+                    <label> Numero de Cuenta</label>
+                    <input id="num_cuenta" type="text" class="form-control"
+                           placeholder="Factura numero">
+                    <!-- <label id= "FacturaCliente">Información de la Factura</label> -->
+                    <label>Carnet</label>
+                    <input id="Cod_Carnet" type="text" class="form-control"
+                           placeholder="Codigo Carnet">
+                    <label>Total</label>
+                    <input id="Total_Cuenta" type="text" class="form-control"
+                           placeholder="Total Factura">
+                    <button id="nueva_Factura"
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button"
+                            onclick="nuevaFactura();">Nueva Factura</button>
+                    <button id="imprimir_Factura"
+                            class="btn btn-lg btn-primary btn-block"
+                            type="button"
+                            onclick="imprimirFactura();">Pagar</button>	
+                </form>
+            </div>
+        </div> <!-- /container -->
+        <script type="text/javascript" src="js/eventHandler.js"></script>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

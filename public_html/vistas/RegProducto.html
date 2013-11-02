@@ -2,19 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
         <meta name="Registrar Producto" content="">
         <meta name="Andres Ramirez" content="">
         <title>Registrar Producto</title>
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="css/RegUsuario.css"> <!-- ojo actualizar estilo-->
-        <script type="text/javascript"
-                src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-        </script>
+        <link rel="stylesheet" href="css/RegUsuario.css">
     </head>
-	
-	<body>
+
+    <body>
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -28,12 +24,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="Info.html">Info</a></li>
-                        <li><a href="loginUsuario.html">Login</a></li>
-						<li><a href="ModuloVentas.html">Ventas</a></li>
+                        <li><a href="WelcomeSE.html">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li><a href="ModuloVentas.html">Ventas</a></li>
                         <li class="active"><a href="#">Registrar Producto</a></li>
-						<li><a href="RegistrarUsuario.html">Registrar</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -43,31 +37,19 @@
             <div class="jumbotron">
                 <form id="userRegForm">
                     <h2>Registro de nuevos productos </h2>
-                    <input id="reg_idCode" type="text" class="form-control" placeholder="Código Producto" autofocus>
-					<input id="reg_description" type="text" class="form-control" placeholder="Descripción del Producto">
-                    <input id="reg_valueSale" type="text" class="form-control" placeholder="Valor Venta ">
+                    <input id="reg_idCode" type="text" class="form-control"
+                           placeholder="Código Producto">
+                    <input id="reg_description" type="text" class="form-control"
+                           placeholder="Descripción del Producto">
+                    <input id="reg_valueSale" type="text" class="form-control"
+                           placeholder="Valor Venta ">
                     <button id="reg_product" 
                             class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regProducto();">Registrar Producto</button>
+                            type="button" 
+                            onclick="regProducto();">Registrar Producto</button>
                 </form>
             </div>
-            <!-- Mostrar mensaje cuando el producto se ha registrado -->
-            <p id="successfullReg" class="alert alert-success">
-                  Se ha registrado exitosamente el producto!
-            </p>
-            <!-- Mensaje de error en caso de que el id esta mal ingresado -->
-            <div id="invalidField" class="alert alert-warning">
-                <p>
-                    Oops, Lo siento algunos campos ingresados se encunetran sin llenar, por favor verifica e intentalo de
-                    nuevo!.
-                </p>
-            </div>
-            <!-- Mostrar mensaje de error cuando no fue posible registrar el
-            usuario -->
-            <div id="failedReg" class="alert alert-danger">
-               Oops... Ha ocurrido un error al registrar el producto,
-               por favor intentalo de nuevo.
-            </div>
+
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript

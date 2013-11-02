@@ -44,3 +44,30 @@ root {
 	visibility: hidden;
 	font-size: 1.0em;
  }
+ 
+ #prodRegForm{
+     alignment-adjust: auto;
+     margin-left: auto;
+     margin-right: auto;
+     
+ }
+ 
+ #prodRegForm input{
+     width: 400px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ #prodRegForm button{
+     width: 400px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ #prodRegForm label{
+     font-family: monospace;
+     font-size: 0.7em;
+     display: block;
+    text-align: center;
+          
+ }

@@ -25,3 +25,8 @@ and open the template in the editor.
     font-size: 0.8em;
     font-style: normal;
 }
+
+.btng_welcome{
+    alignment-adjust: middle;
+    padding: 1em 1em 1em 1em;
+}
