@@ -43,13 +43,16 @@
                            placeholder="Descripción del Producto">
                     <input id="reg_valueSale" type="text" class="form-control"
                            placeholder="Valor Venta ">
+                    <input id="reg_brand" type="text" class="form-control"
+                           placeholder="Marca de Producto">
                     <button id="reg_product" 
                             class="btn btn-lg btn-primary btn-block"
                             type="button" 
                             onclick="regProducto();">Registrar Producto</button>
                 </form>
             </div>
-
+            <p id="errorRegMsg" class="alert alert-warning"> </p>
+            <p id="okRegMsg" class="alert alert-success"> </p>
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript

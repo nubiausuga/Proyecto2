@@ -5,15 +5,24 @@ include '../Establecimientos/Producto.php';
 
 $reg = new DAOs();
 
-	 $idProduct = $_POST['postid'];
-	 $descriptionProduct = $_POST['postdescription'];
-	 $valueProduct = $_POST['postvalue'];
+if (!empty($_POST['postid']) && !empty($_POST['postdesc']) &&
+        !empty($_POST['postvalue']) && !empty($_POST['postbrand'])) {
 
-	$newProduct = new Producto($idProduct, $descriptionProduct, $valueProduct);
-
+    $id = (int) $_POST['postid'];
+    $desc = $_POST['postdesc'];
+    $value = (double) $_POST['postvalue'];
+    $brand = $_POST['postbrand'];
+    
+    $resultCode = $reg->codVer($id);
+    
+    if($resultCode == 0){
+        echo $reg->actualizarProducto($id, $desc, $value, $brand);
+    }else{
+        echo 1;
+    }
+    
+    
+} else {
+    echo -1;
+}
 	
-	$reg->actualizarProducto($newProduct->getIdProducto(), 
-               $newProduct->getDescProducto(), $newProduct->getPrecioProducto() );
-			  
-	
-?>

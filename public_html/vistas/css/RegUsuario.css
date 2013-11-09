@@ -71,3 +71,23 @@ root {
     text-align: center;
           
  }
+ 
+ #okRegMsg{
+     visibility: hidden;
+ }
+ 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#actProdMsg{
+    visibility: hidden;
+    font-size: 1em;
+}
+
+#actProdOk{
+    visibility: hidden;
+    font-size: 1em;
+}

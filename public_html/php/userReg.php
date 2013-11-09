@@ -9,18 +9,17 @@ $reg = new DAOs();
 
 if (!empty($_POST['postdoc']) && !empty($_POST['postuser']) &&
         !empty($_POST['postlastname']) && !empty($_POST['postpass']) &&
-        !empty($_POST['postemail']) && !empty($_POST['postcareer'])) {
+        !empty($_POST['postemail'])) {
 
     $docIdent = $_POST['postdoc'];
     $name = $_POST['postuser'];
     $lastname = $_POST['postlastname'];
     $password = $_POST['postpass'];
     $email = $_POST['postemail'];
-    $carrer = $_POST['postcareer'];
 
     $newUser = new Usuario($docIdent, $name, $lastname, $password, $email, 1);
     $newStudent = new Estudiante($docIdent, $name, $lastname,
-            $password, $email, 1, $carrer);
+            $password, $email, 1, "No Importa");
 
     $newStudent->idVerifier($docIdent);
 }
@@ -46,6 +45,6 @@ if ($newStudent->getCarreraEstudiante() == -1) {
     //agregar el estudiante
     
     echo $reg->addEstudiante($newUser->getIdUsuario(),
-            $newStudent->getCarreraEstudiante());
+            $newStudent->getCarreraEstudiante(),$newStudent->getIdUsuario());
 }
 ?>

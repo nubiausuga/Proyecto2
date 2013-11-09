@@ -92,7 +92,7 @@ class DAOs {
    //obtiene la información de los usuarios dado el código identificador único.
    function getUserInfo($code) {
         $query = "SELECT * FROM `usuario` "
-                . "WHERE `id_Doc_Identidad`='$code' ";
+                . "WHERE `id_Doc_Identidad`='$code'";
         $success = mysql_query($query) or die(mysql_error());
         
         $dbarray = mysql_fetch_array($success);
@@ -110,14 +110,14 @@ class DAOs {
     }
     
     //agrega un nuevo producto a la base de datos dado todos sus campos.
-    function nuevoProducto($idProduct, $descriptionProduct, $valueProduct) {
+    function nuevoProducto($idProduct, $descriptionProduct, $valueProduct,$prodBrand) {
 
         if (empty($idProduct) or empty($descriptionProduct)
                 or empty($valueProduct)) {
-            return false;
+            return 1;
         }
-        $in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_Precio)
-                    VALUES('$idProduct','$descriptionProduct','$valueProduct')";
+        $in = "INSERT INTO `producto`(id_Producto,Prod_Descripcion,Prod_ValorUnitario,Prod_Marca)
+                    VALUES('$idProduct','$descriptionProduct','$valueProduct','$prodBrand')";
 
         $success = mysql_query($in) or die(mysql_error());
 
@@ -129,16 +129,18 @@ class DAOs {
     }
     
     //actualiza el precio de un producto
-    function actualizarProducto($idProduct, $descriptionProduct, $valueProduct) {
+    function actualizarProducto($idProduct, $descriptionProduct, $valueProduct,$brand) {
 
         if (empty($idProduct) or
                 empty($descriptionProduct) or
-                empty($valueProduct)) {
-            return false;
+                empty($valueProduct) or
+                empty($brand)){
+            return -1;
         }
 
         $in = "UPDATE  `producto`  SET producto.Prod_Descripcion = "
-                . "'$descriptionProduct',producto.Prod_Precio = '$valueProduct'	
+                . "'$descriptionProduct',producto.Prod_ValorUnitario = '$valueProduct',
+                    producto.Prod_Marca = '$brand'                    
 		WHERE producto.id_Producto = '$idProduct'";
 
         $success = mysql_query($in) or die(mysql_error());
@@ -150,15 +152,35 @@ class DAOs {
         }
     }
     
+    //verificar existencia de código de producto
+    function codVer($cod){
+        
+        $quer = "SELECT id_Producto "
+                . "FROM `producto` WHERE id_Producto ='$cod'";
+        
+        $exists = mysql_query($quer) or die(mysql_error());
+        
+        $arr = mysql_fetch_array($exists);
+        
+        if($arr[0] !== null){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+       
     //agrega un usuario como estudiante a la base de datos
-    function addEstudiante($idEstudiante, $carreraEstudiante) {
+    function addEstudiante($idEstudiante, $carreraEstudiante,$idDocIdent) {
         
         if (empty($idEstudiante) or empty($carreraEstudiante)) {
             return false;
         }
         
-        $in_estudiante = "INSERT INTO `estudiante`(Est_id_Doc_Identidad,Str_Carrera)
-                        VALUES('$idEstudiante','$carreraEstudiante')";
+        $in_estudiante =
+                "INSERT INTO `estudiante`(id_Doc_Identidad,Str_Carrera,
+                    Usuario_id_Doc_Identidad)
+                        VALUES('$idEstudiante',"
+                . "'$carreraEstudiante','$idDocIdent')";
         $success = mysql_query($in_estudiante) or die(mysql_error());
         if($success){
            return 0;
@@ -310,8 +332,8 @@ class DAOs {
     //crea una cuenta nueva en la base de datos dado un id de usuario y cuenta único
    function crearCuenta($idCuenta, $idUsuario,$saldo,$estado){
         $cuentaNueva = "Insert INTO `cuenta`"
-                . "(id_Cuenta, Id_usuario, Cuen_Saldo, Cuen_Estado)"
-                . "VALUES('$idCuenta','$idUsuario','$saldo','$estado')";
+                . "(id_Cuenta, Cuen_Saldo, Cuen_Estado, Usuario_id_Doc_Identidad)"
+                . "VALUES('$idCuenta','$saldo','$estado','$idUsuario')";
         
         $success = mysql_query($cuentaNueva) or die(mysql_error());
         
@@ -459,6 +481,17 @@ class DAOs {
        }
    }   
    
-   
+   function getProdInfo($code) {
+        $query = "SELECT * FROM `producto` "
+                . "WHERE `id_Producto`='$code'";
+        $success = mysql_query($query) or die(mysql_error());
+        
+        $dbarray = mysql_fetch_array($success);
+        if ($success) {
+            return json_encode($dbarray);
+        } else {
+            return -1;
+        }
+    }
      
 }

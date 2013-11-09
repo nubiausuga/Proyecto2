@@ -25,6 +25,10 @@ function messages(var1) {
                       por favor llena todos los campos correctamente\n\
                         e intentalo de nuevo.";
             break;
+        case 'prodFail':
+            msg = "Oops... Ha ocurrido un error al registrar el producto,\n\
+                    por favor intentelo de nuevo.";
+            break;
         case 'wrongPass':
             msg = "¡Código de usuario o contraseña no válidos. Inténtalo de nuevo!.";
             break;
@@ -35,8 +39,20 @@ function messages(var1) {
             msg = "Ese usuario no corresponde a esta sesión,\n\
                    por favor intentelo de nuevo";
             break;
+        case 'wrongCode':
+            msg = "Oops, el código debe existir, por favor\n\
+                    verifica el código de producto e intentalo de nuevo";
+            break;
         case 'errorLogMsg':
             msg = "Error al verificar los datos, por favor intentelo de nuevo";
+            break;
+        case 'notNumeric':
+            msg = "Los Campos de Código Producto y Valor Venta deben ser numéricos\n\
+                    por favor verifica e intentalo de nuevo.";
+            break;
+        case 'okNewProduct':
+            msg = "El producto nuevo ha sido registrado éxitosamente en la \n\
+                    base de datos.";
             break;
         default:
             msg = "Elige mensaje de error";
@@ -104,16 +120,19 @@ function loginUser() {
             //alert(data);
 
             if (data == 1) {
-                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                document.getElementById('errorLogMsg').style.visibility
+                        = 'hidden';
                 //alert("Welcome, Student");
                 window.location = "WelcomeScreen.html";
             }
             if (data == 2) {
-                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                document.getElementById('errorLogMsg').style.visibility
+                        = 'hidden';
                 window.location = "WelcomeSE.html";
             }
             if (data == -1) {
-                document.getElementById('errorLogMsg').style.visibility = 'visible';
+                document.getElementById('errorLogMsg').style.visibility 
+                        = 'visible';
 
             }
 
@@ -165,7 +184,6 @@ function regUser() {
         var lastname = $('#reg_lastname').val();
         var password = $('#reg_password').val();
         var email = $('#reg_email').val();
-        var career = $('#reg_career').val();
         var repPass = $('#repPass').val();
         var acceptance = document.getElementById('reg_checkbox').checked;
 
@@ -180,39 +198,38 @@ function regUser() {
                             postlastname: lastname,
                             postpass: password,
                             postemail: email,
-                            postcareer: career
                         },
-                function(data) {
+                        function(data) {
 
-                    if (data == -1) {
+                            if (data == -1) {
 
-                        document.getElementById('errorRegMsg').style.visibility = 'visible';
-                        var oldHTML = document.getElementById('errorRegMsg').innerHTML;
-                        var newHTML = messages("badStdID");
-                        document.getElementById('errorRegMsg').innerHTML = newHTML;
-                        document.getElementById('reg_docIdent').value = "";
+                                document.getElementById('errorRegMsg').style.visibility = 'visible';
+                                var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                                var newHTML = messages("badStdID");
+                                document.getElementById('errorRegMsg').innerHTML = newHTML;
+                                document.getElementById('reg_docIdent').value = "";
 
-                    } else {
-                        if (data == 0) {
+                            } else {
+                                if (data == 0) {
 
-                            document.getElementById('errorRegMsg').style.visibility = 'visible';
-                            var oldHTML = document.getElementById('errorRegMsg').innerHTML;
-                            var newHTML = messages("okReg");
-                            document.getElementById('errorRegMsg').setAttribute("class: alert alert-success");
-                            document.getElementById('errorRegMsg').innerHTML = newHTML;
-                            clearFields();
+                                    document.getElementById('errorRegMsg').style.visibility = 'hidden';
+                                    //var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                                    // var newHTML = messages("okReg");
+                                    alert("Te has registrado Exitosamente!");
+                                    //clearFields();
+                                    window.location = "../index.html";
 
-                        } else {
+                                } else {
 
-                            document.getElementById('errorRegMsg').style.visibility = 'visible';
-                            var oldHTML = document.getElementById('errorRegMsg').innerHTML;
-                            var newHTML = messages("failed");
-                            document.getElementById('errorRegMsg').innerHTML = newHTML;
+                                    document.getElementById('errorRegMsg').style.visibility = 'visible';
+                                    var oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                                    var newHTML = messages("failed");
+                                    document.getElementById('errorRegMsg').innerHTML = newHTML;
 
-                        }
-                    }
+                                }
+                            }
 
-                });
+                        });
 
             } else {
 
@@ -221,6 +238,7 @@ function regUser() {
                 var newHTML = messages("badPass");
                 document.getElementById('errorRegMsg').innerHTML = newHTML;
                 document.getElementById('repPass').value = "";
+                document.getElementById('reg_password').value = "";
             }
 
         } else {
@@ -344,57 +362,155 @@ function regEstablishment() {
 
 }
 
-function regProducto() {
+function isNum(par1) {
+    return !isNaN(parseFloat(par1)) && isFinite(par1);
+}
 
+function clearFProd() {
+
+    document.getElementById('reg_idCode').value = "";
+    document.getElementById('reg_description').value = "";
+    document.getElementById('reg_valueSale').value = "";
+    document.getElementById('reg_brand').value = "";
+
+}
+
+function regProducto() {
 
     var prod_id = $('#reg_idCode').val();
     var prod_description = $('#reg_description').val();
     var prod_value = $('#reg_valueSale').val();
+    var prod_marca = $('#reg_brand').val();
+    var oldHTML = "";
+    var newHTML = "";
 
-    if (prod_id !== "" && prod_description !== "" && prod_value !== "") {
-        document.getElementById('invalidField').style.visibility = 'hidden';
+    if (prod_id !== "" && prod_description !== "" &&
+            prod_value !== "" && prod_marca !== "") {
 
+        if (isNum(prod_id) && isNum(prod_value)) {
+            document.getElementById('errorRegMsg').style.visibility = 'hidden';
+            $.post('../php/ProductReg.php',
+                    {
+                        postid: prod_id,
+                        postdesc: prod_description,
+                        postvalue: prod_value,
+                        postmarca: prod_marca
+                    },
+            function(data) {
+                //alert(data);
+                if (data == 0) {
+                    document.getElementById('errorRegMsg').style.visibility
+                            = 'hidden';
+                    document.getElementById('okRegMsg').style.visibility
+                            = 'visible';
+                    oldHTML = document.getElementById('okRegMsg').innerHTML;
+                    newHTML = messages("okNewProduct");
+                    document.getElementById('okRegMsg').innerHTML = newHTML;
+                    clearFProd();
 
-        $.post('../php/ProductReg.php',
-                {
-                    postid: prod_id,
-                    postdescription: prod_description,
-                    postvalue: prod_value
-                },
-        function(data) {
-            //alert(data);
-        });
+                } else {
+                    document.getElementById('errorRegMsg').style.visibility =
+                            'hidden';
+                    document.getElementById('errorRegMsg').style.visibility =
+                            'visible';
+                    oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                    newHTML = messages("prodFail");
+                    document.getElementById('errorRegMsg').innerHTML = newHTML;
+                }
+            });
+        } else {
+
+            document.getElementById('errorRegMsg').style.visibility = 'visible';
+            oldHTML = document.getElementById('errorRegMsg').innerHTML;
+            newHTML = messages("notNumeric");
+            document.getElementById('errorRegMsg').innerHTML = newHTML;
+        }
 
     } else {
-        document.getElementById('invalidField').style.visibility = 'visible';
+
+        document.getElementById('errorRegMsg').style.visibility = 'visible';
+        oldHTML = document.getElementById('errorRegMsg').innerHTML;
+        newHTML = messages("emptyFields");
+        document.getElementById('errorRegMsg').innerHTML = newHTML;
     }
 
 }
 
+//clear update product fields
+function clearUpdProd() {
+
+    document.getElementById('act_idCode').value = "";
+    document.getElementById('act_description').value = "";
+    document.getElementById('act_valueSale').value = "";
+    document.getElementById('act_brand').value = "";
+}
+
+//función para actualizar los datos de un producto registrado
 function actProducto() {
 
     var prod_id = $('#act_idCode').val();
     var prod_description = $('#act_description').val();
     var prod_value = $('#act_valueSale').val();
+    var prod_brand = $('#act_brand').val();
+    var oldHTML = "";
+    var newHTML = "";
 
-    if (prod_id !== "" && prod_description !== "" && prod_value !== "") {
-        document.getElementById('invalidField').style.visibility = 'hidden';
+    if (prod_id !== "" && prod_description !== "" &&
+            prod_value !== "" && prod_brand !== "") {
 
+        if (isNum(prod_id) && isNum(prod_value)) {
 
-        $.post('../php/ProductAct.php',
-                {
-                    postid: prod_id,
-                    postdescription: prod_description,
-                    postvalue: prod_value
-                },
-        function(data) {
-            alert(data);
-        });
-        alert("entro boton" + prod_id + prod_description + prod_value);
+            $.post('../php/ProductAct.php',
+                    {
+                        postid: prod_id,
+                        postdesc: prod_description,
+                        postvalue: prod_value,
+                        postbrand: prod_brand
+                    },
+            function(data) {
+
+                if (data == 0) {
+                    document.getElementById('actProdMsg').style.visibility =
+                            'hidden';
+                    document.getElementById('actProdOk').style.visibility =
+                            'visible';
+                    oldHTML = document.getElementById('actProdOk').innerHTML;
+                    newHTML = messages("okNewProduct");
+                    document.getElementById('actProdOk').innerHTML = newHTML;
+                    clearUpdProd();
+
+                } else if (data == 1) {
+                    document.getElementById('actProdOk').style.visibility =
+                            'hidden';
+                    document.getElementById('actProdMsg').style.visibility =
+                            'visible';
+                    oldHTML = document.getElementById('actProdMsg').innerHTML;
+                    newHTML = messages("wrongCode");
+                    document.getElementById('actProdMsg').innerHTML = newHTML;
+                } else {
+                    document.getElementById('actProdOk').style.visibility =
+                            'hidden';
+                    document.getElementById('actProdMsg').style.visibility =
+                            'visible';
+                    oldHTML = document.getElementById('actProdMsg').innerHTML;
+                    newHTML = messages("prodFail");
+                    document.getElementById('actProdMsg').innerHTML = newHTML;
+                }
+            });
+        } else {
+            document.getElementById('actProdMsg').style.visibility = 'visible';
+            oldHTML = document.getElementById('actProdMsg').innerHTML;
+            newHTML = messages("notNumeric");
+            document.getElementById('actProdMsg').innerHTML = newHTML;
+        }
 
     } else {
-        document.getElementById('invalidField').style.visibility = 'visible';
+        document.getElementById('actProdMsg').style.visibility = 'visible';
+        oldHTML = document.getElementById('actProdMsg').innerHTML;
+        newHTML = messages("emptyFields");
+        document.getElementById('actProdMsg').innerHTML = newHTML;
     }
+
 }
 
 //verificación para poder cambiar el estado de la cuenta 
@@ -460,3 +576,33 @@ function bloqueo(id) {
     });
 }
 
+function getProdInfo() {
+
+    var code = $('#act_idCode').val();
+
+    if (isNum(code)) {
+        $.post('../php/getProdInfo.php',
+                {postcode: code},
+        function(data) {
+
+
+            var json = JSON.parse(data);
+            if (!json) {
+                clearUpdProd();
+            } else {
+                var prodDesc = json['Prod_Descripcion'];
+                var price = json['Prod_ValorUnitario'];
+                var brand = json['Prod_Marca'];
+
+                document.getElementById('act_description').value = prodDesc;
+                document.getElementById('act_valueSale').value = price;
+                document.getElementById('act_brand').value = brand;
+
+            }
+
+        });
+    } else {
+        clearUpdProd();
+    }
+
+}

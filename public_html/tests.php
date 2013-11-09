@@ -28,6 +28,10 @@ $test->cambiarEstadoCuenta(201010013010, "Activada");
 echo "\n" . $test->getEstadoCuenta(201010013010);
 */
 
-echo $test->validarUsuario(201010013010, 'Akuma');
-
- 
+//testing again queries
+//
+//echo $test->validarUsuario(201010013010, 'Akuma');
+//echo $test->getUserInfo(201010013010);
+//echo $test->nuevoProducto(102, "bebida gaseosa", "4500", "Coca-Cola");
+//echo $test->actualizarProducto(1, "Bebida Gaseosa Muy Rica", 4500, "Cola-Cola Company");
+echo $test->codVer(5); 

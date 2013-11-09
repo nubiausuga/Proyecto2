@@ -5,11 +5,15 @@ class Producto {
     private $idProducto;
     private $descProducto;
     private $precioProducto;
+    private $marcaProducto;
+    
+    function __construct($idProducto, $descProducto, $precioProducto,
+            $marcaProducto) {
 
-    function __construct($idProducto, $descProducto, $precioProducto) {
         $this->idProducto = $idProducto;
         $this->descProducto = $descProducto;
         $this->precioProducto = $precioProducto;
+        $this->marcaProducto = $marcaProducto;
     }
 
     public function getIdProducto() {
@@ -23,8 +27,15 @@ class Producto {
     public function getDescProducto() {
         return $this->descProducto;
     }
+    public function getMarcaProducto() {
+        return $this->marcaProducto;
+    }
 
-    public function setDescProducto($descProducto) {
+    public function setMarcaProducto($marcaProducto) {
+        $this->marcaProducto = $marcaProducto;
+    }
+
+        public function setDescProducto($descProducto) {
         $this->descProducto = $descProducto;
     }
 
@@ -36,7 +47,6 @@ class Producto {
         $this->precioProducto = $precioProducto;
     }
 
-
 }
 
-?>
+
