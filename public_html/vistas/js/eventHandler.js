@@ -10,11 +10,18 @@ function messages(var1) {
         case 'badStdID':
             msg = "Oops, código de estudiante erroneo, intentalo de nuevo";
             break;
+        case 'badEID':
+            msg = "Oops, el código de identificación no es válido, \n\
+                    favor ingresar su número de cédula correctamente.";
+            break;
         case 'okReg':
             msg = "Bienvenido, te has registrado exitosamente como estudiante!";
             break;
         case 'badEmail':
             msg = "Oops, por favor usa una dirección de correo válida!";
+            break;
+        case 'okNewEstablishment':
+            msg = "Se ha agregado un nuevo establecimiento éxitosamente.";
             break;
         case 'term':
             msg = "No has aceptado los términos y condiciones,\n\
@@ -53,6 +60,14 @@ function messages(var1) {
         case 'okNewProduct':
             msg = "El producto nuevo ha sido registrado éxitosamente en la \n\
                     base de datos.";
+            break;
+        case 'nitError':
+            msg = "El Nit es erroneo, por favor verificar e intentarlo de nuevo.\n\
+                   <br> El formato NIT son 10 números con este formato: XXX.XXX.XXX-Y";
+            break;
+        case 'establishmentFail':
+            msg = "Ha ocurrido un error al crear el nuevo establecimiento,\n\
+                    por favor intentelo de nuevo.";
             break;
         default:
             msg = "Elige mensaje de error";
@@ -268,67 +283,105 @@ function regEmployee() {
 
     if (!validateForm()) {
         document.getElementById('reg_email').value = "";
-        alert("Oops, por favor usa una dirección de correo válida!");
+        document.getElementById('errorRegMsg').innerHTML = messages("badEmail");
+        document.getElementById('errorRegMsg').style.visibility = 'visible';
     } else {
 
         var docIdent = $('#reg_docIdent').val();
         var username = $('#reg_name').val();
         var lastname = $('#reg_lastname').val();
         var password = $('#reg_password').val();
+        var repass = $('#reg_password2').val();
         var email = $('#reg_email').val();
         var establishment = $('#reg_establishment').val();
         var jobTitle = $('#reg_jobTitle').val();
         var acceptance = document.getElementById('reg_checkbox').checked;
+        var oldHTML = "";
+        var newHTML = "";
+
         if (acceptance) {
 
-            $.post('../php/EmplReg.php',
-                    {
-                        postdoc: docIdent,
-                        postuser: username,
-                        postlastname: lastname,
-                        postpass: password,
-                        postemail: email,
-                        postest: establishment,
-                        postjob: jobTitle
-                    },
-            function(data) {
+            if (passMatch(password, repass)) {
 
-                if (data == -1) {
-                    document.getElementById('errorRegMsg').style.visibility =
-                            'hidden';
-                    document.getElementById('reg_docIdent').value = "";
-                    document.getElementById('wrongId').style.visibility =
-                            'visible';
-                } else {
-                    if (data == 0) {
-                        document.getElementById('wrongId').style.visibility =
-                                'hidden';
+                $.post('../php/EmplReg.php',
+                        {
+                            postdoc: docIdent,
+                            postuser: username,
+                            postlastname: lastname,
+                            postpass: password,
+                            postemail: email,
+                            postest: establishment,
+                            postjob: jobTitle
+                        },
+                function(data) {
+
+                    if (data == -1) {
+                        //wrong ID
                         document.getElementById('errorRegMsg').style.visibility =
-                                'hidden';
-                        document.getElementById('successfullReg').style.visibility =
                                 'visible';
+                        oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                        newHTML = messages("badEID");
+                        document.getElementById('errorRegMsg').innerHTML = newHTML;
                     } else {
-                        document.getElementById('errorRegMsg').style.visibility =
-                                'hidden';
-                        document.getElementById('wrongId').style.visibility =
-                                'hidden';
-                        document.getElementById('failedReg').style.visibility =
-                                'visible';
+                        if (data == 0) {
+                            //successfull reg
+                            document.getElementById('errorRegMsg').style.visibility =
+                                    'hidden';
+                            alert("Se ha registrado exitosamente");
+                            window.location = "../index.html";
+                        } else {
+                            //uknown error
+                            document.getElementById('errorRegMsg').style.visibility =
+                                    'visible';
+                            oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                            newHTML = messages("failed");
+                            document.getElementById('errorRegMsg').innerHTML = newHTML;
+                        }
                     }
-                }
-            });
+                });
+
+            } else {
+                //passwords don't match
+                document.getElementById('errorRegMsg').style.visibility =
+                        'visible';
+                oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                newHTML = messages("badPass");
+                document.getElementById('errorRegMsg').innerHTML = newHTML;
+                document.getElementById('repPass').value = "";
+                document.getElementById('reg_password').value = "";
+
+            }
+
         } else {
-            document.getElementById('wrongId').style.visibility =
-                    'hidden';
-            document.getElementById('errorRegMsg').style.visibility =
-                    'visible';
+            //accept terms
+            document.getElementById('errorRegMsg').style.visibility = 'visible';
+            oldHTML = document.getElementById('errorRegMsg').innerHTML;
+            newHTML = messages("term");
+            document.getElementById('errorRegMsg').innerHTML = newHTML;
         }
     }
 }
 
 
-function estFieldVer() {
+function estFieldVer(nit) {
 
+   var regex = new RegExp("[1-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{1}");
+
+    if (regex.test(nit)) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function clearFEstablishment() {
+
+    document.getElementById('reg_nitEstablishment').value = "";
+    document.getElementById('reg_estName').value = "";
+    document.getElementById('reg_estType').value = "";
+    document.getElementById('reg_estResponsible').value = "";
+    document.getElementById('reg_idResponsible').value = "";
 }
 
 function regEstablishment() {
@@ -339,25 +392,73 @@ function regEstablishment() {
     var est_Responsable = $('#reg_estResponsible').val();
     var est_idResponsable = $('#reg_idResponsible').val();
     var acceptance = document.getElementById('reg_checkbox').checked;
-
+    var oldHTML = "";
+    var newHTML = "";
+    
     if (est_nit !== "" && est_name !== "" && est_type !== "" &&
-            est_Responsable !== "" && est_idResponsable !== "" && acceptance) {
-        document.getElementById('nonCFields').style.visibility = 'hidden';
+            est_Responsable !== "" && est_idResponsable !== "") {
 
-        $.post('../php/EstablishmentReg.php',
-                {
-                    postnit: est_nit,
-                    postname: est_name,
-                    posttype: est_type,
-                    postresponsible: est_Responsable,
-                    postidresponsible: est_idResponsable
-                },
-        function(data) {
-            alert(data);
-        });
+        if (acceptance) {
+
+            if (estFieldVer(est_nit)) {
+                //going well
+
+                $.post('../php/EstablishmentReg.php',
+                        {
+                            postnit: est_nit,
+                            postname: est_name,
+                            posttype: est_type,
+                            postresponsible: est_Responsable,
+                            postidresponsible: est_idResponsable
+                        },
+                function(data) {
+
+                    if (data == 0) {
+                        //success
+                        document.getElementById('errorRegMsg').style.visibility
+                                = 'hidden';
+                        document.getElementById('okRegMsg').style.visibility
+                                = 'visible';
+                        oldHTML = document.getElementById('okRegMsg').innerHTML;
+                        newHTML = messages("okNewEstablishment");
+                        document.getElementById('okRegMsg').innerHTML = newHTML;
+                        clearFEstablishment();
+                    } else {
+                        //failure
+                        document.getElementById('okRegMsg').style.visibility =
+                                'hidden';
+                        document.getElementById('errorRegMsg').style.visibility =
+                                'visible';
+                        oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                        newHTML = messages("establishmentFail");
+                        document.getElementById('errorRegMsg').innerHTML = newHTML;
+                    }
+                });
+
+            } else {
+                //invalid nit
+                document.getElementById('errorRegMsg').style.visibility =
+                        'visible';
+                oldHTML = document.getElementById('errorRegMsg').innerHTML;
+                newHTML = messages("nitError");
+                document.getElementById('errorRegMsg').innerHTML = newHTML;
+
+            }
+
+        } else {
+            //accept terms first
+            document.getElementById('errorRegMsg').style.visibility = 'visible';
+            oldHTML = document.getElementById('errorRegMsg').innerHTML;
+            newHTML = messages("term");
+            document.getElementById('errorRegMsg').innerHTML = newHTML;
+        }
 
     } else {
-        document.getElementById('nonCFields').style.visibility = 'visible';
+        //empty fields
+        document.getElementById('errorRegMsg').style.visibility = 'visible';
+        oldHTML = document.getElementById('errorRegMsg').innerHTML;
+        newHTML = messages("emptyFields");
+        document.getElementById('errorRegMsg').innerHTML = newHTML;
     }
 
 }

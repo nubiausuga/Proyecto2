@@ -24,7 +24,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand"
+                       href="../index.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -41,43 +42,39 @@
             <div class="jumbotron">
                 <form>
                     <h2>Registrarse</h2>
-                    <input id="reg_docIdent" type="text" class="form-control" placeholder="Cédula" autofocus>
-                    <input id="reg_name" type="text" class="form-control" placeholder="Nombre" >
-                    <input id="reg_lastname" type="text" class="form-control" placeholder="Apellidos">
-                    <input id="reg_password" type="password" class="form-control" placeholder="Password">
-                    <input id="reg_email" type="email" class="form-control" placeholder="Correo electrónico">
-                    <input id="reg_establishment" type="text" class="form-control" placeholder="Establecimiento al que pertenece">
-                    <input id="reg_jobTitle" type="text" class="form-control" placeholder="Cargo que representa">
+                    <input id="reg_docIdent" type="text" class="form-control" 
+                           placeholder="Cédula">
+                    <input id="reg_name" type="text" class="form-control"
+                           placeholder="Nombre" >
+                    <input id="reg_lastname" type="text" class="form-control"
+                           placeholder="Apellidos">
+                    <input id="reg_password" type="password" class="form-control"
+                           placeholder="Password">
+                    <input id="reg_password2" type="password" class="form-control"
+                           placeholder="Digita de nuevo el Password">
+                    <input id="reg_email" type="email" class="form-control"
+                           placeholder="Correo electrónico">
+                    <input id="reg_establishment" type="text" class="form-control"
+                           placeholder="Establecimiento al que pertenece">
+                    <input id="reg_jobTitle" type="text" class="form-control"
+                           placeholder="Cargo que representa">
                     <label class="checkbox">
-                        <input id="reg_checkbox" type="checkbox" value="aceptoTerminos">
+                        <input id="reg_checkbox" type="checkbox"
+                               value="aceptoTerminos">
                         Acepto los Términos y Condiciones.
                     </label>
-                    <a href="#">Términos</a>
+                    <a href="Terminos.html">Términos</a>
 
                     <button id="reg_registrar" 
                             class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regEmployee();">Registrar</button>
+                            type="button" 
+                            onclick="regEmployee();">Registrar</button>
                 </form>
             </div>
-            <p id="errorRegMsg" class="alert alert-warning">
-                No has aceptado los términos y condiciones por lo tanto no podrás
-                registrarte con nostros.
-            </p>
+
             <!-- mensajes que emergen dependiendo de eventos exitosos o error-->
-            <div id="msgDisplay">
-                <p id="wrongId" class="alert alert-warning">
-                    oops el valor ingresado como cédula es inválido,
-                    por favor verifica de nuevo.
-                </p>
-                <p id="successfullReg" class="alert alert-success">
-                    Bienvenido, te has registrado exitosamente como empleado!
-                </p>
-                <p id="failedReg" class="alert alert-danger">
-                    Oops... Ha ocurrido un error al registrarte como usuario,
-                    por favor intentalo de nuevo.
-                </p>
-            </div>
-            
+            <p id="errorRegMsg" class="alert alert-warning">  </p>
+
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core JavaScript

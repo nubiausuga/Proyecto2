@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="TarjMultiproposito" content="width=device-width, initial-scale=1.0">
         <meta name="test Registrar Establecimiento" content="">
         <meta name="Jason Cárcamo" content="">
         <title>Registrar Establecimiento</title>
@@ -19,16 +18,20 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" 
-                            data-toggle="collapse" data-target=".navbar-collapse">
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand"
+                       href="../index.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Registrar Establecimiento</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li class="active">
+                            <a href="#">Registrar Establecimiento</a></li>
                         <li><a href="Info.html">Info</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -39,45 +42,35 @@
             <div class="jumbotron">
                 <form>
                     <h2>Registrar Establecimiento</h2>
-                    <input id="reg_nitEstablishment" type="number"
+                    <input id="reg_nitEstablishment" type="text"
                            class="form-control"
-                           placeholder="Nit del Establecimiento" autofocus>
+                           placeholder="Nit del Establecimiento">
                     <input id="reg_estName" type="text"
                            class="form-control" placeholder="Nombre Establecimiento" >
-                    <input id="reg_estType" type="text" class="form-control" placeholder="Tipo de Establecimiento">
+                    <input id="reg_estType" type="text" class="form-control
+                           " placeholder="Tipo de Establecimiento">
                     <input id="reg_estResponsible" type="text"
                            class="form-control" placeholder="Responsable">
                     <input id="reg_idResponsible" type="number"
-                           class="form-control" placeholder="Cédula Responsable">
+                           class="form-control"
+                           placeholder="Cédula Responsable">
                     <label class="checkbox">
-                        <input id="reg_checkbox" type="checkbox" value="aceptoTerminos">
+                        <input id="reg_checkbox" type="checkbox" 
+                               value="aceptoTerminos">
                         Acepto los Términos y Condiciones.
                     </label>
-                    <a href="#">Términos</a>
+                    <a href="Terminos.html">Términos</a>
 
                     <button id="reg_registrar" 
                             class="btn btn-lg btn-primary btn-block"
-                            type="button" onclick="regEstablishment();">Registrar</button>
+                            type="button" 
+                            onclick="regEstablishment();">Registrar</button>
                 </form>
             </div>
-            <p id="nonCFields" class="alert alert-warning">
-                Por favor llena todos los cambios del registro, son obligatorios. 
-            </p>
-            <p id="errorRegMsg" class="alert alert-warning">
-                No has aceptado los términos y condiciones por lo tanto no podrás
-                registrarte con nostros.
-            </p>
-            <!-- mensajes que emergen dependiendo de eventos exitosos o error-->
-            <div id="msgDisplay">
-                <p id="successfullReg" class="alert alert-success">
-                    Se ha registrado exitosamente el nuevo establecimiento.
-                </p>
-                <p id="failedReg" class="alert alert-danger">
-                    Ha ocurrido un Error al registrar el nuevo establecimiento
-                    por favor intentelo de nuevo.
-                </p>
-            </div>
 
+            <!-- mensajes que emergen dependiendo de eventos exitosos o error-->
+            <p id="errorRegMsg" class="alert alert-warning">  </p>
+            <p id="okRegMsg" class="alert alert-success">  </p>
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>
         <!-- Bootstrap core Javascript

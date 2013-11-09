@@ -27,12 +27,14 @@ if (!empty($_POST['postdoc']) && !empty($_POST['postuser']) &&
     if ($varVerifier == -1) {
         return -1;
     } else {
+        
         $reg->nuevoUsuario($newUser->getIdUsuario(), 
                 $newUser->getNombreUsuario(), $newUser->getApellidoUsuario(), 
                 $newUser->getPasswordUsuario(), $newUser->getEmailUsuario(), 2);
-        echo $reg->addEmpleado($newUser->getIdUsuario(),
+        echo $reg->addEmpleado($newEmployee->getIdUsuario(),
                 $newEmployee->getCargoEmpleado(),
+                $newEmployee->getIdUsuario(),
                 $newEmployee->getEstablecimientoEmpleado());
-    }
+   }
 }
 ?>

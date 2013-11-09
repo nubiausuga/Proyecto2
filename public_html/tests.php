@@ -34,4 +34,12 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //echo $test->getUserInfo(201010013010);
 //echo $test->nuevoProducto(102, "bebida gaseosa", "4500", "Coca-Cola");
 //echo $test->actualizarProducto(1, "Bebida Gaseosa Muy Rica", 4500, "Cola-Cola Company");
-echo $test->codVer(5); 
+//echo $test->codVer(5);
+//echo $test->addEmpleado(1017201436, "Developer", 1017201436, "EAFIT");
+
+//crear tipo establecimiento
+//$rand = rand(0,9999999999);   
+//echo $test->addTipoEstablecimiento($rand, "Prueba de Tipo");
+
+//echo $test->getDescTipoEstablecimiento(173891428);
+//echo $test->getIdTipoEstablecimiento($test->getDescTipoEstablecimiento(173891428));

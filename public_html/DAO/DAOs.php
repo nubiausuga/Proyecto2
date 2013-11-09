@@ -191,11 +191,14 @@ class DAOs {
     }
     
     //agrega un usuario como empleado
-    function addEmpleado($idEmpleado, $cargoEmpleado, $establecimientoEmpleado) {
+    function addEmpleado($idEmpleado, $cargoEmpleado,$userDoc,
+            $establecimientoEmpleado) {
        
         $in_empleado = "INSERT INTO `empleado`(id_Doc_Identidad,Str_Cargo,
-            Str_Establecimiento)
-            VALUES ('$idEmpleado','$cargoEmpleado','$establecimientoEmpleado')";
+            Usuario_id_Doc_Identidad,empl_Establecimiento)
+            VALUES ('$idEmpleado','$cargoEmpleado','$userDoc',"
+                . "'$establecimientoEmpleado')";
+        
         $success = mysql_query($in_empleado) or die(mysql_error());
         if ($success) {
             return 0;
@@ -299,20 +302,24 @@ class DAOs {
     
     //agrega un nuevo establecimiento a la base de datos.
     function addEstablecimiento($idEstablecimiento, $nombreEstablecimiento,
-            $responsableEstablecimiento, $tipoEstablecimiento){
-        
+            $responsableEstablecimiento, $nit, $tipoEstablecimiento) {
+
         $in_establecimiento = "INSERT INTO `establecimiento`(id_Establecimiento,
-            Est_Nombre, Est_Responsable, Est_Tipo_Establecimiento)
-            VALUES('$idEstablecimiento','$nombreEstablecimiento',
-                '$responsableEstablecimiento','$tipoEstablecimiento')";
+            Est_Nombre, Tipo_Establecimiento_id_Tipo_Establecimiento1,
+            Nit_Establecimiento,Est_Responsable)
+            VALUES('$idEstablecimiento','$nombreEstablecimiento',"
+                . "'$tipoEstablecimiento','$nit','$responsableEstablecimiento')";
+        
         $success = mysql_query($in_establecimiento) or die(mysql_error());
-        if($success){
-            echo "Se ha agregado satisfactoriamente el establecimiento.";
-        }else{
-            echo "Error al agregar el establecimiento";
+        if ($success) {
+            //registrado satisfactoriamente
+            return 0;
+        } else {
+            //error al registrar establecimiento
+            return -1;
         }
     }
-    
+
     //se agrega un nuevo tipo de establecimiento a la base de datos
     function addTipoEstablecimiento($id_Tipo_Establecimiento,
             $TEst_Descripcion) {
@@ -321,12 +328,49 @@ class DAOs {
                 "INSERT INTO `tipo_establecimiento`
                     (id_Tipo_Establecimiento,TEst_Descripcion)
                     VALUES('$id_Tipo_Establecimiento','$TEst_Descripcion')";
+        
         $success = mysql_query($in_tipoEstablecimiento) or die(mysql_error());
+        
         if ($success) {
             return 0;
         } else {
             return -1;
         }
+    }
+    
+    
+    function getDescTipoEstablecimiento($idTipo){
+        
+        $in = "SELECT `TEst_Descripcion`"
+                . "FROM `tipo_establecimiento`"
+                . " WHERE id_Tipo_Establecimiento = '$idTipo'";
+        
+        $get = mysql_query($in) or die(mysql_error());
+        
+        
+        if($get){
+            $fetch = mysql_fetch_array($get);
+            return $fetch['TEst_Descripcion'];
+        }else{
+            return -1;
+        }
+    }
+    
+    function getIdTipoEstablecimiento($desc){
+        
+        $in = "SELECT `id_Tipo_Establecimiento`"
+                . "FROM `tipo_establecimiento`"
+                . " WHERE TEst_Descripcion = '$desc'";
+        
+        $getId = mysql_query($in) or die(mysql_error());
+        
+        if($getId){
+            $fetch = mysql_fetch_array($getId);
+            return $fetch['id_Tipo_Establecimiento'];
+        }else{
+            return -1;
+        }
+       
     }
     
     //crea una cuenta nueva en la base de datos dado un id de usuario y cuenta único
