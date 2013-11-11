@@ -103,6 +103,20 @@ class DAOs {
         }
     }
     
+    function getEmplExtraInfo($code){
+        
+        $empl = "SELECT * FROM `empleado`"
+                . "WHERE `id_Doc_Identidad`='$code'";
+        $success = mysql_query($empl) or die(mysql_error());
+        
+        if($success){
+            $dbarray = mysql_fetch_array($success);
+            return json_encode($dbarray);
+        }else{
+            return -1;
+        }
+    }
+    
     //decodifica un objeto Json para uso exterior.
     function userDecoder($jsonObj) {
         $obj = json_decode($jsonObj);
@@ -467,14 +481,13 @@ class DAOs {
     //obtener el estado de la cuenta
     function getEstadoCuenta($id){
         
-        $getEstado = "SELECT `Cuen_Estado` FROM"
-                . "`cuenta` WHERE Id_Usuario='$id'";
+        $getEstado = "SELECT Cuen_Estado FROM `cuenta`
+                    WHERE id_Cuenta='$id'";
         $result = mysql_query($getEstado) or die(mysql_error());
-        
         $arr = mysql_fetch_array($result);
         
         if($result){
-            return $arr[0];
+            return $arr['Cuen_Estado'];
         }else{
             return -1;
         }

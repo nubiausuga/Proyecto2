@@ -3,6 +3,7 @@
 include_once '../DAO/DAOs.php';
 include '../Usuarios/Usuario.php';
 include '../Usuarios/Empleado.php';
+include '../Cuentas/Cuenta.php';
 
 $reg = new DAOs();
 
@@ -27,10 +28,20 @@ if (!empty($_POST['postdoc']) && !empty($_POST['postuser']) &&
     if ($varVerifier == -1) {
         return -1;
     } else {
-        
+        //agregar un nuevo usuario
         $reg->nuevoUsuario($newUser->getIdUsuario(), 
                 $newUser->getNombreUsuario(), $newUser->getApellidoUsuario(), 
                 $newUser->getPasswordUsuario(), $newUser->getEmailUsuario(), 2);
+        //crear una cuenta nueva
+        
+        $account = new Cuenta($newEmployee->getIdUsuario(),
+                $newEmployee->getIdUsuario(), 0.0, 'Activada');
+        
+        $reg->crearCuenta($account->getIdCuenta(),
+                $account->getIdUsuarioCuenta(),
+                $account->getSaldoCuenta(), $account->getEstadoCuenta());
+        
+        //crear Empleado
         echo $reg->addEmpleado($newEmployee->getIdUsuario(),
                 $newEmployee->getCargoEmpleado(),
                 $newEmployee->getIdUsuario(),

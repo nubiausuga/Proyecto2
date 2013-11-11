@@ -47,4 +47,4 @@ if ($newStudent->getCarreraEstudiante() == -1) {
     echo $reg->addEstudiante($newUser->getIdUsuario(),
             $newStudent->getCarreraEstudiante(),$newStudent->getIdUsuario());
 }
-?>
+

@@ -43,3 +43,10 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 
 //echo $test->getDescTipoEstablecimiento(173891428);
 //echo $test->getIdTipoEstablecimiento($test->getDescTipoEstablecimiento(173891428));
+//echo $test->getUserInfo(201010013010);
+echo "\n Balance \n";
+echo $test->getBalance(1017201436);
+echo "\n Estado Cuenta \n";
+echo $test->getEstadoCuenta(1017201436);
+//echo $test->getUserInfo(1017201436);
+echo $test->getEmplExtraInfo(1017201436);

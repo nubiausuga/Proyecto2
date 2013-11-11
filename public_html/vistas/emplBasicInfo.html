@@ -5,8 +5,9 @@
         <title>Tarjeta Multipropósito</title>
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/secondaryStuff.css" rel="stylesheet">
     </head>
-    <body>
+    <body  onload="getEmplInfo();">
         <div class="navbar navbar-default navbar-fixed-top" id="pagePrin">
             <div class="container">
                 <div class="navbar-header">
@@ -33,7 +34,7 @@
                 <h2>Configuración</h2>
                 <form method="GET">
                     <table class="table table-bordered table-condensed"
-                           id="tbl_user">
+                           id="tbl_empl">
                         <thead>
                             <tr>
                                 <th> </th>
@@ -60,6 +61,10 @@
                                 <td><a href="#">Cambiar</a></td>
                             </tr>
                             <tr>
+                                <th>Saldo Actual</th>
+                                <td id="re_saldo"> </td>
+                            </tr>
+                            <tr>
                                 <th>Establecimiento vinculado</th>
                                 <td id="re_establecimiento"> </td>
                             </tr>
@@ -69,7 +74,11 @@
                             </tr>
                             <tr>
                                 <th id="r_estado">Estado (Activo)</th>
-                                <td > </td>
+                                <td >
+                                <a id="bloq_unbloq_re"
+                                        href="#">Bloquear cuenta
+                                </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -79,6 +88,7 @@
 
         <!-- =============== Bootstrap core JavaScript============ -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/userInfo.js"></script>
         <script src="//code.jquery.com/jquery.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>

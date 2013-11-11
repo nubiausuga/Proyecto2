@@ -104,6 +104,33 @@ function fieldSemi(var1, var2) {
     }
 }
 
+function getUserInfoHand(data) {
+
+    //alert(data);
+        
+    var json = JSON.parse(data);
+        var nombre = json['Usr_Nombres'];
+        var lastName = json['Usr_Apellidos'];
+        var email = json['Usr_Correo'];
+        var id = json['id_Doc_Identidad'];
+        var balance = json['Balance'];
+        var estado = json['Estado'];
+
+        document.getElementById('r_name').innerHTML = nombre + " " + lastName;
+        document.getElementById('r_code').innerHTML = id;
+        document.getElementById('r_email').innerHTML = email;
+        document.getElementById('r_balance').innerHTML = balance;
+
+        if (estado == "Bloqueada") {
+            document.getElementById('bloq_unbloq').innerHTML =
+                    "Desbloquear Cuenta";
+        }
+            document.getElementById('r_estado').innerHTML =
+                    "Estado" + " " + "(" + estado + ")";
+                    
+                  
+}
+
 //funcionalidad para la verificación en el momento de logearse a la aplicación.
 function loginUser() {
 
@@ -146,8 +173,9 @@ function loginUser() {
                 window.location = "WelcomeSE.html";
             }
             if (data == -1) {
-                document.getElementById('errorLogMsg').style.visibility 
-                        = 'visible';
+                //document.getElementById('errorLogMsg').style.visibility
+                //        = 'visible';
+                window.location = "../index.html";
 
             }
 
@@ -155,6 +183,8 @@ function loginUser() {
     }
 
 }
+
+
 
 //TODO
 function validateForm()
@@ -706,4 +736,12 @@ function getProdInfo() {
         clearUpdProd();
     }
 
+}
+
+function close(){
+    
+    $.post('../php/closeS.php',
+        function(data) {
+            
+        });
 }

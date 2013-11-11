@@ -91,3 +91,30 @@ input[type=number]::-webkit-outer-spin-button {
     visibility: hidden;
     font-size: 1em;
 }
+
+#userRegForm{
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+#userRegForm button{
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#userRegForm input{
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: monospace;
+    
+}
+
+#userRegForm label{
+    font-size: 0.8em;
+    max-width: 30%;
+    font-family: monospace;
+    
+}
