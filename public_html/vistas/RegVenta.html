@@ -23,7 +23,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand"
+                       href="WelcomeSE.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -38,45 +39,93 @@
 
         <div class="container">
             <div class="jumbotron">
-                <form id="prodRegForm">
-                    <h2>Módulo Ventas de Productos</h2>
-                    <label>Código de producto</label>
-                    <input id="cod_producto" type="text" class="form-control"
-                           placeholder="Código producto">
-                   <!-- <button id="agr_producto"
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button"
-                            onclick="agrProducto();">Agregar</button> -->
-                  <!--  <label>Búsqueda por descripción</label>		
-                    <input id="desc_producto" type="text" class="form-control"
-                           placeholder="Descripción producto" > -->
-                  <!--  <button id="busc_descripcion" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="busc_producto();">Buscar</button>  -->    		  
-                   <!-- <h3 id= "BusquedaProducto">Información de producto</h3>	-->	
-                   <!-- <label>Código Restaurante</label>
-                    <input id="cod_restaurante" type="text" class="form-control"
-                           placeholder="Codigo restaurante"> -->
-                    <label> Número de Factura</label>
-                    <input id="num_cuenta" type="text" class="form-control"
-                           placeholder="Factura numero">
-                    <!-- <label id= "FacturaCliente">Información de la Factura</label> -->
-                    <label>Carnet</label>
-                    <input id="Cod_Carnet" type="text" class="form-control"
-                           placeholder="Codigo Carnet">
-                    <label>Total</label>
-                    <input id="Total_Cuenta" type="text" class="form-control"
-                           placeholder="Total Factura">
-                    <button id="nueva_Factura"
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button"
-                            onclick="nuevaFactura();">Nueva Factura</button>
-                    <button id="imprimir_Factura"
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button"
-                            onclick="imprimirFactura();">Pagar</button>	
-                </form>
+                <div id="wrapper">
+                    <header>
+                        <nav>
+                            <h2>Módulo Ventas de Productos</h2>
+                        </nav>
+                    </header>
+                    <div id="content">
+                        <form id="prodRegForm">
+
+                            <label>Carnet</label>
+                            <input id="Cod_Carnet" type="text"
+                                   class="form-control"
+                                   placeholder="Codigo Carnet"
+                                   autocomplete="off" autofocus>
+
+                            <label>Código de producto</label>
+                            <input id="cod_producto" type="text"
+                                   class="form-control"
+                                   placeholder="Código producto" 
+                                   autocomplete="off">
+
+                            <label>Número de Cantidades</label>
+                            <input id="num_cantidad" type="number"
+                                   class="form-control"
+                                   placeholder="Cantidadades"
+                                   autocomplete="off">
+
+                            <button type="button" id="buying"
+                                    class="btn btn-block btn-primary" onclick="addItem2();">Agregar</button>
+                        </form>
+                    </div> 
+                    <div id="rightcol"> 
+                        <h3>Lista de productos</h3>
+                        <table>
+                            <thead>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            </thead>
+                            <tbody id="tbodyProducto">
+                                <!-- <tr>
+                                     <th> 1 </th>
+                                     <td> $ </td>
+                                     <td> & </td>
+                                 </tr>
+                                -->
+                            </tbody>
+                        </table>
+                        <br>
+                        <table id="listTable">
+                            <thead>
+                            <th>Total</th>
+                            <th>  Fondos Restantes</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <th><p id="totalPrice">Total = $0</p></th>
+                            <td><p id="remainsVal"> </p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div> 
+                    <footer></footer>
+                </div> 
+                <!--                    
+                                    <button id="nueva_Factura"
+                                            class="btn btn-lg btn-primary btn-block"
+                                            type="button"
+                                            onclick="nuevaFactura();">Nueva Factura</button>
+                                    <button id="imprimir_Factura"
+                                            class="btn btn-lg btn-primary btn-block"
+                                            type="button"
+                                            onclick="imprimirFactura();">Pagar</button>	
+                -->
+                <div id="btn_bottom_buy">
+                    <button type="button" id="btn_deleteLast"
+                            class="btn btn-primary"
+                            onclick="delFromList();">
+                        Eliminar último registro
+                    </button>
+                    <button type="button" id="btn_buyAll"
+                            class="btn btn-primary"
+                            onclick="buyAll();">
+                        Finalizar Compra
+                    </button> 
+                </div>
             </div>
         </div> <!-- /container -->
         <script type="text/javascript" src="js/eventHandler.js"></script>

@@ -6,7 +6,7 @@
         <!-- bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     </head>
-    <body>
+    <body onload="inOrOut();">
         <div class="navbar navbar-default navbar-fixed-top" id="pagePrin">
             <div class="container">
                 <div class="navbar-header">
@@ -15,13 +15,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="../index.html">Tarjeta Multipropósito</a>
+                    <a class="navbar-brand"
+                       href="WelcomeSE.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Bienvenido</a></li>
                           <li><a href="emplBasicInfo.html">Configuración</a></li>
-                        <li><a href="../index.html">Cerrar sesión</a></li>
+                        <li><a href="javascript:close();">Cerrar sesión</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -46,8 +47,9 @@
 
         <!-- =============== Bootstrap core JavaScript============ -->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/eventHandler.js"></script>
         <script src="//code.jquery.com/jquery.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap/js/bootstrap.min.js"></script>
-    </body>
+      </body>
 </html>

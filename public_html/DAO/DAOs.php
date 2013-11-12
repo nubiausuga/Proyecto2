@@ -542,7 +542,7 @@ class DAOs {
         $query = "SELECT * FROM `producto` "
                 . "WHERE `id_Producto`='$code'";
         $success = mysql_query($query) or die(mysql_error());
-        
+
         $dbarray = mysql_fetch_array($success);
         if ($success) {
             return json_encode($dbarray);
@@ -550,5 +550,5 @@ class DAOs {
             return -1;
         }
     }
-     
+
 }

@@ -7,7 +7,7 @@ class DatabaseLogin {
     private $db_host = 'localhost';
     private $db_database = 'mydb';
     private $db_username = 'root';
-    private $db_password = 'root';
+    private $db_password = '9AkumaDesu$$';
     
  
     //remote db

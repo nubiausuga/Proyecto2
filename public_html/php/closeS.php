@@ -1,17 +1,14 @@
 <?php
 
+session_start();
 include '../DAO/DAOs.php';
 
 $dao = new DAOs();
 
-session_destroy();
+$_SESSION['access'] = false;
 $estado = $_SESSION['access'];
+session_destroy();
 
-if(!$estado){
-    echo 0;
-}else{
-    
-    
-}
+echo $estado;
 
 

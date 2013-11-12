@@ -107,28 +107,28 @@ function fieldSemi(var1, var2) {
 function getUserInfoHand(data) {
 
     //alert(data);
-        
+
     var json = JSON.parse(data);
-        var nombre = json['Usr_Nombres'];
-        var lastName = json['Usr_Apellidos'];
-        var email = json['Usr_Correo'];
-        var id = json['id_Doc_Identidad'];
-        var balance = json['Balance'];
-        var estado = json['Estado'];
+    var nombre = json['Usr_Nombres'];
+    var lastName = json['Usr_Apellidos'];
+    var email = json['Usr_Correo'];
+    var id = json['id_Doc_Identidad'];
+    var balance = json['Balance'];
+    var estado = json['Estado'];
 
-        document.getElementById('r_name').innerHTML = nombre + " " + lastName;
-        document.getElementById('r_code').innerHTML = id;
-        document.getElementById('r_email').innerHTML = email;
-        document.getElementById('r_balance').innerHTML = balance;
+    document.getElementById('r_name').innerHTML = nombre + " " + lastName;
+    document.getElementById('r_code').innerHTML = id;
+    document.getElementById('r_email').innerHTML = email;
+    document.getElementById('r_balance').innerHTML = balance;
 
-        if (estado == "Bloqueada") {
-            document.getElementById('bloq_unbloq').innerHTML =
-                    "Desbloquear Cuenta";
-        }
-            document.getElementById('r_estado').innerHTML =
-                    "Estado" + " " + "(" + estado + ")";
-                    
-                  
+    if (estado == "Bloqueada") {
+        document.getElementById('bloq_unbloq').innerHTML =
+                "Desbloquear Cuenta";
+    }
+    document.getElementById('r_estado').innerHTML =
+            "Estado" + " " + "(" + estado + ")";
+
+
 }
 
 //funcionalidad para la verificación en el momento de logearse a la aplicación.
@@ -395,7 +395,7 @@ function regEmployee() {
 
 function estFieldVer(nit) {
 
-   var regex = new RegExp("[1-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{1}");
+    var regex = new RegExp("[1-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{1}");
 
     if (regex.test(nit)) {
         return true;
@@ -424,7 +424,7 @@ function regEstablishment() {
     var acceptance = document.getElementById('reg_checkbox').checked;
     var oldHTML = "";
     var newHTML = "";
-    
+
     if (est_nit !== "" && est_name !== "" && est_type !== "" &&
             est_Responsable !== "" && est_idResponsable !== "") {
 
@@ -676,13 +676,15 @@ function blocVerification() {
             //alert(data);
 
             if (data == 1) {
-                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                document.getElementById('errorLogMsg').style.visibility =
+                        'hidden';
                 bloqueo(user);
                 alert("Estado de cuenta modificado exitosamente!");
                 window.location = "userBasicInfo.html";
             }
             if (data == 2) {
-                document.getElementById('errorLogMsg').style.visibility = 'hidden';
+                document.getElementById('errorLogMsg').style.visibility = 
+                        'hidden';
                 var oldHTML = document.getElementById('errorRegMsg').innerHTML;
                 var newHTML = messages("wrongPlace");
                 document.getElementById('errorRegMsg').innerHTML = newHTML;
@@ -738,10 +740,180 @@ function getProdInfo() {
 
 }
 
-function close(){
-    
+function close() {
+
     $.post('../php/closeS.php',
+            function(data) {
+
+                if (data == 0) {
+                    window.location = "../index.html";
+                }
+
+            });
+}
+
+function inOrOut() {
+
+    $.post('../php/verifyLog.php',
+            function(data) {
+
+                if (data != 1) {
+                    window.location = "LoginUsuario.html";
+                }
+
+            });
+}
+
+var lproduct =[];
+var total = 0;
+var realBalance = 0;
+
+function addItem() {
+
+    var code = $('#Cod_Carnet').val();
+    var product = $('#cod_producto').val();
+    var quantity = $('#num_cantidad').val();
+
+    if (code !== "" && product !== "" && quantity !== "") {
+
+        //product list
+        lproduct.push(product);
+        lproduct.push(quantity);
+
+        $.post('../php/addItem.php',
+                {postcode: code, postproduct: product, postq: quantity},
         function(data) {
+            //alert(data);
+            if(data == -1){
+                alert("oops wrong id");
+            }else{
+                
+            var json = JSON.parse(data);
+            var balance = json['SaldoActual'];
+            var prodPrice = json['PrecioProducto'];
+            var nameProd = json['NombreProducto'];
+            var quantity = json['Q'];
+            var remains = json['Remain'];
+
+            realBalance = Number(balance);
+            total = total + (Number(prodPrice) * quantity);
+            
+            //add new items
+            var oldHTML = document.getElementById('tbodyProducto').innerHTML;
+            var newHTML = "<tr><th> " + nameProd + " </th><td>" + prodPrice +
+                    "</td><td>" + quantity + "</td></tr>";
+            document.getElementById('tbodyProducto').innerHTML =
+                    oldHTML + newHTML;
+            //refresh total
+            var oldHTML = document.getElementById('totalPrice').innerHTML;
+            var newHTML = "$" + total;
+            document.getElementById('totalPrice').innerHTML = newHTML;
+
+            var oldHTML = document.getElementById('remainsVal').innerHTML;
+            var newHTML = "$" + (realBalance - total);
+            document.getElementById('remainsVal').innerHTML = newHTML;
+            
+            }
             
         });
+
+    } else {
+        //empty fields error
+        alert(messages("emptyFields"));
+    }
+
+}
+
+function addItem2() {
+
+    var code = $('#Cod_Carnet').val();
+    var product = $('#cod_producto').val();
+    var quantity = $('#num_cantidad').val();
+
+    if (code !== "" && product !== "" && quantity !== "") {
+
+        $.post('../php/addItem.php',
+                {postcode: code, postproduct: product, postq: quantity},
+        function(data) {
+            //alert(data);
+            if (data == -1) {
+                alert("oops wrong id");
+            } else {
+
+                var json = JSON.parse(data);
+                var balance = json['SaldoActual'];
+                var prodPrice = json['PrecioProducto'];
+                var nameProd = json['NombreProducto'];
+                var quantity = json['Q'];
+                var remains = json['Remain'];
+
+                //product list
+                lproduct.push(nameProd);
+                lproduct.push(prodPrice);
+                lproduct.push(quantity);
+
+                realBalance = Number(balance);
+                total = total + (Number(prodPrice) * quantity);
+                
+                actualList();
+            }
+
+        });
+
+    } else {
+        //empty fields error
+        alert(messages("emptyFields"));
+    }
+
+}
+
+function actualList() {
+    
+    var oldHTML = document.getElementById('tbodyProducto').innerHTML;
+    for (var i = 0; i < lproduct.length; i += 3) {
+        
+        //refresh list, add new items
+        newHTML = "<tr><th> " + lproduct[i] + " </th><td>" +
+                lproduct[i+1] + "</td><td>" + lproduct[i+2] + "</td></tr>";
+        document.getElementById('tbodyProducto').innerHTML = oldHTML + newHTML;
+        
+        //refresh total
+        var newHTML = "$" + total;
+        document.getElementById('totalPrice').innerHTML = newHTML;
+
+        //refresh remaining
+        var newHTML = "$" + (realBalance - total);
+        document.getElementById('remainsVal').innerHTML = newHTML;
+        
+    }
+}
+
+function delFromList(){
+    delete lproduct[lproduct.length-1];
+    delete lproduct[lproduct.length-2];
+    delete lproduct[lproduct.length-3];
+   
+   lproduct.splice(lproduct.length-3,3);
+   
+   //refresh fields
+   var table = document.getElementById('listTable');
+   var rowCount = table.rows.length;
+   alert(rowCount);
+   //actualList(lproduct);
+}
+
+function buyAll(){
+    
+    var list = lproduct;
+    var prices = [];
+    
+    for(var i = 0; i < list.length; i+=3){
+        prices[i] = lproduct[i];
+    }
+    
+    //splicing
+    for(var j = 0; j < list.length; j+=2){
+        prices.splice(j+1,j+2);
+    }
+    alert(prices);
 }
