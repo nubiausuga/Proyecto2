@@ -224,18 +224,6 @@ LOCK TABLES `factura_has_producto` WRITE;
 /*!40000 ALTER TABLE `factura_has_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
--- 
--- Table structure for table `Android`
--- 
-
-DROP TABLE IF EXISTS `Android`;
-
-CREATE TABLE `Android` (
-  `idAndroid` INT NOT NULL,
-  `Android_Codigo` BIGINT NULL,
-  PRIMARY KEY (`idAndroid`))
-  ENGINE = InnoDB DEFAULT CHARSET=utf8;;
-
 --
 -- Table structure for table `producto`
 --
@@ -312,7 +300,6 @@ LOCK TABLES `tipo_establecimiento` WRITE;
 INSERT INTO `tipo_establecimiento` VALUES (870532934,'Cafeteria-Restaurante');
 /*!40000 ALTER TABLE `tipo_establecimiento` ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 --
 -- Table structure for table `usuario`
