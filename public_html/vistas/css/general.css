@@ -1,0 +1,20 @@
+@charset "utf-8";
+body {
+  font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+  background-color: silver;
+}
+
+td {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+th {
+	font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+#title{
+    font-family: "Trebunch MS",sans-serif,fantasy;
+    font-size: 25px;
+    color: green;
+    text-align: center;
+}
