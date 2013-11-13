@@ -65,6 +65,10 @@ function messages(var1) {
             msg = "El Nit es erroneo, por favor verificar e intentarlo de nuevo.\n\
                    <br> El formato NIT son 10 números con este formato: XXX.XXX.XXX-Y";
             break;
+        case 'fondosI':
+            msg = "Lo sentimos, tiene fondos insuficientes para agregar el \n\
+                    producto seleccionado.";
+            break;
         case 'establishmentFail':
             msg = "Ha ocurrido un error al crear el nuevo establecimiento,\n\
                     por favor intentelo de nuevo.";
@@ -767,6 +771,7 @@ function inOrOut() {
 var lproduct =[];
 var total = 0;
 var realBalance = 0;
+var rema = 0;
 
 function addItem() {
 
@@ -797,6 +802,7 @@ function addItem() {
 
             realBalance = Number(balance);
             total = total + (Number(prodPrice) * quantity);
+            rema = realBalance - total;
             
             //add new items
             var oldHTML = document.getElementById('tbodyProducto').innerHTML;
@@ -810,13 +816,13 @@ function addItem() {
             document.getElementById('totalPrice').innerHTML = newHTML;
 
             var oldHTML = document.getElementById('remainsVal').innerHTML;
-            var newHTML = "$" + (realBalance - total);
+            var newHTML = "$" + (rema);
             document.getElementById('remainsVal').innerHTML = newHTML;
             
             }
             
         });
-
+        
     } else {
         //empty fields error
         alert(messages("emptyFields"));
@@ -847,15 +853,28 @@ function addItem2() {
                 var quantity = json['Q'];
                 var remains = json['Remain'];
 
-                //product list
-                lproduct.push(nameProd);
-                lproduct.push(prodPrice);
-                lproduct.push(quantity);
-
                 realBalance = Number(balance);
                 total = total + (Number(prodPrice) * quantity);
-                
-                actualList();
+                rema = realBalance - total;
+
+                if (rema > 0) {
+                    document.getElementById('foot_msg').style.visibility =
+                            'hidden';
+                    //product list
+                    lproduct.push(nameProd);
+                    lproduct.push(prodPrice);
+                    lproduct.push(quantity);
+
+                    actualList();
+                } else {
+                    //alert("Fondos insuficientes para agregar el producto!");
+                    document.getElementById('foot_msg').style.visibility =
+                            'visible';
+                    var oldHTML = document.getElementById('foot_msg').innerHTML;
+                    var newHTML = messages("fondosI");
+                    document.getElementById('foot_msg').innerHTML = newHTML;
+                }
+
             }
 
         });
@@ -902,18 +921,35 @@ function delFromList(){
    //actualList(lproduct);
 }
 
-function buyAll(){
-    
+function buyAll() {
+
     var list = lproduct;
+    var prodName = [];
     var prices = [];
-    
-    for(var i = 0; i < list.length; i+=3){
-        prices[i] = lproduct[i];
+    var currentCode = $('#Cod_Carnet').val();
+
+    for (var i = 0; i < list.length; i += 3) {
+        prodName[i] = lproduct[i];
     }
-    
+
     //splicing
-    for(var j = 0; j < list.length; j+=2){
-        prices.splice(j+1,j+2);
+    for (var j = 0; j < list.length; j += 2) {
+        prodName.splice(j + 1, j + 2);
     }
-    alert(prices);
+
+    for (var k = 0; k < list.length; k++) {
+        prices[k] = lproduct[k];
+    }
+
+    //splicing
+    for (var l = 0; l < list.length; l++) {
+        prices.splice(l, l + 1);
+    }
+
+    $.post('../php/buyAll.php',
+    {postProd: prodName, postPrices: prices,postcode: currentCode},
+    function(data){
+        alert(data);
+    });
+    
 }
