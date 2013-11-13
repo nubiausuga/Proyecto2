@@ -74,6 +74,18 @@ INSERT INTO `empleado` VALUES (1017201436,'Developer',1017201436,'El Rancherito'
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 UNLOCK TABLES;
 
+-- 
+-- Table structure for table `Android`
+-- 
+
+DROP TABLE IF EXISTS `Android`;
+
+CREATE TABLE `Android` (
+  `idAndroid` INT NOT NULL,
+  `Android_Codigo` BIGINT NULL,
+  PRIMARY KEY (`idAndroid`))
+  ENGINE = InnoDB DEFAULT CHARSET=utf8;;
+
 --
 -- Table structure for table `establecimiento`
 --
