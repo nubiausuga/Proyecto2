@@ -192,3 +192,8 @@ height: 50px;
     font-size: .8em;
     visibility: hidden;
 }
+
+#okPurchase{
+    font-size: 0.8em;
+    visibility: hidden;
+}

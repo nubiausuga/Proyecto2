@@ -54,3 +54,7 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //echo $test->getIdEstablecimiento(1017201436);
 //echo $test->getEstablishmentName(1017201436);
 //echo $test->getIdEstEmployee($test->getEstablishmentName(1017201436));
+//$datetime = date("Y-m-d H:i:s"); 
+//echo $datetime;
+//echo $test->addFactura($datetime, 3000, 1, 3000, 0, 201010013010, 1231231231, 1017201436);
+echo $test->facVerExist(1);

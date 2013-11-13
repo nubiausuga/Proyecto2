@@ -73,6 +73,14 @@ function messages(var1) {
             msg = "Ha ocurrido un error al crear el nuevo establecimiento,\n\
                     por favor intentelo de nuevo.";
             break;
+        case 'successPurchase':
+            msg = "Se ha efectuado la compra exitosamente, puede continuar con\n\
+                    el siguiente cliente.";
+            break;
+        case 'errPurchase':
+            msg = "Ha ocurrido un error para efectuar la compra, por intentelo\n\
+                    de nuevo más tarde.";
+            break;
         default:
             msg = "Elige mensaje de error";
             break;
@@ -687,7 +695,7 @@ function blocVerification() {
                 window.location = "userBasicInfo.html";
             }
             if (data == 2) {
-                document.getElementById('errorLogMsg').style.visibility = 
+                document.getElementById('errorLogMsg').style.visibility =
                         'hidden';
                 var oldHTML = document.getElementById('errorRegMsg').innerHTML;
                 var newHTML = messages("wrongPlace");
@@ -768,7 +776,7 @@ function inOrOut() {
             });
 }
 
-var lproduct =[];
+var lproduct = [];
 var total = 0;
 var realBalance = 0;
 var rema = 0;
@@ -789,40 +797,40 @@ function addItem() {
                 {postcode: code, postproduct: product, postq: quantity},
         function(data) {
             //alert(data);
-            if(data == -1){
+            if (data == -1) {
                 alert("oops wrong id");
-            }else{
-                
-            var json = JSON.parse(data);
-            var balance = json['SaldoActual'];
-            var prodPrice = json['PrecioProducto'];
-            var nameProd = json['NombreProducto'];
-            var quantity = json['Q'];
-            var remains = json['Remain'];
+            } else {
 
-            realBalance = Number(balance);
-            total = total + (Number(prodPrice) * quantity);
-            rema = realBalance - total;
-            
-            //add new items
-            var oldHTML = document.getElementById('tbodyProducto').innerHTML;
-            var newHTML = "<tr><th> " + nameProd + " </th><td>" + prodPrice +
-                    "</td><td>" + quantity + "</td></tr>";
-            document.getElementById('tbodyProducto').innerHTML =
-                    oldHTML + newHTML;
-            //refresh total
-            var oldHTML = document.getElementById('totalPrice').innerHTML;
-            var newHTML = "$" + total;
-            document.getElementById('totalPrice').innerHTML = newHTML;
+                var json = JSON.parse(data);
+                var balance = json['SaldoActual'];
+                var prodPrice = json['PrecioProducto'];
+                var nameProd = json['NombreProducto'];
+                var quantity = json['Q'];
+                var remains = json['Remain'];
 
-            var oldHTML = document.getElementById('remainsVal').innerHTML;
-            var newHTML = "$" + (rema);
-            document.getElementById('remainsVal').innerHTML = newHTML;
-            
+                realBalance = Number(balance);
+                total = total + (Number(prodPrice) * quantity);
+                rema = realBalance - total;
+
+                //add new items
+                var oldHTML = document.getElementById('tbodyProducto').innerHTML;
+                var newHTML = "<tr><th> " + nameProd + " </th><td>" + prodPrice +
+                        "</td><td>" + quantity + "</td></tr>";
+                document.getElementById('tbodyProducto').innerHTML =
+                        oldHTML + newHTML;
+                //refresh total
+                var oldHTML = document.getElementById('totalPrice').innerHTML;
+                var newHTML = "$" + total;
+                document.getElementById('totalPrice').innerHTML = newHTML;
+
+                var oldHTML = document.getElementById('remainsVal').innerHTML;
+                var newHTML = "$" + (rema);
+                document.getElementById('remainsVal').innerHTML = newHTML;
+
             }
-            
+
         });
-        
+
     } else {
         //empty fields error
         alert(messages("emptyFields"));
@@ -865,6 +873,9 @@ function addItem2() {
                     lproduct.push(prodPrice);
                     lproduct.push(quantity);
 
+                    document.getElementById('cod_producto').value = "";
+                    document.getElementById('num_cantidad').value = "";
+
                     actualList();
                 } else {
                     //alert("Fondos insuficientes para agregar el producto!");
@@ -873,6 +884,9 @@ function addItem2() {
                     var oldHTML = document.getElementById('foot_msg').innerHTML;
                     var newHTML = messages("fondosI");
                     document.getElementById('foot_msg').innerHTML = newHTML;
+
+                    document.getElementById('cod_producto').value = "";
+                    document.getElementById('num_cantidad').value = "";
                 }
 
             }
@@ -882,20 +896,23 @@ function addItem2() {
     } else {
         //empty fields error
         alert(messages("emptyFields"));
+        var oldHTML = document.getElementById('foot_msg').innerHTML;
+        var newHTML = messages("emptyFields");
+        document.getElementById('foot_msg').innerHTML = newHTML;
     }
 
 }
 
 function actualList() {
-    
+
     var oldHTML = document.getElementById('tbodyProducto').innerHTML;
     for (var i = 0; i < lproduct.length; i += 3) {
-        
+
         //refresh list, add new items
         newHTML = "<tr><th> " + lproduct[i] + " </th><td>" +
-                lproduct[i+1] + "</td><td>" + lproduct[i+2] + "</td></tr>";
+                lproduct[i + 1] + "</td><td>" + lproduct[i + 2] + "</td></tr>";
         document.getElementById('tbodyProducto').innerHTML = oldHTML + newHTML;
-        
+
         //refresh total
         var newHTML = "$" + total;
         document.getElementById('totalPrice').innerHTML = newHTML;
@@ -903,22 +920,25 @@ function actualList() {
         //refresh remaining
         var newHTML = "$" + (realBalance - total);
         document.getElementById('remainsVal').innerHTML = newHTML;
-        
+
     }
 }
 
-function delFromList(){
-    delete lproduct[lproduct.length-1];
-    delete lproduct[lproduct.length-2];
-    delete lproduct[lproduct.length-3];
-   
-   lproduct.splice(lproduct.length-3,3);
-   
-   //refresh fields
-   var table = document.getElementById('listTable');
-   var rowCount = table.rows.length;
-   alert(rowCount);
-   //actualList(lproduct);
+function delFromList() {
+    //TODO, problems occured
+    /*
+     delete lproduct[lproduct.length-1];
+     delete lproduct[lproduct.length-2];
+     delete lproduct[lproduct.length-3];
+     
+     lproduct.splice(lproduct.length-3,3);
+     
+     //refresh fields
+     var table = document.getElementById('listTable');
+     var rowCount = table.rows.length;
+     alert(rowCount);
+     //actualList(lproduct);
+     */
 }
 
 function buyAll() {
@@ -947,9 +967,62 @@ function buyAll() {
     }
 
     $.post('../php/buyAll.php',
-    {postProd: prodName, postPrices: prices,postcode: currentCode},
-    function(data){
-        alert(data);
+            {postProd: prodName, postPrices: prices, postcode: currentCode},
+    function(data) {
+        //alert(data);
+        if (data == 0) {
+            //successfull purchase
+            document.getElementById('foot_msg').style.visibility =
+                    'hidden';
+            document.getElementById('okPurchase').style.visibility =
+                    'visible';
+            oldHTML = document.getElementById('okPurchase').innerHTML;
+            newHTML = messages("successPurchase");
+            document.getElementById('okPurchase').innerHTML = newHTML;
+            //clear All Up
+            newPurchaseClear();
+        } else {
+            document.getElementById('okPurchase').style.visibility =
+                    'hidden';
+            document.getElementById('foot_msg').style.visibility =
+                    'visible';
+            oldHTML = document.getElementById('foot_msg').innerHTML;
+            newHTML = messages("errPurchase");
+            document.getElementById('foot_msg').innerHTML = newHTML;
+        }
     });
-    
+
+}
+
+//resetear todos los campos del form para preparar la nueva compra
+function newPurchaseClear() {
+
+    //clear fields
+    document.getElementById('Cod_Carnet').value = "";
+    document.getElementById('cod_producto').value = "";
+    document.getElementById('num_cantidad').value = "";
+
+    //clear lists
+    var oldHTML = document.getElementById('tbodyProducto').innerHTML;
+    var newHTML = " ";
+    document.getElementById('tbodyProducto').innerHTML = newHTML;
+
+    var oldHTML = document.getElementById('totalPrice').innerHTML;
+    var newHTML = "Total = $0";
+    document.getElementById('totalPrice').innerHTML = newHTML;
+
+    var oldHTML = document.getElementById('remainsVal').innerHTML;
+    var newHTML = " ";
+    document.getElementById('remainsVal').innerHTML = newHTML;
+
+    //hide messages
+    //document.getElementById('okPurchase').style.visibility = 'hidden';
+    document.getElementById('foot_msg').style.visibility = 'hidden';
+
+    //reset vars
+    lproduct = [];
+    total = 0;
+    realBalance = 0;
+    rema = 0;
+
 }

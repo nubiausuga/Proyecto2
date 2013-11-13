@@ -633,5 +633,46 @@ class DAOs {
             return -1;
         }
     }
+    
+  
+    function addFactura($fac_Fecha, $fac_Total, $fac_EstadoFactura,
+            $fac_ValorCarnet, $fac_ValorEfectivo, $idUsuario,
+            $idEstablecimiento, $currentEmployee) {
+
+        $addDate = "INSERT INTO `factura`(Fac_Fecha, Fac_Total,"
+                . " Fac_EstadoFactura, Fact_ValorCarnet, Fact_ValorEfectivo,"
+                . " Usuario_id_Doc_identidad1, Establecimiento_id_Establecimiento,"
+                . " Empleado_id_Doc_Identidad)"
+                . "VALUES('$fac_Fecha','$fac_Total','$fac_EstadoFactura',"
+                . "'$fac_ValorCarnet','$fac_ValorEfectivo','$idUsuario',"
+                . "'$idEstablecimiento','$currentEmployee')";
+
+        $success = mysql_query($addDate) or die(mysql_error());
+
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    //verificar que ya existe en la base de datos un id Factura
+    function facVerExist($idFac) {
+
+        $idFacVer = "SELECT `idFactura`"
+                . "FROM `factura`"
+                . "WHERE `idFactura`='$idFac'";
+
+        $querIt = mysql_query($idFacVer) or die(mysql_error());
+
+        $fArr = mysql_fetch_array($querIt);
+        if ($fArr == null) {
+            //exito no existe
+            return 0;
+        } else {
+            //existe factura
+            return -1;
+        }
+    }
 
 }

@@ -6,18 +6,16 @@ class Movimiento {
     private $idEstablecimiento;
     private $descripcionMovimiento;
     private $fechaMovimiento;
-    private $horaMovimiento;
     private $valorMovimiento;
     private $idCuenta;
 
     function __construct($idMovimiento, $idEstablecimiento,
-            $descripcionMovimiento, $fechaMovimiento, $horaMovimiento,
+            $descripcionMovimiento, $fechaMovimiento,
             $valorMovimiento, $idCuenta) {
         $this->idMovimiento = $idMovimiento;
         $this->idEstablecimiento = $idEstablecimiento;
         $this->descripcionMovimiento = $descripcionMovimiento;
         $this->fechaMovimiento = $fechaMovimiento;
-        $this->horaMovimiento = $horaMovimiento;
         $this->valorMovimiento = $valorMovimiento;
         $this->idCuenta = $idCuenta;
     }
@@ -52,14 +50,6 @@ class Movimiento {
 
     public function setFechaMovimiento($fechaMovimiento) {
         $this->fechaMovimiento = $fechaMovimiento;
-    }
-
-    public function getHoraMovimiento() {
-        return $this->horaMovimiento;
-    }
-
-    public function setHoraMovimiento($horaMovimiento) {
-        $this->horaMovimiento = $horaMovimiento;
     }
 
     public function getValorMovimiento() {
