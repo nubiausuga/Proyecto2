@@ -50,3 +50,7 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //echo $test->getEstadoCuenta(1017201436);
 //echo $test->getUserInfo(1017201436);
 //echo $test->getEmplExtraInfo(1017201436);
+//echo $test->addPropEstablecimiento(341930533, 1017201436);
+//echo $test->getIdEstablecimiento(1017201436);
+//echo $test->getEstablishmentName(1017201436);
+//echo $test->getIdEstEmployee($test->getEstablishmentName(1017201436));

@@ -316,14 +316,14 @@ class DAOs {
     
     //agrega un nuevo establecimiento a la base de datos.
     function addEstablecimiento($idEstablecimiento, $nombreEstablecimiento,
-            $responsableEstablecimiento, $nit, $tipoEstablecimiento) {
+            $nit, $tipoEstablecimiento) {
 
         $in_establecimiento = "INSERT INTO `establecimiento`(id_Establecimiento,
             Est_Nombre, Tipo_Establecimiento_id_Tipo_Establecimiento1,
-            Nit_Establecimiento,Est_Responsable)
+            Nit_Establecimiento)
             VALUES('$idEstablecimiento','$nombreEstablecimiento',"
-                . "'$tipoEstablecimiento','$nit','$responsableEstablecimiento')";
-        
+                . "'$tipoEstablecimiento','$nit')";
+
         $success = mysql_query($in_establecimiento) or die(mysql_error());
         if ($success) {
             //registrado satisfactoriamente
@@ -370,6 +370,58 @@ class DAOs {
         }
     }
     
+    //get id del establecimiento dado el dueño del establecimiento
+    function getIdEstablecimiento($idOwner) {
+
+        $getID = "SELECT `Establecimiento_id_Establecimiento` "
+                . "FROM `establecimiento_has_propietario`"
+                . "WHERE `Propietario_id_Doc_Identidad`='$idOwner'";
+
+        $success = mysql_query($getID) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['Establecimiento_id_Establecimiento'];
+        } else {
+            return -1;
+        }
+    }
+    
+    //get nombre de establecimiento vinculado del empleado actual
+    function getEstablishmentName($idEmployee) {
+
+        $nombreEst = "SELECT `empl_Establecimiento` "
+                . "FROM `empleado` "
+                . "WHERE `id_Doc_Identidad`='$idEmployee'";
+
+        $success = mysql_query($nombreEst) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['empl_Establecimiento'];
+        } else {
+            return -1;
+        }
+    }
+
+    //get id del establecimiento dado nombre del establecimiento y su trabajador
+    //actual del contexto.
+    function getIdEstEmployee($estName) {
+
+        $getId = "SELECT `id_Establecimiento` "
+                . "FROM `establecimiento`"
+                . "WHERE `Est_Nombre`='$estName'";
+
+        $success = mysql_query($getId) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['id_Establecimiento'];
+        } else {
+            return -1;
+        }
+    }
+
     function getIdTipoEstablecimiento($desc){
         
         $in = "SELECT `id_Tipo_Establecimiento`"
@@ -546,6 +598,37 @@ class DAOs {
         $dbarray = mysql_fetch_array($success);
         if ($success) {
             return json_encode($dbarray);
+        } else {
+            return -1;
+        }
+    }
+    
+  //agregar propietario de establecimiento has propietario
+  function addPropEstablecimiento($idEsta, $idOwner) {
+
+        $regProp = "INSERT INTO"
+                . " `establecimiento_has_propietario`"
+                . "(Establecimiento_id_Establecimiento,Propietario_id_Doc_Identidad)"
+                . "VALUES('$idEsta','$idOwner')";
+
+        $success = mysql_query($regProp) or die(mysql_error());
+
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+  
+  //agregar propietario de establecimiento
+  function addPropietario($idPropietario, $nombrePropietario, $usuarioIdProp) {
+
+        $regPropietario = "INSERT INTO `propietario`"
+                . "(id_Doc_Identidad,Pro_Nombre,Usuario_id_Doc_Identidad)"
+                . "VALUES ('$idPropietario','$nombrePropietario','$usuarioIdProp')";
+        $success = mysql_query($regPropietario) or die(mysql_error());
+        if ($success) {
+            return 0;
         } else {
             return -1;
         }

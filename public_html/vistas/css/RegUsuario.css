@@ -187,3 +187,8 @@ height: 50px;
     font-size: .2em;
     font-family: monospace;
 }
+
+#foot_msg{
+    font-size: .8em;
+    visibility: hidden;
+}
