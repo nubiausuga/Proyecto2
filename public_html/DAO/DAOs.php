@@ -844,11 +844,29 @@ class DAOs {
   
   function getAverageEstablishment($nombreEst){
       
-      $getAverage = "SELECT avg(Fac_Total) as promedio_ventas,"
-              . " est.Est_Nombre as Establecimiento "
-              . "FROM `factura` as fac, `establecimiento` as est"
-              . "WHERE fac.Establecimiento_id_Establecimiento = est.id_Establecimiento"
-              . "and Establecimiento = '$nombreEst'";
+      $getAverage = "SELECT avg(Fac_Total) as promedio_ventas, establecimiento.Est_Nombre as Establecimiento "
+              . "FROM `factura`, `establecimiento`"
+              . "WHERE factura.Establecimiento_id_Establecimiento = establecimiento.id_Establecimiento "
+              . "and `establecimiento`.Est_Nombre = '$nombreEst'";
+      
+     $success = mysql_query($getAverage) or die(mysql_error());
+     
+     if($success){
+         $fArr = mysql_fetch_array($success);
+         return json_encode($fArr);
+     }else{
+         return -1;
+     }
+  }
+  
+  //sacar promedio de ventas del establecimiento dado un idEstablecimiento
+  function getAVGEstByID($idEstablecimiento){
+      
+      $getAverage = "SELECT avg(Fac_Total) as promedio_ventas, establecimiento.Est_Nombre as Establecimiento "
+              . "FROM `factura`, `establecimiento`"
+              . "WHERE factura.Establecimiento_id_Establecimiento = establecimiento.id_Establecimiento "
+              . "and `establecimiento`.id_Establecimiento = '$idEstablecimiento'";
+      
      $success = mysql_query($getAverage) or die(mysql_error());
      
      if($success){
@@ -860,14 +878,13 @@ class DAOs {
   }
   
   //productos vendidos en determinado mes
-  
   function getProdsVenMes($desdeMes, $hastaMes) {
 
-        $getProd = "SELECT DISTINCT Prod_Descripcion"
-                . "FROM producto, factura , factura_has_producto  "
+        $getProd = "SELECT DISTINCT Prod_Descripcion "
+                . "FROM `producto`, `factura` , `factura_has_producto` "
                 . "WHERE producto.id_Producto = factura_has_producto.Producto_id_Producto && "
-                . "factura.idFactura = factura_has_producto.Factura_idFactura &&"
-                . "factura.Fac_Fecha > '$desdeMes' &&  factura.Fac_Fecha < '$hastaMes'";
+                . "factura.idFactura = factura_has_producto.Factura_idFactura && "
+                . "factura.Fac_Fecha > '$desdeMes' && factura.Fac_Fecha < '$hastaMes'";
 
         $success = mysql_query($getProd) or die(mysql_error());
 
@@ -882,6 +899,157 @@ class DAOs {
 
             return json_encode($arr);
         } else {
+            return -1;
+        }
+    }
+    
+    //cuenta el número de facturas que se ha realizado en un establecimiento
+    function countFacturas($idEstablecimiento) {
+        
+        $quieryp = "SELECT COUNT(DISTINCT idFactura)
+                        FROM mydb.factura
+                            WHERE Establecimiento_id_Establecimiento =
+                            '$idEstablecimiento';";
+        
+        $querIt = mysql_query($quieryp) or die(mysql_error());
+
+        
+        if ($querIt) {
+            $fArr = mysql_fetch_array($querIt);
+            //exito no existe
+            return $fArr[0];
+        } else {
+            //existe factura
+            return -1;
+        }
+    }
+   
+    
+    //cuales productos ha vendido el establecimiento
+    function getCualesProdEstablecimiento($idEstablecimiento) {
+
+        $getProd = "SELECT distinct( producto.Prod_Descripcion),"
+                . " establecimiento.Est_Nombre "
+                . "FROM producto, establecimiento, factura, factura_has_producto "
+                . "WHERE producto.id_Producto = "
+                . "factura_has_producto.Producto_id_Producto "
+                . "&& factura_has_producto.Factura_idFactura = "
+                . "factura.idFactura && "
+                . "factura.Establecimiento_id_Establecimiento ="
+                . " establecimiento.id_Establecimiento &&"
+                . " Establecimiento_id_Establecimiento='$idEstablecimiento'";
+
+        $query = mysql_query($getProd) or die(mysql_error());
+
+        if ($query) {
+            $arr = [];
+            $count = 0;
+            
+            while($row = mysql_fetch_row($query)){
+                $arr[$count] = $row;
+                $count++;
+            }
+            
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+    
+    //cuantos productos ha vendido el establecimiento
+    function getNumeroProdEstablecimiento($idEstablecimiento) {
+
+        $getProd = "SELECT count(distinct( producto.Prod_Descripcion)),"
+                . " establecimiento.Est_Nombre "
+                . "FROM producto, establecimiento, factura, factura_has_producto "
+                . "WHERE producto.id_Producto = "
+                . "factura_has_producto.Producto_id_Producto "
+                . "&& factura_has_producto.Factura_idFactura = "
+                . "factura.idFactura && "
+                . "factura.Establecimiento_id_Establecimiento ="
+                . " establecimiento.id_Establecimiento &&"
+                . " Establecimiento_id_Establecimiento='$idEstablecimiento'";
+
+        $query = mysql_query($getProd) or die(mysql_error());
+
+        if ($query) {
+            $arr = [];
+            $count = 0;
+            
+            while($row = mysql_fetch_row($query)){
+                $arr[$count] = $row;
+                $count++;
+            }
+            
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+    
+    //cuales productos tiene un establecimiento por marca
+    function getCualesProd() {
+
+        $getCuales = "SELECT Prod_Descripcion, Prod_Marca"
+                . " FROM `producto` "
+                . "ORDER BY Prod_Marca";
+
+        $success = mysql_query($getCuales) or die(mysql_error());
+
+        if ($success) {
+
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+    
+    //cuatos productos tiene un establecimiento por marca
+    function getCountProd() {
+
+        $getCuales = "SELECT COUNT (id_Producto),DISTINCT producto.Prod_Marca"
+                . " FROM `producto` ";
+
+
+        $success = mysql_query($getCuales) or die(mysql_error());
+
+        if ($success) {
+
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+    
+    //cuanto ha vendido el establecimiento por tarjeta!
+    function getValorVentaTarjeta($idEst){
+        
+        $query = "SELECT SUM(Fact_ValorCarnet),establecimiento.Est_Nombre"
+                . " FROM `establecimiento`, `factura` "
+                . " WHERE factura.Establecimiento_id_Establecimiento ="
+                . " establecimiento.id_Establecimiento &&"
+                . " establecimiento.id_Establecimiento = '$idEst'";
+        
+        $success = mysql_query($query) or die(mysql_error());
+        
+        if($success){
+            $valor = mysql_fetch_array($success);
+            return $valor[0];
+        }else{
             return -1;
         }
     }
