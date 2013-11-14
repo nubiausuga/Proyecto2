@@ -60,4 +60,11 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //echo $test->facVerExist(1);
 //echo $test->getFacId("2013-11-13 22:24:36");
 //echo $test->addToHasProducto(6, 5);
-echo $test->getUserInfo(201010013010);
+//echo $test->getUserInfo(201010013010);
+//----------------------------testing BI --------------------------
+//echo $test->getFacturasByFecha(1231231231,"2013-11-13 18:13:16","2013-11-14 03:00:41");
+// arreglar!! echo $test->getEstudiantesByEstablecimiento(1231231231);
+//echo $test->getComprasEstudiantes(201010013010);
+//echo $test->getProdPorFactura(12);
+// NO FUNCIONA! echo $test->getAverageEstablishment("El Rancherito");
+echo $test->getProdsVenMes("2013-11-00", "2013-12-00");

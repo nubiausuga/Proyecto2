@@ -736,5 +736,154 @@ class DAOs {
             return -1;
         }
     }
+    
+    //---"BI" Queries ---
+    //
+    //mostrar las facturas entre fechas 
+    function getFacturasByFecha($idEstablecimiento, $ini, $fin) {
+
+        $query = "SELECT `idFactura`, `Fac_Fecha`, `Fac_Total`"
+                . "FROM `factura`"
+                . "WHERE Establecimiento_id_Establecimiento ='$idEstablecimiento' "
+                . "&& Fac_Fecha > '$ini' && Fac_Fecha < '$fin'";
+
+        $sucess = mysql_query($query) or die(mysql_error());
+
+        if ($sucess) {
+            $json = [];
+            $count = 0;
+            while ($row = mysql_fetch_array($sucess)) {
+                $json[$count] = $row['idFactura'];
+                $json[$count + 1] = $row['Fac_Fecha'];
+                $json[$count + 2] = $row['Fac_Total'];
+                $count+=3;
+            }
+            return json_encode($json);
+        } else {
+            return -1;
+        }
+    }
+
+    // mostrar los estudiantes que compraron productos en un establecimiento
+    function getEstudiantesByEstablecimiento($idEstablecimiento) {
+
+        $getStudent = "SELECT id_Doc_Identidad, Usr_Correo, Usr_Nombres "
+                . "FROM `usuario` WHERE(
+                    SELECT DISTINCT (Usuario_id_Doc_Identidad1)
+                        FROM `factura` 
+                        WHERE Establecimiento_id_Establecimiento = '$idEstablecimiento')";
+
+        $success = mysql_query($getStudent) or die(mysql_error());
+
+        if ($success) {
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+
+    //mostrar por estudiante las compras en los diferentes establecimientos
+    // ordenados por fechas
+    function getComprasEstudiantes($idUsuario) {
+
+        $getCompras = "SELECT idFactura, Fac_Fecha, Fac_Total "
+                . "FROM `factura`"
+                . "WHERE Usuario_id_Doc_Identidad1 = '$idUsuario'"
+                . "ORDER By Fac_Fecha";
+
+        $success = mysql_query($getCompras) or die(mysql_error());
+
+        if ($success) {
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+         //returns a list of lists
+         return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+  
+  //consultar una factura para ver los productos comprados
+  function getProdPorFactura($idFactura) {
+
+       $getProductos = "SELECT `Producto_id_Producto`"
+                . " FROM `factura_has_producto`"
+                . "     WHERE Factura_idFactura = '$idFactura'";
+
+        $success = mysql_query($getProductos) or die(mysql_error());
+
+        if ($success) {
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
+
+  //sacar promedio de ventas del establecimiento deseado
+  
+  function getAverageEstablishment($nombreEst){
+      
+      $getAverage = "SELECT avg(Fac_Total) as promedio_ventas,"
+              . " est.Est_Nombre as Establecimiento "
+              . "FROM `factura` as fac, `establecimiento` as est"
+              . "WHERE fac.Establecimiento_id_Establecimiento = est.id_Establecimiento"
+              . "and Establecimiento = '$nombreEst'";
+     $success = mysql_query($getAverage) or die(mysql_error());
+     
+     if($success){
+         $fArr = mysql_fetch_array($success);
+         return json_encode($fArr);
+     }else{
+         return -1;
+     }
+  }
+  
+  //productos vendidos en determinado mes
+  
+  function getProdsVenMes($desdeMes, $hastaMes) {
+
+        $getProd = "SELECT DISTINCT Prod_Descripcion"
+                . "FROM producto, factura , factura_has_producto  "
+                . "WHERE producto.id_Producto = factura_has_producto.Producto_id_Producto && "
+                . "factura.idFactura = factura_has_producto.Factura_idFactura &&"
+                . "factura.Fac_Fecha > '$desdeMes' &&  factura.Fac_Fecha < '$hastaMes'";
+
+        $success = mysql_query($getProd) or die(mysql_error());
+
+        if ($success) {
+            $arr = [];
+            $count = 0;
+
+            while ($row = mysql_fetch_row($success)) {
+                $arr[$count] = $row;
+                $count++;
+            }
+
+            return json_encode($arr);
+        } else {
+            return -1;
+        }
+    }
 
 }
