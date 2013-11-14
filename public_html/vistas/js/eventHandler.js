@@ -1061,3 +1061,77 @@ function newPurchaseClear() {
     rema = 0;
 
 }
+
+// business Inteligent
+
+
+function getFacturasByFecha() {
+    var code = $('#int_codigo').val();
+    var estab = $('#int_establecimiento').val();
+    var dateIni = $('#int_fechaIni').val();
+    var dateEnd = $('#int_fechaFin').val();
+    
+    $.post('../php/method_01.php',
+            {postcode: code, postestab: estab, postdateini: dateIni,
+                postdateend: dateEnd},
+    function(data) {
+        if (data == 0) {
+            //successfull
+        }else{
+            
+        }
+    });
+    
+}
+function getEstudiantesByEstablecimiento() {
+    var code = $('#int_codigo').val();
+    var estab = $('#int_establecimiento').val();
+    var dateIni = $('#int_fechaIni').val();
+    var dateEnd = $('#int_fechaFin').val();
+    
+    $.post('../php/method_01.php',
+            {postcode: code, postestab: estab, postdateini: dateIni,
+                postdateend: dateEnd},
+    function(data) {
+        if (data == 0) {
+            //successfull
+        }else{
+            
+        }
+    });
+    
+}
+function getComprasEstudiantes() {
+    
+}
+function getProdPorFactura() {
+    
+}
+function getAverageEstablishment() {
+    
+}
+function getAVGEstByID() {
+    
+}
+function getProdsVenMes() {
+    
+}
+function countFacturas() {
+    
+}
+function getCualesProdEstablecimiento() {
+    
+}
+function getNumeroProdEstablecimiento() {
+    
+}
+function getCualesProd() {
+    
+}
+function getCountProd() {
+    
+}
+function getValorVentaTarjeta() {
+    
+}
+
