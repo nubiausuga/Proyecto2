@@ -31,18 +31,32 @@ if (!empty($_POST['postProd']) && !empty($_POST['postPrices'])
 
     //crear movimiento
     $rand = rand(0, 9999999999);
-    $newMov = new Movimiento($rand, $estId, $prodList,
-            $datetime, $total, $currentUser);
-
-    //descontar de cuenta
-    $currentBalance = $regCompra->getBalance($currentUser);
-    $newBalance = $currentBalance - $total;
-    $regCompra->modifyBalance($currentUser, $newBalance);
+    $newMov = new Movimiento($rand, $estId, $prodList, $datetime,
+            $total, $currentUser);
 
     //agregar factura a la base de datos
-    echo ($regCompra->addFactura($newMov->getFechaMovimiento(),
+    $regCompra->addFactura($newMov->getFechaMovimiento(), 
             $newMov->getValorMovimiento(), 1, $total, 0.0, $currentUser,
-            $estId, $currentEmployee));
+            $estId, $currentEmployee);
+
+    //obtener idFactura
+    $idFactura = $regCompra->getFacId($newMov->getFechaMovimiento());
+
+    //add to has factura
+    $codes = [];
+
+    for ($i = 0; $i < count($prodList); $i++) {
+        $codes[$i] = $regCompra->getIdProdByName($prodList[$i]);
+    }
+
+    for ($j = 0; $j < count($codes); $j++) {
+        $regCompra->addToHasProducto($idFactura, $codes[$j]);
+    }
+    
+    //descontar de cuenta
+    $currentBalance = (double)$regCompra->getBalance($currentUser);
+    $newBalance = (double)$currentBalance - (double)$total;
+    echo $regCompra->modifyBalance($currentUser, $newBalance);
     
 } else {
     echo -1;

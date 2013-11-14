@@ -91,18 +91,20 @@ class DAOs {
     
    //obtiene la información de los usuarios dado el código identificador único.
    function getUserInfo($code) {
-        $query = "SELECT * FROM `usuario` "
-                . "WHERE `id_Doc_Identidad`='$code'";
+        $query = "SELECT * "
+                . "FROM `usuario`"
+                . "WHERE id_Doc_Identidad ='$code'";
         $success = mysql_query($query) or die(mysql_error());
-        
-        $dbarray = mysql_fetch_array($success);
+
         if ($success) {
+
+            $dbarray = mysql_fetch_array($success);
             return json_encode($dbarray);
         } else {
             return -1;
         }
     }
-    
+
     function getEmplExtraInfo($code){
         
         $empl = "SELECT * FROM `empleado`"
@@ -671,6 +673,66 @@ class DAOs {
             return 0;
         } else {
             //existe factura
+            return -1;
+        }
+    }
+    
+    function getFacId($dateTime) {
+
+        $getFacId = "SELECT `idFactura`"
+                . "FROM `factura`"
+                . "WHERE `Fac_Fecha`='$dateTime' ";
+        $success = mysql_query($getFacId) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['idFactura'];
+        } else {
+            return -1;
+        }
+    }
+    
+    function addToHasProducto($idFactura, $idProducto) {
+
+        $add = "INSERT INTO `factura_has_producto`(Factura_idFactura,Producto_id_Producto)"
+                . "VALUES('$idFactura','$idProducto')";
+        $success = mysql_query($add) or die(mysql_error());
+
+        if ($success) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    
+    
+    
+    function getIdProdByName($prodName) {
+
+        $getId = "SELECT `id_Producto` "
+                . "FROM `producto`"
+                . "WHERE `Prod_Descripcion`='$prodName'";
+
+        $success = mysql_query($getId) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['id_Producto'];
+        } else {
+            return -1;
+        }
+    }
+    
+    function readCarnet() {
+        $getCarnet = "SELECT `Android_Codigo` "
+                . "FROM `android`"
+                . "WHERE `idAndroid`= 1 ";
+        $success = mysql_query($getCarnet) or die(mysql_error());
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['Android_Codigo'];
+        } else {
             return -1;
         }
     }

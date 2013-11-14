@@ -941,31 +941,63 @@ function delFromList() {
      */
 }
 
+function readCarnet() {
+
+    $.post('../php/readCarnet.php',
+            function(data) {
+                document.getElementById('Cod_Carnet').value = data;
+            });
+}
+
 function buyAll() {
 
     var list = lproduct;
     var prodName = [];
     var prices = [];
+    var quantities = [];
+    var total = 0;
+    
     var currentCode = $('#Cod_Carnet').val();
 
     for (var i = 0; i < list.length; i += 3) {
         prodName[i] = lproduct[i];
+        //alert(prodName[i]);
     }
-
+    
     //splicing
-    for (var j = 0; j < list.length; j += 2) {
-        prodName.splice(j + 1, j + 2);
+    //prodName.splice(1,2);
+    //prodName.splice(2,2);
+    //prodName.splice(3,2);
+    for (var j = 0; j < (list.length/3); j++) {
+        prodName.splice(j+1,2);
     }
-
-    for (var k = 0; k < list.length; k++) {
-        prices[k] = lproduct[k];
+    
+    for(var b = 0; b < list.length; b+=3){
+        quantities[b] = lproduct[b+2];
+        //alert(quantities[b]);
     }
-
+    
+    //splicing quantities
+    for(var b = 0; b < (list.length/3); b++){
+        quantities.splice(b+1,2);
+        //alert(quantities[b]);
+    }
+    //alert(list);
+    for (var k = 0; k < list.length; k+=3) {
+        prices[k] = lproduct[k+1];
+    }
+    
     //splicing
-    for (var l = 0; l < list.length; l++) {
-        prices.splice(l, l + 1);
+    for (var l = 0; l < (list.length/3); l++) {
+        prices.splice(l+1,2);
     }
-
+    
+    for(var a = 0; a < prices.length;a++){
+        total += (prices[a] * quantities[a]);
+    }
+    
+    //alert(total);
+    
     $.post('../php/buyAll.php',
             {postProd: prodName, postPrices: prices, postcode: currentCode},
     function(data) {
@@ -991,7 +1023,7 @@ function buyAll() {
             document.getElementById('foot_msg').innerHTML = newHTML;
         }
     });
-
+ 
 }
 
 //resetear todos los campos del form para preparar la nueva compra

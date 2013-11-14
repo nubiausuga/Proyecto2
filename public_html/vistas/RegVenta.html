@@ -52,8 +52,13 @@
                             <input id="Cod_Carnet" type="text"
                                    class="form-control"
                                    placeholder="Codigo Carnet"
-                                   autocomplete="off" autofocus>
-
+                                   autocomplete="off" disabled="disabled" autofocus>
+                            
+                            <button type="button" id="btn_readCarnet"
+                                    class="btn btn-block btn-primary"
+                                    onclick="readCarnet();">
+                                Leer Carnet 
+                            </button>
                             <label>Código de producto</label>
                             <input id="cod_producto" type="text"
                                    class="form-control"
@@ -94,8 +99,8 @@
                             <th>  Fondos Restantes</th>
                             </thead>
                             <tbody>
-                            <tr>
-                            <th><p id="totalPrice">Total = $0</p></th>
+                                <tr>
+                                    <th><p id="totalPrice">Total = $0</p></th>
                             <td><p id="remainsVal"> </p></td>
                             </tr>
                             </tbody>
@@ -104,8 +109,9 @@
                     </div> 
                     <footer id="foot_msg" class="alert alert-warning"></footer>
                 </div> 
-                
+
                 <div id="btn_bottom_buy">
+
                     <button type="button" id="btn_deleteLast"
                             class="btn btn-primary"
                             onclick="delFromList();">

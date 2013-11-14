@@ -12,8 +12,8 @@ class DatabaseConc {
         $log = new DatabaseLogin();
         $this->con = mysql_connect($log->getDbLocalHost(),
                 $log->getDbUsername(),
-                $log->getDbPassword()) or 
-                die("Error conectando a la base de datos: <br/>" . mysql_error());
+                $log->getDbPassword()) or
+                die("Error conectando a la base de datos: <br/>". mysql_error());
 
         mysql_select_db($log->getDatabase(), $this->con) or
                 die("Error conectando a la base de datos: <br/>" . mysql_error());

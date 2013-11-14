@@ -57,4 +57,7 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //$datetime = date("Y-m-d H:i:s"); 
 //echo $datetime;
 //echo $test->addFactura($datetime, 3000, 1, 3000, 0, 201010013010, 1231231231, 1017201436);
-echo $test->facVerExist(1);
+//echo $test->facVerExist(1);
+//echo $test->getFacId("2013-11-13 22:24:36");
+//echo $test->addToHasProducto(6, 5);
+echo $test->getUserInfo(201010013010);
