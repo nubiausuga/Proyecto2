@@ -871,7 +871,7 @@ class DAOs {
      
      if($success){
          $fArr = mysql_fetch_array($success);
-         return json_encode($fArr[0]);
+         return $fArr[0];
      }else{
          return -1;
      }

@@ -954,7 +954,7 @@ function readCarnet() {
             });
 }
 
-//setInterval(readCarnet(),2000);
+setInterval(readCarnet(),2000);
 
 function buyAll() {
 
@@ -1133,7 +1133,7 @@ function getAVGEstByID() {
     
 $.get('../php/BI_getAvgEstablecimiento.php',
             function(data) {
-                alert(data);
+                alert("El promedio de ventas del establecimiento es de : $"+ data);
             });
             
 }
@@ -1186,7 +1186,7 @@ function getCualesProd() {
     
     $.get('../php/BI_getCualesProdMarca.php',
             function(data) {
-                alert(data);
+                alert("Los productos del establecimiento por marca son: " + data);
             });
 
 }
@@ -1204,6 +1204,7 @@ function getValorVentaTarjeta() {
 
     $.get('../php/BI_getValorTarjeta.php',
         function(data){
-            alert(data);
+            alert("El establecimiento ha tenido un total de ventas de: $"+data+
+                    " a través de la aplicación.");
         });
 }
