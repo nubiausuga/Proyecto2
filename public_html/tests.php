@@ -74,4 +74,5 @@ echo "\n" . $test->getEstadoCuenta(201010013010);
 //echo $test->getCualesProdEstablecimiento(1231231231);
 //echo $test->getCualesProd();
 //echo $test->getCountProd();
-echo $test->getValorVentaTarjeta(1231231231);
+//echo $test->getValorVentaTarjeta(1231231231);
+echo $test->isOwner(1017201436);

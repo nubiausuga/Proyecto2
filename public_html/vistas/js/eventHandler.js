@@ -190,6 +190,11 @@ function loginUser() {
                 window.location = "../index.html";
 
             }
+            if(data == 3){
+                document.getElementById('errorLogMsg').style.visibility
+                        = 'hidden';
+                window.location="adminInfoDisplay.html";
+            }
 
         });
     }

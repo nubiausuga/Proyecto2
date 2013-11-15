@@ -23,8 +23,10 @@ if (!empty($_POST['postname']) && !empty($_POST['postpass'])) {
         $userInfo = $login->userDecoder($user);
         if ($userType == 1) {
             echo 1;
-        } else {
+        } else if($userType == 2){
             echo 2;
+        }else{
+            echo 3;
         }
     } else {
         echo -1;

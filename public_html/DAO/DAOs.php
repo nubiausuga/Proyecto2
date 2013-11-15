@@ -1048,8 +1048,26 @@ class DAOs {
         
         if($success){
             $valor = mysql_fetch_array($success);
-            return $valor[0];
+            return $valor[0];   
         }else{
+            return -1;
+        }
+    }
+
+    //verificar si empleado es dueño del local
+    function isOwner($idUsuario) {
+
+        $query = "SELECT propietario.id_Doc_Identidad "
+                . "FROM `usuario`,`propietario`"
+                . " WHERE usuario.id_Doc_Identidad = propietario.Usuario_id_Doc_Identidad &&"
+                . " propietario.Usuario_id_Doc_Identidad = '$idUsuario'";
+
+        $success = mysql_query($query) or die(mysql_error());
+
+        if ($success) {
+            $fArr = mysql_fetch_array($success);
+            return $fArr['id_Doc_Identidad'];
+        } else {
             return -1;
         }
     }
