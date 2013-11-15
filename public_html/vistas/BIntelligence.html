@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="Business Intelligence" content="">
@@ -21,137 +21,186 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand"
-                       href="WelcomeSE.html">Tarjeta Multipropósito</a>
+                       href="adminInfoDisplay.html">Tarjeta Multipropósito</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="WelcomeSE.html">Home</a></li>
-                        <li><a href="Info.html">Info</a></li>
-                        <li><a href="ModuloVentas.html">Ventas</a></li>
-                        <li class="active"><a href="#">Business Intelligence</a></li>
+                        <li><a href="adminInfoDisplay.html">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li class="active"><a href="#">BI</a></li>
+                        <li><a href="javascript:close();">Cerrar sesión</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
-        </div>
+        </div><!--/ .navbar close tag -->
 
         <div class="container">  <!-- id_Producto,Prod_Descripcion,Prod_Precio,Prod_id_Establecimiento-->
             <div class="jumbotron">
+
+                <h2>Modulo de Gestión de Información </h2>
+                <table border="0" id="tableBI">
+                    <thead>
+                    <th> </th>
+                    <th> </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h5>
+                                    ¿Cuánto ha vendido el establecimiento a través de la tarjeta?
+                                </h5>
+                            </td>
+                            <td> <!-- done -->
+                                <button id="getValorVentaTarjeta" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getValorVentaTarjeta()">
+                                    ir
+                                </button> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuántos productos tiene el establecimiento por marca?</h5> 
+                            </td>
+                            <td><!-- problems -->
+                                <button id="getCountProd" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getCountProd()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <h5>¿Cuáles productos tiene el establecimiento por marca?</h5>
+                            </td>
+                            <td> <!-- done -->
+                                <button id="getCualesProd" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getCualesProd()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> 
+                                <h5>¿Cuántos productos ha vendido el establecimiento?</h5>
+                            </td>
+                            <td> <!-- done -->
+                                <button id="getNumeroProdEstablecimiento" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getNumeroProdEstablecimiento()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles productos ha vendido el establecimiento?</h5> 
+                            </td>
+                            <td><!-- done -->
+                                <button id="getCualesProdEstablecimiento" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getCualesProdEstablecimiento()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>                            
+                            <td>
+                                <h5>¿Cuál es el número de facturas que se ha realizado en el establecimiento?</h5>
+                            </td>
+                            <td><!-- done -->
+                                <button id="countFacturas" 
+                                        class="btn  btn-primary btn-block"
+                                        type="button" 
+                                        onclick="countFacturas()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles Productos vendidos en determinado mes?</h5>
+                            </td>
+                            <td><!-- done -->
+                                <button id="getProdsVenMes" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getProdsVenMes()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuál es el promedio de ventas del establecimiento?</h5>
+                            </td>
+                            <td><!-- done -->
+                                <button id="getAVGEstByID" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getAVGEstByID()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles productos se han comprado en x factura?</h5>
+                            </td>
+                            <td><!-- done, pero saca ids no nombres... -->
+                                <button id="getProdPorFactura" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getProdPorFactura()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles han sido las compras de un usuario x en los establecimientos?</h5>
+                            </td>
+                            <td><!-- done, pero decia ordenado por fechas, no es. -->
+                                <button id="getComprasEstudiantes" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getComprasEstudiantes()"> ir </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles estudiantes han comprado productos en el establecimiento?</h5>
+                            </td>
+                            <td> <!-- problems, error on query -->
+                                <button id="getEstudiantesByEstablecimiento" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getEstudiantesByEstablecimiento();">
+                                    ir
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>¿Cuáles facturas existen entre determinadas fechas?</h5>
+                            </td>
+                            <td><!-- done -->
+                                <button id="getFacturasByFecha" 
+                                        class="btn btn-primary btn-block"
+                                        type="button" 
+                                        onclick="getFacturasByFecha()">
+                                   ir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <form id="userRegForm">
-                    <h2>Modulo de Gestión de Información  </h2>
-                    <table border="1">
-                    <tr>
-                        <td> <h5> Cuanto ha vendido el establecimiento por tarjeta!</h5> </td>
-                        <td> <button id="getValorVentaTarjeta" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getValorVentaTarjeta();"> ir </button> </td>
-                    </tr>
-                    <tr>
-                        <td> <h5>Cuantos productos tiene un establecimiento por marca</h5> </td>
-                        <td> <button id="getCountProd" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getCountProd();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Cuales productos tiene un establecimiento por marca</h5> </td>
-                        <td> <button id="getCualesProd" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getCualesProd();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Cuantos productos ha vendido el establecimiento</h5> </td>
-                        <td> <button id="getNumeroProdEstablecimiento" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getNumeroProdEstablecimiento();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Cuales productos ha vendido el establecimiento</h5> </td>
-                        <td> <button id="getCualesProdEstablecimiento" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getCualesProdEstablecimiento();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Cuenta el número de facturas que se ha realizado en un establecimiento</h5> </td>
-                        <td> <button id="countFacturas" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="countFacturas();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Productos vendidos en determinado mes</h5> </td>
-                        <td> <button id="getProdsVenMes" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getProdsVenMes();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Sacar promedio de ventas del establecimiento dado un idEstablecimiento</h5> </td>
-                        <td> <button id="getAVGEstByID" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getAVGEstByID();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Sacar promedio de ventas del establecimiento deseado</h5> </td>
-                        <td> <button id="getAverageEstablishment" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getAverageEstablishment();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Consultar una factura para ver los productos comprados</h5> </td>
-                        <td> <button id="getProdPorFactura" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getProdPorFactura();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Mostrar por estudiante las compras en los diferentes establecimientos ordenados por fechas</h5> </td>
-                        <td> <button id="getComprasEstudiantes" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getComprasEstudiantes();"> ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Mostrar los estudiantes que compraron productos en un establecimiento</h5> </td>
-                        <td> <button id="getEstudiantesByEstablecimiento" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getEstudiantesByEstablecimiento();">ir </button> </td>
-                    
-                    </tr>
-                    <tr>
-                        <td> <h5>Mostrar las facturas entre fechas</h5> </td>
-                        <td> <button id="getFacturasByFecha" 
-                            class="btn btn-lg btn-primary btn-block"
-                            type="button" 
-                            onclick="getFacturasByFecha();">-------</button> </td>
-                    </tr>
-                    </table>
-                    
                     <input id="int_codigo" type="text" class="form-control"
-                           placeholder="Código Estudiante">
-                    <input id="int_establecimiento" type="text" class="form-control"
-                           placeholder="Id Establecimiento">
+                           placeholder="Código Usuario">
+                    <!--   <input id="int_establecimiento" type="text"
+                              class="form-control"
+                              placeholder="Id Establecimiento">
+                    -->
                     <input id="int_fechaIni" type="text" class="form-control"
                            placeholder="Fecha Inicial yyyy-mm-dd">
+
                     <input id="int_fechaFin" type="text" class="form-control"
                            placeholder="Fecha Final yyyy-mm-dd">
-                    
+
+                    <input id="int_idFactura" type="text" class="form-control"
+                           placeholder="Id Factura">
                 </form>
             </div>
             <p id="errorRegMsg" class="alert alert-warning"> </p>

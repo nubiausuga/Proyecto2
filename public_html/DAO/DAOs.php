@@ -871,7 +871,7 @@ class DAOs {
      
      if($success){
          $fArr = mysql_fetch_array($success);
-         return json_encode($fArr);
+         return json_encode($fArr[0]);
      }else{
          return -1;
      }
@@ -907,9 +907,9 @@ class DAOs {
     function countFacturas($idEstablecimiento) {
         
         $quieryp = "SELECT COUNT(DISTINCT idFactura)
-                        FROM mydb.factura
+                        FROM factura
                             WHERE Establecimiento_id_Establecimiento =
-                            '$idEstablecimiento';";
+                            '$idEstablecimiento'";
         
         $querIt = mysql_query($quieryp) or die(mysql_error());
 
@@ -946,7 +946,7 @@ class DAOs {
             $count = 0;
             
             while($row = mysql_fetch_row($query)){
-                $arr[$count] = $row;
+                $arr[$count] = $row[0];
                 $count++;
             }
             
@@ -977,7 +977,7 @@ class DAOs {
             $count = 0;
             
             while($row = mysql_fetch_row($query)){
-                $arr[$count] = $row;
+                $arr[$count] = $row[0];
                 $count++;
             }
             
@@ -1011,12 +1011,11 @@ class DAOs {
         }
     }
     
-    //cuatos productos tiene un establecimiento por marca
+    //cuantos productos tiene un establecimiento por marca
     function getCountProd() {
 
-        $getCuales = "SELECT COUNT (id_Producto),DISTINCT producto.Prod_Marca"
-                . " FROM `producto` ";
-
+        $getCuales = "SELECT COUNT producto.id_Producto, DISTINCT producto.Prod_Marca"
+                . " FROM `producto`";
 
         $success = mysql_query($getCuales) or die(mysql_error());
 

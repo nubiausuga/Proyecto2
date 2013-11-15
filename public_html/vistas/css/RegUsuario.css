@@ -197,3 +197,15 @@ height: 50px;
     font-size: 0.8em;
     visibility: hidden;
 }
+
+#tableBI button{
+    min-width: 40px;
+    font-family: monospace;
+    font-size: .6em;
+}
+
+#tableBI h5{
+    font-style: initial;
+    font-size: 0.6em;
+    font-weight: bold;
+}

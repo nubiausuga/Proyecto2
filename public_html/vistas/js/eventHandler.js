@@ -954,7 +954,7 @@ function readCarnet() {
             });
 }
 
-setInterval(readCarnet(),2000);
+//setInterval(readCarnet(),2000);
 
 function buyAll() {
 
@@ -1067,76 +1067,143 @@ function newPurchaseClear() {
 
 }
 
-// business Inteligent
-
+//--------------Business Intelligence--------------------------------------//
 
 function getFacturasByFecha() {
-    var code = $('#int_codigo').val();
-    var estab = $('#int_establecimiento').val();
-    var dateIni = $('#int_fechaIni').val();
-    var dateEnd = $('#int_fechaFin').val();
-    
-    $.post('../php/method_01.php',
-            {postcode: code, postestab: estab, postdateini: dateIni,
-                postdateend: dateEnd},
-    function(data) {
-        if (data == 0) {
-            //successfull
-        }else{
-            
-        }
-    });
-    
-}
-function getEstudiantesByEstablecimiento() {
-    var code = $('#int_codigo').val();
-    var estab = $('#int_establecimiento').val();
-    var dateIni = $('#int_fechaIni').val();
-    var dateEnd = $('#int_fechaFin').val();
-    
-    $.post('../php/method_01.php',
-            {postcode: code, postestab: estab, postdateini: dateIni,
-                postdateend: dateEnd},
-    function(data) {
-        if (data == 0) {
-            //successfull
-        }else{
-            
-        }
-    });
-    
-}
-function getComprasEstudiantes() {
-    
-}
-function getProdPorFactura() {
-    
-}
-function getAverageEstablishment() {
-    
-}
-function getAVGEstByID() {
-    
-}
-function getProdsVenMes() {
-    
-}
-function countFacturas() {
-    
-}
-function getCualesProdEstablecimiento() {
-    
-}
-function getNumeroProdEstablecimiento() {
-    
-}
-function getCualesProd() {
-    
-}
-function getCountProd() {
-    
-}
-function getValorVentaTarjeta() {
-    
+
+    var fechaIni = $('#int_fechaIni').val();
+    var fechaFinal = $('#int_fechaFin').val();
+
+    if (fechaIni !== "" && fechaFinal !== "") {
+
+        $.post('../php/BI_getFacturasByFecha.php',
+                {postini: fechaIni, postfin: fechaFinal},
+        function(data) {
+            alert(data);
+        });
+
+    } else {
+        alert("por favor digitar las fecha inicial y final en los campos de abajo");
+    }
+
 }
 
+function getEstudiantesByEstablecimiento() {
+    
+     $.get('../php/BI_getEstByEstable.php',
+     function(data) {
+     alert(data);
+     });
+     
+}
+
+function getComprasEstudiantes() {
+
+    var idEstudiante = $('#int_codigo').val();
+
+    if (idEstudiante !== "") {
+
+        $.post('../php/BI_getComprasEstudiante.php',
+                {postidEst: idEstudiante},
+        function(data) {
+            alert(data);
+        });
+
+    } else {
+        alert("Por favor, digitar el código del usuario abajo");
+    }
+}
+
+function getProdPorFactura() {
+
+    var idFactura = $('#int_idFactura').val();
+
+    if (idFactura !== "") {
+        $.post('../php/BI_getProdsPorFactura.php',
+                {postid: idFactura},
+        function(data) {
+            alert(data);
+        });
+    } else {
+        alert("por favor llenar el campo con el id de factura abajo previamente");
+    }
+}
+
+function getAVGEstByID() {
+    
+$.get('../php/BI_getAvgEstablecimiento.php',
+            function(data) {
+                alert(data);
+            });
+            
+}
+
+function getProdsVenMes() {
+
+    var fechaIni = $('#int_fechaIni').val();
+    var fechaFinal = $('#int_fechaFin').val();
+
+    if (fechaIni !== "" && fechaFinal !== "") {
+        $.post('../php/BI_getProdsVenMes.php',
+                {postini: fechaIni, postfin: fechaFinal},
+        function(data) {
+            alert(data);
+        });
+    } else {
+        //empty fields
+        alert("Por favor digite las fechas deseadas en los campos de abajo");
+    }
+}
+
+function countFacturas() {
+
+$.get('../php/BI_getCountFacturas.php',
+            function(data) {
+                alert(data);
+            });
+            
+}
+
+function getCualesProdEstablecimiento() {
+
+ $.get('../php/BI_getCualesProdVendidos.php',
+            function(data) {
+                alert(data);
+            });
+            
+}
+
+function getNumeroProdEstablecimiento() {
+
+ $.get('../php/BI_getNumProdVendidos.php',
+            function(data) {
+                alert(data);
+            });
+            
+}
+
+function getCualesProd() {
+    
+    $.get('../php/BI_getCualesProdMarca.php',
+            function(data) {
+                alert(data);
+            });
+
+}
+
+function getCountProd() {
+
+    $.get('../php/BI_getCountProdMarca.php',
+            function(data) {
+                alert(data);
+            });
+
+}
+
+function getValorVentaTarjeta() {
+
+    $.get('../php/BI_getValorTarjeta.php',
+        function(data){
+            alert(data);
+        });
+}
